@@ -1,0 +1,455 @@
+/* ============================================
+   SERVICES SECTION — Luciano F Vital Portfolio
+   Arquivo: services.css
+   ============================================ */
+
+/* ─── SEÇÃO BASE ─── */
+.services-section {
+  padding: 120px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Linha de ruído diagonal no fundo — textura urbana */
+.services-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--azul-escuro) 30%,
+    var(--azul-medio) 50%,
+    var(--azul-escuro) 70%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+
+/* ─── TOPO DA SEÇÃO ─── */
+.services-header {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 80px;
+}
+
+/* Tag lateral — ancora a seção visualmente */
+.section-tag {
+  padding-top: 8px;
+}
+
+.section-tag span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--azul-medio);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.section-tag span::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--azul-medio);
+  flex-shrink: 0;
+}
+
+/* Bloco de heading + intro */
+.services-heading h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: var(--branco);
+  margin-bottom: 32px;
+  max-width: 760px;
+}
+
+/* Destaca a segunda frase — a que tem a oferta real */
+.services-heading h2 em {
+  font-style: normal;
+  color: var(--azul-claro);
+}
+
+.services-intro {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(245, 245, 240, 0.6);
+  max-width: 640px;
+}
+
+
+/* ─── GRID DE SERVIÇOS ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px; /* gap via background — linha de grade como divisor */
+  background: rgba(62, 143, 232, 0.1); /* cor das linhas de grade */
+  border: 1px solid rgba(62, 143, 232, 0.1);
+  margin-bottom: 1px;
+}
+
+/* Card base */
+.service-card {
+  background: var(--preto);
+  padding: 48px 44px 44px;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+
+  /* Estado inicial para animação de reveal */
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    background 0.4s ease;
+}
+
+/* Classe adicionada pelo JS ao entrar na viewport */
+.service-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Número gigante como marca d'água */
+.service-number {
+  font-family: var(--font-display);
+  font-size: 7rem;
+  line-height: 1;
+  color: rgba(62, 143, 232, 0.07);
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  letter-spacing: -0.02em;
+  user-select: none;
+  pointer-events: none;
+  transition: color 0.4s ease, transform 0.4s ease;
+}
+
+/* Borda esquerda que acende ao hover */
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0%;
+  background: linear-gradient(
+    to bottom,
+    var(--azul-medio),
+    var(--azul-claro)
+  );
+  transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover::before {
+  height: 100%;
+}
+
+.service-card:hover {
+  background: rgba(26, 58, 107, 0.18);
+}
+
+.service-card:hover .service-number {
+  color: rgba(126, 200, 247, 0.13);
+  transform: translateX(-6px) scale(1.05);
+}
+
+/* Card featured (01): ocupa as 2 colunas */
+.service-card.featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* No featured, o número fica à esquerda visível, não como marca d'água */
+.service-card.featured .service-number {
+  position: static;
+  font-size: 5rem;
+  color: rgba(62, 143, 232, 0.22);
+  line-height: 1;
+  padding-top: 6px;
+  transition: color 0.4s ease;
+}
+
+.service-card.featured:hover .service-number {
+  color: var(--azul-medio);
+  transform: none;
+}
+
+
+/* ─── CONTEÚDO DO CARD ─── */
+.service-content h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  letter-spacing: 0.04em;
+  color: var(--branco);
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+.service-content > p {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(245, 245, 240, 0.65);
+  margin-bottom: 24px;
+  max-width: 520px;
+}
+
+/* Lista de pontos */
+.service-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.service-points li {
+  font-family: var(--font-body);
+  font-size: 0.83rem;
+  color: rgba(245, 245, 240, 0.55);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+
+/* Marcador: traço em azul */
+.service-points li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--azul-medio);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+/* Nota "Ideal para" */
+.service-note {
+  border-top: 1px solid rgba(62, 143, 232, 0.12);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.service-note > span {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--azul-medio);
+}
+
+.service-note > p {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: rgba(245, 245, 240, 0.5);
+  line-height: 1.5;
+  margin: 0;
+}
+
+
+/* ─── BLOCO CTA FINAL ─── */
+.services-cta-box {
+  background: var(--azul-escuro);
+  padding: 72px 64px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 64px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  /* Conecta visualmente com o grid acima */
+  border-top: 1px solid rgba(62, 143, 232, 0.15);
+}
+
+/* Glow sutil no canto superior direito */
+.services-cta-box::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(
+    circle,
+    rgba(126, 200, 247, 0.12) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Detalhe de canto — estilo técnico/urbano */
+.services-cta-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--azul-medio) 0%,
+    var(--azul-claro) 40%,
+    transparent 100%
+  );
+  opacity: 0.6;
+}
+
+/* Texto do CTA */
+.services-cta-text .mini-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--azul-claro);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.services-cta-text h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--branco);
+  margin-bottom: 20px;
+  max-width: 640px;
+}
+
+.services-cta-text p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(245, 245, 240, 0.6);
+  max-width: 540px;
+}
+
+/* Botões do CTA */
+.services-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex-shrink: 0;
+  min-width: 220px;
+}
+
+.services-cta-actions .btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+
+/* ─── RESPONSIVO ─── */
+@media (max-width: 1024px) {
+  .services-header {
+    grid-template-columns: 140px 1fr;
+    gap: 32px;
+  }
+
+  .services-cta-box {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 56px 48px;
+  }
+
+  .services-cta-actions {
+    flex-direction: row;
+    min-width: unset;
+  }
+
+  .services-cta-actions .btn {
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-section {
+    padding: 80px 0 0;
+  }
+
+  .services-header {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card.featured {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* No mobile o número featured some — fica só como marca d'água */
+  .service-card.featured .service-number {
+    display: none;
+  }
+
+  .service-card {
+    padding: 36px 28px 32px;
+  }
+
+  .services-cta-box {
+    padding: 48px 28px;
+  }
+
+  .services-cta-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .services-cta-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-number {
+    font-size: 5rem;
+    right: 16px;
+  }
+}
+
+/* ─── MOBILE SCROLL DETECTION: Cards acendem ao scrollar ───*/
+@media (max-width: 768px) {
+  /* Em mobile, quando card é visto ao scrollar, acende como no hover */
+  .service-card.active-mobile::before {
+    height: 100%;
+  }
+
+  .service-card.active-mobile {
+    background: rgba(26, 58, 107, 0.18);
+  }
+
+  .service-card.active-mobile .service-number {
+    color: rgba(126, 200, 247, 0.13);
+    transform: translateX(-6px) scale(1.05);
+  }
+}

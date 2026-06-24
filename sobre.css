@@ -1,0 +1,209 @@
+/* ============================================
+   ABOUT SECTION — Luciano F Vital Portfolio
+   ============================================ */
+
+/* ─── ABOUT SECTION BASE ─── */
+.about-section {
+  padding: 120px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Linha de ruído diagonal no fundo */
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--azul-escuro) 30%,
+    var(--azul-medio) 50%,
+    var(--azul-escuro) 70%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+/* ─── ABOUT CONTENT ─── */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  align-items: start;
+  padding: 80px 0;
+}
+
+/* ─── ABOUT IMAGE ─── */
+.about-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  aspect-ratio: 3 / 4;
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(25%) contrast(1.08);
+  transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.about-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(62, 143, 232, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.about-image::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border: 1px solid rgba(62, 143, 232, 0.15);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* ─── ABOUT TEXT ─── */
+.about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.about-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-text .section-tag {
+  padding-top: 8px;
+}
+
+.about-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: var(--branco);
+  max-width: 700px;
+}
+
+.about-text > p {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(245, 245, 240, 0.65);
+  max-width: 620px;
+}
+
+/* ─── ABOUT HIGHLIGHTS ─── */
+.about-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(62, 143, 232, 0.12);
+}
+
+.about-highlight {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.about-highlight strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  color: var(--azul-claro);
+  font-weight: 600;
+}
+
+.about-highlight span {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(245, 245, 240, 0.55);
+}
+
+/* ─── RESPONSIVO ─── */
+@media (max-width: 1024px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 60px 0;
+  }
+
+  .about-image {
+    aspect-ratio: 4 / 3;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 80px 0 0;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 60px 0;
+  }
+
+  .about-image {
+    max-width: 100%;
+  }
+
+  .about-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .about-text > p {
+    font-size: 0.9rem;
+  }
+
+  .about-highlights {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-content {
+    padding: 40px 0;
+  }
+
+  .about-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .about-text > p {
+    font-size: 0.85rem;
+  }
+
+  .about-highlight strong {
+    font-size: 1rem;
+  }
+
+  .about-highlight span {
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,195 @@
+/* ============================================
+   CTA SECTION — Luciano F Vital Portfolio
+   Seção de Call-to-Action destacada
+   ============================================ */
+
+/* ─── CTA SECTION BASE ─── */
+.cta-section {
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--preto);
+}
+
+/* Glow de fundo elegante */
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(
+      ellipse 800px 400px at 50% 50%,
+      rgba(59, 143, 232, 0.08) 0%,
+      transparent 60%
+    );
+  pointer-events: none;
+}
+
+/* ─── CTA BOX ─── */
+.cta-box {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(26, 58, 107, 0.6) 0%,
+    rgba(10, 10, 15, 0.4) 100%
+  );
+  border: 1px solid rgba(62, 143, 232, 0.2);
+  border-radius: 4px;
+  padding: 96px 80px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 80px;
+  align-items: center;
+  
+  /* Borda acima com gradiente */
+  overflow: hidden;
+}
+
+.cta-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(126, 200, 247, 0.6),
+    transparent
+  );
+}
+
+/* Detalhe decorativo no canto */
+.cta-box::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: 120px;
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(126, 200, 247, 0.3)
+  );
+}
+
+/* ─── CONTEÚDO CTA ─── */
+.cta-content {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--azul-claro);
+  display: block;
+  margin-bottom: 24px;
+}
+
+.cta-content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--branco);
+  margin-bottom: 28px;
+  max-width: 720px;
+}
+
+.cta-content p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(245, 245, 240, 0.65);
+  max-width: 640px;
+}
+
+/* ─── AÇÕES CTA ─── */
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  min-width: 240px;
+}
+
+.cta-actions .btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ─── RESPONSIVO ─── */
+@media (max-width: 1024px) {
+  .cta-section {
+    padding: 80px 0;
+  }
+
+  .cta-box {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 64px 56px;
+  }
+
+  .cta-actions {
+    min-width: unset;
+    flex-direction: row;
+  }
+
+  .cta-actions .btn {
+    width: auto;
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 60px 0;
+  }
+
+  .cta-box {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 48px 36px;
+  }
+
+  .cta-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .cta-content p {
+    font-size: 0.9rem;
+  }
+
+  .cta-actions {
+    flex-direction: column;
+  }
+
+  .cta-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta-box {
+    padding: 36px 24px;
+  }
+
+  .cta-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .cta-content p {
+    font-size: 0.85rem;
+  }
+}

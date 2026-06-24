@@ -1,0 +1,579 @@
+/* ============================================
+   HEADER & HERO — Luciano F Vital Portfolio
+   Estética: Hip Hop / Urbano / Direto
+   Fonte principal: Bebas Neue + Inter + Space Mono
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+/* ─── RESET & VARIÁVEIS ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --preto:       #0A0A0F;
+  --branco:      #F5F5F0;
+  --azul-escuro: #1A3A6B;
+  --azul-medio:  #3B8FE8;
+  --azul-claro:  #7EC8F7;
+  --azul-glow:   rgba(62, 143, 232, 0.18);
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'Space Mono', monospace;
+
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --header-h: 72px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--preto);
+  color: var(--branco);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── HEADER ─── */
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-h);
+
+  /* Borda inferior como linha de acento — discreta mas presente */
+  border-bottom: 1px solid transparent;
+  transition: background var(--transition), border-color var(--transition), backdrop-filter var(--transition);
+}
+
+/* Estado ao rolar: header fica visível com blur */
+#header.scrolled {
+  background: rgba(10, 10, 15, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom-color: rgba(62, 143, 232, 0.22);
+}
+
+.header-container {
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Logo: assinatura que respira ── */
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  color: var(--branco);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+
+  /* Ink line embaixo — nasce do nada ao hover */
+  --ink-w: 0%;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: var(--ink-w);
+  height: 2px;
+  background: linear-gradient(90deg, var(--azul-medio), var(--azul-claro));
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo:hover {
+  color: var(--azul-claro);
+  --ink-w: 100%;
+}
+
+.logo:hover::after {
+  width: 100%;
+}
+
+/* ── Nav desktop ── */
+.desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.desktop-menu a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 240, 0.65);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color var(--transition);
+}
+
+/* Sublinhado que desliza da esquerda */
+.desktop-menu a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--azul-medio);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.desktop-menu a:hover {
+  color: var(--branco);
+}
+
+.desktop-menu a:hover::before {
+  width: 100%;
+}
+
+/* ── Botão menu mobile (hambúrguer virou X) ── */
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.menu-btn span {
+  display: block;
+  height: 2px;
+  background: var(--branco);
+  border-radius: 2px;
+  transition: transform 0.35s ease, opacity 0.2s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+.menu-btn span:first-child  { width: 100%; }
+.menu-btn span:last-child   { width: 65%; margin-left: auto; }
+
+/* Estado aberto */
+.menu-btn.active span:first-child {
+  transform: translateY(4px) rotate(45deg);
+  width: 100%;
+}
+.menu-btn.active span:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+  width: 100%;
+}
+
+/* ─── MENU MOBILE ─── */
+.mobile-menu {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: rgba(10, 10, 15, 0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 24px 0 40px;
+
+  /* Começa fora da tela (por cima) */
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.mobile-menu.open {
+  clip-path: inset(0 0 0% 0);
+  pointer-events: all;
+}
+
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  letter-spacing: 0.06em;
+  color: rgba(245, 245, 240, 0.85);
+  text-decoration: none;
+  padding: 16px 32px;
+  border-bottom: 1px solid rgba(62, 143, 232, 0.1);
+  transition: color var(--transition), padding-left var(--transition);
+}
+
+.mobile-menu a:hover {
+  color: var(--azul-claro);
+  padding-left: 44px;
+}
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100svh;
+  padding-top: var(--header-h);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grade de fundo sutil — sensação urbana/técnica */
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(62, 143, 232, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 143, 232, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 60% 50%, black 20%, transparent 80%);
+  pointer-events: none;
+}
+
+/* Glow ambiente à direita */
+#hero::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(62, 143, 232, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  animation: glow-drift 8s ease-in-out infinite alternate;
+}
+
+@keyframes glow-drift {
+  from { transform: translate(0, 0) scale(1);   opacity: 0.7; }
+  to   { transform: translate(-40px, 30px) scale(1.1); opacity: 1; }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
+}
+
+/* ── Grid hero: foto | conteúdo ── */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  align-items: center;
+  padding-top: 48px;
+  padding-bottom: 80px;
+}
+
+/* ── Foto com clip diagonal ── */
+.hero-image {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  display: block;
+
+  /* Diagonal de saída à direita — assimétrico */
+  clip-path: polygon(0 0, 92% 0, 100% 8%, 100% 100%, 0 100%);
+  transition: clip-path 0.6s ease;
+
+  /* Tinge a foto com o tema azul escuro */
+  filter: grayscale(20%) contrast(1.05);
+}
+
+.hero-image::before {
+  content: '';
+  position: absolute;
+  inset: -8px -8px auto auto;
+  width: 60px;
+  height: 60px;
+  border-top: 2px solid var(--azul-medio);
+  border-right: 2px solid var(--azul-medio);
+  opacity: 0.6;
+  transition: opacity var(--transition);
+}
+
+.hero-image::after {
+  content: '';
+  position: absolute;
+  inset: auto auto -8px -8px;
+  width: 60px;
+  height: 60px;
+  border-bottom: 2px solid var(--azul-claro);
+  border-left: 2px solid var(--azul-claro);
+  opacity: 0.4;
+  transition: opacity var(--transition);
+}
+
+.hero-image:hover img {
+  clip-path: polygon(0 0, 94% 0, 100% 6%, 100% 100%, 0 100%);
+}
+.hero-image:hover::before { opacity: 1; }
+.hero-image:hover::after  { opacity: 0.7; }
+
+/* ── Conteúdo hero ── */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Eyebrow — label técnico discreto */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--azul-medio);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  opacity: 0;
+  animation: fade-up 0.6s ease 0.2s forwards;
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--azul-medio);
+}
+
+/* ── Headline: carrossel de diálogo ── */
+.hero-dialogue {
+  min-height: 160px; /* evita pulo de layout */
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--branco);
+}
+
+/* Texto que vai ser animado pelo JS */
+.dialogue-text {
+  display: block;
+  position: relative;
+}
+
+/* Cursor piscante após o texto */
+.dialogue-text::after {
+  content: '|';
+  color: var(--azul-medio);
+  animation: blink 0.8s step-end infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Palavra de destaque em azul claro */
+.dialogue-text .highlight {
+  color: var(--azul-claro);
+  position: relative;
+  display: inline-block;
+}
+
+/* Linha de sublinhado animada sob highlight */
+.dialogue-text .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--azul-medio), var(--azul-claro));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underline-in 0.4s ease 0.2s forwards;
+}
+
+@keyframes underline-in {
+  to { transform: scaleX(1); }
+}
+
+/* ── Descrição ── */
+.hero-description {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(245, 245, 240, 0.7);
+  max-width: 420px;
+
+  opacity: 0;
+  animation: fade-up 0.6s ease 0.5s forwards;
+}
+
+/* ── Botões ── */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+
+  opacity: 0;
+  animation: fade-up 0.6s ease 0.7s forwards;
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 2px; /* quase reto — hip hop não usa pill buttons */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ripple ao clicar */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.08);
+  transform: translateX(-110%);
+  transition: transform 0.4s ease;
+}
+.btn:hover::before {
+  transform: translateX(0);
+}
+
+/* Primário: azul sólido */
+.btn-primary {
+  background: var(--azul-medio);
+  color: var(--branco);
+  border: 1.5px solid var(--azul-medio);
+}
+
+.btn-primary:hover {
+  background: #2a7de0;
+  box-shadow: 0 0 24px rgba(62, 143, 232, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Secundário: contorno */
+.btn-secondary {
+  background: transparent;
+  color: var(--branco);
+  border: 1.5px solid rgba(245, 245, 240, 0.3);
+}
+
+.btn-secondary:hover {
+  border-color: var(--azul-claro);
+  color: var(--azul-claro);
+  transform: translateY(-2px);
+}
+
+/* ── Animação de entrada global ── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── RESPONSIVO ─── */
+@media (max-width: 900px) {
+  .desktop-menu {
+    display: none;
+  }
+  .menu-btn {
+    display: flex;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-top: 40px;
+    padding-bottom: 60px;
+  }
+
+  /* Foto acima, menor */
+  .hero-image {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .hero-image img {
+    max-width: 100%;
+  }
+
+  .hero-name {
+    font-size: clamp(2.4rem, 9vw, 3.5rem);
+  }
+
+  .hero-dialogue {
+  min-height: 65px;
+  margin-bottom: 0;
+}
+}
+
+@media (max-width: 600px) {
+  .header-container {
+    padding: 0 20px;
+  }
+  .container {
+    padding: 0 20px;
+  }
+  .hero-image {
+    max-width: 220px;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── Respeitar preferência de movimento reduzido ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

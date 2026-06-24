@@ -1,0 +1,104 @@
+/* ============================================
+   FOOTER — Luciano F Vital Portfolio
+   ============================================ */
+
+/* ─── FOOTER BASE ─── */
+.site-footer {
+  background: var(--preto);
+  border-top: 1px solid rgba(62, 143, 232, 0.15);
+  padding: 64px 0 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Linha de acento sutil no topo */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(62, 143, 232, 0.4) 20%,
+    rgba(62, 143, 232, 0.6) 50%,
+    rgba(62, 143, 232, 0.4) 80%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+
+/* Brand + descrição */
+.footer-brand h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  color: var(--branco);
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+.footer-brand p {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(245, 245, 240, 0.55);
+  max-width: 420px;
+}
+
+/* Copyright */
+.footer-copy {
+  text-align: right;
+}
+
+.footer-copy p {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: rgba(245, 245, 240, 0.4);
+}
+
+/* ─── RESPONSIVO ─── */
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 48px 0 24px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  .footer-copy {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 40px 0 20px;
+  }
+
+  .footer-brand h3 {
+    font-size: 1.2rem;
+  }
+
+  .footer-brand p {
+    font-size: 0.8rem;
+  }
+
+  .footer-copy p {
+    font-size: 0.75rem;
+  }
+}

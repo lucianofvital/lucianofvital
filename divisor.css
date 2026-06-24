@@ -1,0 +1,46 @@
+/* ============================================
+   SECTION DIVIDERS — Estilo de divisor simples por seção
+   ============================================ */
+
+.section-divider {
+  width: 100%;
+  height: 8px;
+  margin: 0 auto;
+  opacity: 0.95;
+}
+
+.section-divider--hero {
+  background: linear-gradient(90deg, transparent 0%, rgba(62, 143, 232, 0.9) 20%, rgba(126, 200, 247, 0.95) 50%, rgba(62, 143, 232, 0.9) 80%, transparent 100%);
+}
+
+.section-divider--services {
+  background: linear-gradient(90deg, rgba(26, 58, 107, 0) 0%, rgba(26, 58, 107, 0.15) 20%, rgba(62, 143, 232, 0.25) 50%, rgba(62, 143, 232, 0.15) 80%, rgba(26, 58, 107, 0) 100%);
+}
+
+.section-divider--projects {
+  background: linear-gradient(90deg, rgba(62, 143, 232, 0) 0%, rgba(62, 143, 232, 0.25) 18%, rgba(126, 200, 247, 0.9) 50%, rgba(62, 143, 232, 0.25) 82%, rgba(62, 143, 232, 0) 100%);
+}
+
+.section-divider--about {
+  background: linear-gradient(90deg, rgba(22, 58, 120, 0.1) 0%, rgba(59, 143, 232, 0.85) 35%, rgba(126, 200, 247, 0.95) 50%, rgba(59, 143, 232, 0.7) 65%, rgba(22, 58, 120, 0.1) 100%);
+}
+
+.section-divider--cta {
+  background: linear-gradient(90deg, rgba(26, 58, 107, 0.05) 0%, rgba(59, 143, 232, 0.8) 40%, rgba(59, 143, 232, 0.8) 60%, rgba(26, 58, 107, 0.05) 100%);
+}
+
+.section-divider--contato {
+  background: linear-gradient(90deg, rgba(10, 10, 15, 0) 0%, rgba(62, 143, 232, 0.35) 30%, rgba(126, 200, 247, 0.65) 50%, rgba(62, 143, 232, 0.35) 70%, rgba(10, 10, 15, 0) 100%);
+}
+
+@media (max-width: 768px) {
+  .section-divider {
+    height: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-divider {
+    height: 4px;
+  }
+}

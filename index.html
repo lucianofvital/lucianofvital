@@ -13,7 +13,15 @@
     <!-- Fonte -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="hero.css">
+    <link rel="stylesheet" href="service.css">
+    <link rel="stylesheet" href="botao.css">
+    <link rel="stylesheet" href="project.css">
+    <link rel="stylesheet" href="sobre.css">
+    <link rel="stylesheet" href="cta.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="contato.css">
+    <link rel="stylesheet" href="divisor.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
@@ -93,8 +101,6 @@
 
         </div>
 
-    </div>
-
 </section>
 
 
@@ -103,305 +109,556 @@
     <!-- SERVIÇOS -->
     <!-- ========================= -->
 
-    <section id="servicos">
+<section id="servicos" class="services-section" aria-labelledby="servicos-title">
+    <div class="container">
 
-        <div class="section-title">
+        <!-- TOPO DA SEÇÃO -->
+        <div class="services-header">
+            <div class="section-tag">
+                <span>Serviços</span>
+            </div>
 
-            <span>Serviços</span>
+            <div class="services-heading">
+                <h2 id="servicos-title">
+                    Seu negócio não precisa só de “arte bonita”.
+                    Precisa de presença, clareza e uma imagem que passe confiança.
+                </h2>
 
-            <h2>
-                Soluções para fortalecer sua presença digital
-            </h2>
-
+                <p class="services-intro">
+                    Eu crio soluções visuais e digitais para marcas que querem se apresentar melhor,
+                    vender com mais organização e deixar uma impressão profissional sem perder personalidade.
+                    A ideia aqui não é empurrar fórmula pronta — é entender o que faz sentido para o seu momento
+                    e transformar isso em um site, uma identidade ou uma comunicação visual que trabalhe a favor do seu negócio.
+                </p>
+            </div>
         </div>
 
+        <!-- GRID DE SERVIÇOS -->
         <div class="services-grid">
 
-            <article class="service-card">
+            <!-- 01 -->
+            <article class="service-card featured">
+                <div class="service-number">01</div>
 
-                <h3>Sites Institucionais</h3>
+                <div class="service-content">
+                    <h3>Sites Institucionais</h3>
 
-                <p>
-                    Presença digital elegante para empresas que querem autoridade online.
-                </p>
+                    <p>
+                        Para empresas, profissionais e negócios locais que precisam de um site que apresente bem
+                        a marca, mostre credibilidade e facilite o contato com novos clientes.
+                    </p>
 
+                    <ul class="service-points">
+                        <li>Apresentação clara dos seus serviços</li>
+                        <li>Visual profissional e alinhado com a sua marca</li>
+                        <li>Estrutura pensada para transmitir confiança</li>
+                        <li>Versão responsiva para celular, tablet e desktop</li>
+                    </ul>
+
+                    <div class="service-note">
+                        <span>Ideal para:</span>
+                        <p>negócios que já existem, mas ainda não têm uma presença digital à altura do que entregam.</p>
+                    </div>
+                </div>
             </article>
 
+            <!-- 02 -->
             <article class="service-card">
+                <div class="service-number">02</div>
 
-                <h3>Landing Pages</h3>
+                <div class="service-content">
+                    <h3>Landing Pages</h3>
 
-                <p>
-                    Conversão com design focado em ação e experiência do usuário.
-                </p>
+                    <p>
+                        Páginas focadas em uma ação específica: apresentar uma oferta, captar contatos,
+                        divulgar um serviço ou direcionar o visitante para o WhatsApp com mais intenção.
+                    </p>
 
+                    <ul class="service-points">
+                        <li>Estrutura mais objetiva e estratégica</li>
+                        <li>Texto e layout guiando o visitante sem pressão</li>
+                        <li>Seções pensadas para destacar oferta, prova e contato</li>
+                        <li>Boa opção para campanhas, lançamentos e serviços específicos</li>
+                    </ul>
+
+                    <div class="service-note">
+                        <span>Ideal para:</span>
+                        <p>quem quer transformar visitas em conversas e oportunidades de forma mais direta.</p>
+                    </div>
+                </div>
             </article>
 
+            <!-- 03 -->
             <article class="service-card">
+                <div class="service-number">03</div>
 
-                <h3>Manutenção de Sites</h3>
+                <div class="service-content">
+                    <h3>Manutenção e Ajustes de Sites</h3>
 
-                <p>
-                    Atualizações contínuas, performance e segurança garantidas.
-                </p>
+                    <p>
+                        Se o seu site já existe, mas está desatualizado, lento, com visual antigo
+                        ou precisando de melhorias, eu posso cuidar dessa parte sem precisar começar do zero.
+                    </p>
 
+                    <ul class="service-points">
+                        <li>Correções visuais e estruturais</li>
+                        <li>Atualização de conteúdo, sessões e informações</li>
+                        <li>Melhorias de responsividade e organização</li>
+                        <li>Apoio para deixar o site mais atual e funcional</li>
+                    </ul>
+
+                    <div class="service-note">
+                        <span>Ideal para:</span>
+                        <p>negócios que já têm presença online, mas sentem que o site não representa mais a marca.</p>
+                    </div>
+                </div>
             </article>
 
+            <!-- 04 -->
             <article class="service-card">
+                <div class="service-number">04</div>
 
-                <h3>Identidade Visual</h3>
+                <div class="service-content">
+                    <h3>Identidade Visual</h3>
 
-                <p>
-                    Identidade que comunica valor, confiança e diferenciação.
-                </p>
+                    <p>
+                        Criação de uma base visual consistente para sua marca ser reconhecida, lembrada
+                        e percebida com mais valor — sem precisar parecer igual a todo mundo.
+                    </p>
 
+                    <ul class="service-points">
+                        <li>Logo e direcionamento visual da marca</li>
+                        <li>Escolha de cores, tipografia e estilo visual</li>
+                        <li>Construção de uma imagem mais profissional e coerente</li>
+                        <li>Design pensado para funcionar no digital e no material de divulgação</li>
+                    </ul>
+
+                    <div class="service-note">
+                        <span>Ideal para:</span>
+                        <p>quem está começando ou quer reposicionar a marca com mais personalidade e consistência.</p>
+                    </div>
+                </div>
             </article>
 
+            <!-- 05 -->
             <article class="service-card">
+                <div class="service-number">05</div>
 
-                <h3>Design para Redes Sociais</h3>
+                <div class="service-content">
+                    <h3>Design para Redes Sociais</h3>
 
-                <p>
-                    Posts com estética profissional para fortalecer sua marca.
-                </p>
+                    <p>
+                        Peças visuais para Instagram e outras redes com foco em organização da comunicação,
+                        percepção de valor e presença mais profissional no dia a dia da marca.
+                    </p>
 
+                    <ul class="service-points">
+                        <li>Artes para posts, promoções, lançamentos e campanhas</li>
+                        <li>Visual alinhado com a identidade da marca</li>
+                        <li>Mais consistência para o seu perfil</li>
+                        <li>Comunicação visual pensada para chamar atenção sem poluir</li>
+                    </ul>
+
+                    <div class="service-note">
+                        <span>Ideal para:</span>
+                        <p>marcas que querem parar de postar no improviso e construir uma presença mais forte.</p>
+                    </div>
+                </div>
             </article>
 
+            <!-- 06 -->
+            <article class="service-card">
+                <div class="service-number">06</div>
+
+                <div class="service-content">
+                    <h3>Criação de Peças Digitais</h3>
+
+                    <p>
+                        Materiais visuais para apoiar vendas, divulgação e apresentação da sua marca:
+                        banners, capas, criativos, apresentações e outros elementos que ajudam seu negócio
+                        a se comunicar melhor.
+                    </p>
+
+                    <ul class="service-points">
+                        <li>Materiais para campanhas e divulgação</li>
+                        <li>Design com foco em leitura, impacto e organização</li>
+                        <li>Visual coerente com a proposta do seu negócio</li>
+                        <li>Peças pensadas para uso real, não só para “ficar bonito”</li>
+                    </ul>
+
+                    <div class="service-note">
+                        <span>Ideal para:</span>
+                        <p>quem precisa de apoio visual em diferentes pontos da comunicação da marca.</p>
+                    </div>
+                </div>
+            </article>
         </div>
 
-    </section>
+        <!-- BLOCO FINAL / FECHAMENTO DA SEÇÃO -->
+        <div class="services-cta-box">
+            <div class="services-cta-text">
+                <span class="mini-label">Em resumo</span>
+
+                <h3>
+                    Se a sua marca precisa se apresentar melhor, parecer mais profissional
+                    e criar uma presença digital que faça sentido para o momento do negócio,
+                    eu posso te ajudar com isso.
+                </h3>
+
+                <p>
+                    Às vezes o problema não é falta de qualidade no que você vende — é falta de uma
+                    apresentação que mostre isso com clareza. Meu trabalho é transformar essa percepção
+                    em design, estrutura e presença digital.
+                </p>
+            </div>
+
+            <div class="services-cta-actions">
+                <a href="#contato" class="btn btn-primary">
+                    Conversar sobre o projeto
+                </a>
+
+                <a href="#projetos" class="btn btn-secondary">
+                    Ver trabalhos
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 
 
+<!-- ========================= -->
+<!-- PROJETOS -->
+<!-- ========================= -->
 
-    <!-- ========================= -->
-    <!-- PROJETOS -->
-    <!-- ========================= -->
+<section id="projetos" class="projects-section" aria-labelledby="projetos-title">
+    <div class="container">
 
-    <section id="projetos">
+        <div class="projects-header">
+            <div class="section-tag">
+                <span>Projetos</span>
+            </div>
 
-        <div class="section-title">
+            <div class="projects-heading">
+                <h2 id="projetos-title">
+                    Alguns trabalhos que mostram como design, clareza e direção
+                    podem mudar a forma como uma marca é percebida.
+                </h2>
 
-            <span>Projetos</span>
-
-            <h2>
-                Trabalhos que geram resultados
-            </h2>
-
+                <p class="projects-intro">
+                    Cada projeto aqui nasceu de uma necessidade diferente:
+                    apresentar melhor um serviço, organizar uma oferta, fortalecer a identidade visual
+                    ou criar uma presença digital mais profissional. O foco não é só “deixar bonito”.
+                    É fazer o visual trabalhar a favor do negócio.
+                </p>
+            </div>
         </div>
 
         <div class="projects-grid">
 
-            <article class="project-card">
-
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" alt="Interface de website profissional">
-
-                <div>
-
-                    <h3>Landing Page Premium</h3>
-
-                    <p>
-                        Design conversivo para captar clientes e gerar leads.
-                    </p>
-
+            <!-- PROJETO 01 -->
+            <article class="project-card featured-project">
+                <div class="project-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80"
+                        alt="Tela de landing page moderna sendo exibida em ambiente profissional"
+                    >
                 </div>
 
-            </article>
+                <div class="project-content">
+                    <div class="project-meta">
+                        <span class="project-label">Landing Page</span>
+                        <span class="project-number">01</span>
+                    </div>
 
-            <article class="project-card">
-
-                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1000&q=80" alt="Dashboard moderno de aplicativo">
-
-                <div>
-
-                    <h3>Branding Digital</h3>
+                    <h3>Landing page pensada para apresentar uma oferta com mais clareza e intenção</h3>
 
                     <p>
-                        Identidade visual atualizada para presença marcante.
+                        Projeto desenvolvido para organizar a comunicação de um serviço,
+                        valorizar a oferta e conduzir o visitante com mais naturalidade até o contato.
+                        O objetivo aqui não era exagerar no discurso, mas construir uma página
+                        que passasse confiança e facilitasse a decisão.
                     </p>
 
+                    <ul class="project-points">
+                        <li>Estrutura visual mais estratégica</li>
+                        <li>Hierarquia de informação para facilitar a leitura</li>
+                        <li>Design pensado para desktop e mobile</li>
+                        <li>Mais clareza na apresentação da proposta</li>
+                    </ul>
+
+                    <div class="project-footer">
+                        <span>Foco do projeto:</span>
+                        <p>transformar uma oferta solta em uma apresentação mais profissional e convincente.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJETO 02 -->
+            <article class="project-card">
+                <div class="project-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+                        alt="Equipe criativa trabalhando em identidade visual e branding digital"
+                    >
                 </div>
 
+                <div class="project-content">
+                    <div class="project-meta">
+                        <span class="project-label">Identidade Visual</span>
+                        <span class="project-number">02</span>
+                    </div>
+
+                    <h3>Branding digital para dar mais consistência à imagem da marca</h3>
+
+                    <p>
+                        Um trabalho voltado para alinhar a comunicação visual da marca,
+                        trazendo mais unidade entre estética, posicionamento e percepção de valor.
+                        A proposta foi sair do improviso e construir uma presença visual mais forte,
+                        mais organizada e com mais personalidade.
+                    </p>
+
+                    <ul class="project-points">
+                        <li>Refinamento da linguagem visual</li>
+                        <li>Definição de direção estética da marca</li>
+                        <li>Mais consistência na comunicação digital</li>
+                        <li>Base visual mais profissional para redes e materiais</li>
+                    </ul>
+
+                    <div class="project-footer">
+                        <span>Foco do projeto:</span>
+                        <p>fazer a marca parecer tão bem construída quanto o serviço que ela entrega.</p>
+                    </div>
+                </div>
             </article>
 
         </div>
 
-    </section>
+        <div class="projects-cta">
+            <div class="projects-cta-text">
+                <span class="mini-label">Mais do que layout</span>
 
+                <h3>
+                    O que me interessa em cada projeto é simples:
+                    fazer a marca se apresentar melhor e deixar mais claro o valor do que ela entrega.
+                </h3>
 
+                <p>
+                    Se você quer um site, uma identidade ou uma página que não pareça só “mais um template bonito”,
+                    meu trabalho é justamente construir algo com mais intenção, mais personalidade e mais coerência com o seu negócio.
+                </p>
+            </div>
 
-    <!-- ========================= -->
-    <!-- PROCESSO -->
-    <!-- ========================= -->
-
-    <section id="processo">
-
-        <div class="section-title">
-
-            <span>Processo</span>
-
-            <h2>
-                Como transformo sua ideia em resultado
-            </h2>
-
+            <a href="#contato" class="btn btn-primary">
+                Quero tirar um projeto do papel
+            </a>
         </div>
-
-        <div class="steps">
-
-            <article class="step-card">
-
-                <span>01</span>
-
-                <h3>Briefing</h3>
-                <p>Entender objetivos, público e posicionamento da marca.</p>
-
-            </article>
-
-            <article class="step-card">
-
-                <span>02</span>
-
-                <h3>Planejamento</h3>
-                <p>Estratégia visual e jornada digital alinhada ao resultado.
-                </p>
-
-            </article>
-
-            <article class="step-card">
-
-                <span>03</span>
-
-                <h3>Desenvolvimento</h3>
-                <p>Construção técnica com responsividade e performance.
-                </p>
-
-            </article>
-
-            <article class="step-card">
-
-                <span>04</span>
-
-                <h3>Entrega</h3>
-                <p>Lançamento com suporte e ajustes finais para o seu crescimento.
-                </p>
-
-            </article>
-
-        </div>
-
-    </section>
+    </div>
+    <div class="section-divider section-divider--projects" aria-hidden="true"></div>
+</section>
 
 
+<!-- ========================= -->
+<!-- SOBRE -->
+<!-- ========================= -->
 
-    <!-- ========================= -->
-    <!-- SOBRE -->
-    <!-- ========================= -->
-
-    <section id="sobre">
+<section id="sobre" class="about-section" aria-labelledby="sobre-title">
+    <div class="container">
 
         <div class="about-content">
 
             <div class="about-image">
                 <img
-                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
-                    alt="Designer trabalhando no computador"
+                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80"
+                    alt="Profissional de design trabalhando no computador em um ambiente criativo"
                 >
             </div>
 
             <div class="about-text">
 
-                <span>Sobre Mim</span>
+                <div class="section-tag">
+                    <span>Sobre mim</span>
+                </div>
 
-                <h2>
-                    Designer e desenvolvedor que entrega experiências digitais modernas.
+                <h2 id="sobre-title">
+                    Eu trabalho com design e desenvolvimento pensando em uma coisa:
+                    fazer sua marca parecer tão profissional quanto o que você entrega no dia a dia.
                 </h2>
 
                 <p>
-                    Crio sites, marcas e interfaces para quem quer resultados reais e presença online consistente.
+                    Meu nome é Luciano, e meu trabalho gira em torno de criar sites, identidades visuais
+                    e materiais digitais que ajudem negócios a se apresentarem melhor.
+                    Eu gosto de pensar o design como ferramenta de percepção:
+                    a forma como sua marca aparece influencia diretamente a confiança que ela transmite.
                 </p>
+
+                <p>
+                    Por isso, eu não olho só para estética. Eu procuro entender o momento do negócio,
+                    o tipo de cliente que ele quer atrair e como transformar isso em uma presença digital
+                    mais organizada, mais forte e mais coerente.
+                </p>
+
+                <p>
+                    Meu estilo puxa para o contemporâneo, com peso visual, personalidade e atenção aos detalhes —
+                    sem cair no exagero e sem transformar o projeto em algo que fala mais alto do que a própria marca.
+                    A ideia é construir presença, não barulho.
+                </p>
+
+                <div class="about-highlights">
+                    <div class="about-highlight">
+                        <strong>Design com direção</strong>
+                        <span>Não é só estética. É organização, leitura, percepção e posicionamento.</span>
+                    </div>
+
+                    <div class="about-highlight">
+                        <strong>Sites com presença</strong>
+                        <span>Páginas que apresentam bem o negócio e ajudam a transformar visita em contato.</span>
+                    </div>
+
+                    <div class="about-highlight">
+                        <strong>Comunicação mais consistente</strong>
+                        <span>Para marcas que querem parar de improvisar e começar a se posicionar melhor.</span>
+                    </div>
+                </div>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
+    <div class="section-divider section-divider--about" aria-hidden="true"></div>
+</section>
 
 
+<!-- ========================= -->
+<!-- CTA -->
+<!-- ========================= -->
 
-    <!-- ========================= -->
-    <!-- CTA -->
-    <!-- ========================= -->
-
-    <section id="cta">
+<section id="cta" class="cta-section" aria-labelledby="cta-title">
+    <div class="container">
 
         <div class="cta-box">
 
-            <div>
-                <span>Projetos sob medida</span>
-                <h2>
-                    Vamos transformar sua ideia em um projeto profissional?
+            <div class="cta-content">
+                <span class="cta-tag">Projetos sob medida</span>
+
+                <h2 id="cta-title">
+                    Se a sua marca precisa de uma presença mais profissional,
+                    mais organizada e com mais personalidade, a gente pode construir isso juntos.
                 </h2>
+
+                <p>
+                    Pode ser um site novo, uma landing page, uma identidade visual
+                    ou uma reorganização da sua comunicação. Se fizer sentido para o seu momento,
+                    eu entro para transformar essa ideia em um projeto visualmente forte e bem resolvido.
+                </p>
             </div>
 
-            <a href="#contato" class="btn btn-primary">
-                Solicitar orçamento
-            </a>
+            <div class="cta-actions">
+                <a href="#contato" class="btn btn-primary">
+                    Conversar sobre o projeto
+                </a>
+
+                <a href="#projetos" class="btn btn-secondary">
+                    Ver trabalhos antes
+                </a>
+            </div>
 
         </div>
 
-    </section>
+    </div>
+    <div class="section-divider section-divider--cta" aria-hidden="true"></div>
+</section>
 
 
+<!-- ========================= -->
+<!-- CONTATO -->
+<!-- ========================= -->
 
-    <!-- ========================= -->
-    <!-- CONTATO -->
-    <!-- ========================= -->
+<section id="contato" class="contact-section" aria-labelledby="contato-title">
+    <div class="container">
 
-    <section id="contato">
+        <div class="contact-header">
+            <div class="section-tag">
+                <span>Contato</span>
+            </div>
 
-        <div class="section-title">
+            <div class="contact-heading">
+                <h2 id="contato-title">
+                    Se você chegou até aqui, talvez já tenha entendido o que eu faço.
+                    Agora o próximo passo é simples: me conta o que sua marca precisa.
+                </h2>
 
-            <span>Contato</span>
+                <p>
+                    Se você está pensando em criar um site, ajustar a comunicação visual da sua marca,
+                    montar uma landing page ou simplesmente entender melhor o que faria sentido para o seu negócio,
+                    pode me chamar. A conversa começa sem pressão e com foco no que realmente pode te ajudar agora.
+                </p>
+            </div>
+        </div>
 
-            <h2>
-                Vamos conversar
-            </h2>
+        <div class="contact-box">
+
+            <div class="contact-text">
+                <span class="mini-label">Fale comigo</span>
+
+                <h3>
+                    Me manda uma mensagem com a sua ideia, o momento do seu negócio
+                    ou o tipo de projeto que você quer tirar do papel.
+                </h3>
+
+                <p>
+                    Se você ainda não tem tudo definido, tudo bem. Às vezes uma conversa já ajuda
+                    a organizar o caminho, entender prioridades e enxergar o que vale construir primeiro.
+                </p>
+            </div>
+
+            <div class="contact-links">
+                <a href="https://wa.me/5511999999999" target="_blank" rel="noreferrer" class="contact-link">
+                    <span class="contact-link-label">WhatsApp</span>
+                    <strong>Conversar sobre projeto</strong>
+                </a>
+
+                <a href="https://instagram.com" target="_blank" rel="noreferrer" class="contact-link">
+                    <span class="contact-link-label">Instagram</span>
+                    <strong>Ver bastidores, identidade e estilo visual</strong>
+                </a>
+
+                <a href="https://github.com" target="_blank" rel="noreferrer" class="contact-link">
+                    <span class="contact-link-label">GitHub</span>
+                    <strong>Acompanhar códigos, estudos e projetos em desenvolvimento</strong>
+                </a>
+            </div>
 
         </div>
 
-        <div class="contact-links">
+</section>
 
-            <a href="https://wa.me/5511999999999" target="_blank" rel="noreferrer">
-                WhatsApp
-            </a>
 
-            <a href="https://instagram.com" target="_blank" rel="noreferrer">
-                Instagram
-            </a>
+<!-- ========================= -->
+<!-- FOOTER -->
+<!-- ========================= -->
 
-            <a href="https://github.com" target="_blank" rel="noreferrer">
-                GitHub
-            </a>
+<footer class="site-footer">
+    <div class="container">
 
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Luciano F Vital</h3>
+                <p>
+                    Design, sites e presença digital para marcas que querem se apresentar melhor
+                    e construir uma imagem mais forte no ambiente online.
+                </p>
+            </div>
+
+            <div class="footer-copy">
+                <p>© 2026 Luciano F Vital. Todos os direitos reservados.</p>
+            </div>
         </div>
 
-    </section>
+    </div>
+</footer>
 
 
-
-    <!-- ========================= -->
-    <!-- FOOTER -->
-    <!-- ========================= -->
-
-    <footer>
-
-        <p>
-
-            © 2026 Luciano F Vital.
-            Todos os direitos reservados.
-
-        </p>
-
-    </footer>
 
 
 
@@ -411,10 +668,18 @@
     </div>
 
     <a class="whatsapp-float" href="https://wa.me/5511999999999" target="_blank" rel="noreferrer">
-        Fale conosco
+        Fale comigo!
     </a>
 
-    <script src="main.js"></script>
+    <script src="hero.js"></script>
+    <script src="service.js"></script>
+    <script src="divisor.js"></script>
+    <script src="project.js"></script>
+    <script src="sobre.js"></script>
+    <script src="cta.js"></script>
+    <script src="footer.js"></script>
+    <script src="contato.js"></script>
+    <script src="botao.js"></script>
 
 </body>
 </html>
