@@ -1,29 +1,166 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- =============================================
+         CONFIGURAÇÕES BÁSICAS
+         ============================================= -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- =============================================
+         TÍTULO E DESCRIÇÃO SEO
+         ============================================= -->
+    <title>Luciano F Vital | Web Designer em Recife, Designer Gráfico e Criação de Sites</title>
 
-    <title>Luciano F Vital | Web Designer</title>
+    <meta
+        name="description"
+        content="Portfólio de Luciano F Vital, web designer e designer gráfico em Recife PE. Criação de sites institucionais, landing pages, identidade visual e design para pequenos e médios negócios que querem presença digital mais profissional."
+    />
 
-    <!-- Tailwind -->
+    <meta
+        name="keywords"
+        content="web designer Recife, designer gráfico Recife, criação de sites Recife, landing page Recife, portfólio web designer, freelancer web designer Recife, identidade visual Recife, designer para pequenos negócios, desenvolvimento de sites Recife, Luciano F Vital"
+    />
+
+    <meta name="author" content="Luciano F Vital" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="theme-color" content="#0b0f19" />
+
+    <!-- =============================================
+         URL CANÔNICA
+         Troque pela URL oficial do seu portfólio
+         ============================================= -->
+    <link rel="canonical" href="https://www.lucianofvital.com.br/" />
+
+    <!-- =============================================
+         FAVICON / ÍCONES
+         Troque os caminhos se necessário
+         ============================================= -->
+    <link rel="icon" href="foto00.png" type="image/png" />
+    <link rel="shortcut icon" href="foto00.png" />
+    <link rel="apple-touch-icon" href="foto00.png" />
+
+    <!-- =============================================
+         OPEN GRAPH (WhatsApp, Facebook, LinkedIn etc.)
+         Troque a imagem e a URL final do site
+         ============================================= -->
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Luciano F Vital" />
+    <meta property="og:title" content="Luciano F Vital | Web Designer em Recife, Designer Gráfico e Criação de Sites" />
+    <meta
+        property="og:description"
+        content="Criação de sites, landing pages, identidade visual e design digital para marcas que querem uma presença online mais profissional, clara e bem construída."
+    />
+    <meta property="og:url" content="https://www.lucianofvital.com.br/" />
+    <meta property="og:image" content="https://www.lucianofvital.com.br/assets/img/og-image.jpg" />
+    <meta property="og:image:secure_url" content="https://www.lucianofvital.com.br/assets/img/og-image.jpg" />
+    <meta property="og:image:alt" content="Portfólio de Luciano F Vital, web designer e designer gráfico em Recife" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- =============================================
+         TWITTER / X CARD
+         ============================================= -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Luciano F Vital | Web Designer em Recife, Designer Gráfico e Criação de Sites" />
+    <meta
+        name="twitter:description"
+        content="Portfólio de Luciano F Vital com criação de sites, landing pages, identidade visual e design digital para pequenos e médios negócios."
+    />
+    <meta name="twitter:image" content="https://www.lucianofvital.com.br/assets/img/og-image.jpg" />
+
+    <!-- =============================================
+         DADOS DE LOCALIZAÇÃO / CONTEXTO LOCAL
+         Não substitui Google Business, mas ajuda no contexto
+         ============================================= -->
+    <meta name="geo.region" content="BR-PE" />
+    <meta name="geo.placename" content="Recife, Pernambuco" />
+    <meta name="language" content="pt-BR" />
+
+    <!-- =============================================
+         MANIFEST (adicione se realmente usar PWA)
+         Se não tiver manifest.json, pode remover
+         ============================================= -->
+    <!-- <link rel="manifest" href="manifest.json" /> -->
+
+    <!-- =============================================
+         PRECONNECT DE FONTES
+         ============================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- =============================================
+         CSS DO PROJETO
+         ============================================= -->
+    <link rel="stylesheet" href="hero.css" />
+    <link rel="stylesheet" href="service.css" />
+    <link rel="stylesheet" href="botao.css" />
+    <link rel="stylesheet" href="project.css" />
+    <link rel="stylesheet" href="sobre.css" />
+    <link rel="stylesheet" href="cta.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="contato.css" />
+    <link rel="stylesheet" href="divisor.css" />
+
+    <!-- =============================================
+         FONTES
+         ============================================= -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- =============================================
+         TAILWIND CDN
+         Observação:
+         para produção/SEO/performance, o ideal é no futuro
+         compilar o CSS em vez de usar CDN.
+         ============================================= -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Fonte -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="hero.css">
-    <link rel="stylesheet" href="service.css">
-    <link rel="stylesheet" href="botao.css">
-    <link rel="stylesheet" href="project.css">
-    <link rel="stylesheet" href="sobre.css">
-    <link rel="stylesheet" href="cta.css">
-    <link rel="stylesheet" href="footer.css">
-    <link rel="stylesheet" href="contato.css">
-    <link rel="stylesheet" href="divisor.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <!-- =============================================
+         DADOS ESTRUTURADOS (SCHEMA)
+         Muito importante para SEO local e contexto profissional
+         Troque URLs e redes sociais pelas suas reais
+         ============================================= -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Luciano F Vital",
+      "url": "https://www.lucianofvital.com.br/",
+      "image": "https://www.lucianofvital.com.br/assets/img/og-image.jpg",
+      "jobTitle": "Web Designer e Designer Gráfico",
+      "description": "Web designer e designer gráfico em Recife PE, especializado em criação de sites, landing pages, identidade visual e design digital para pequenos e médios negócios.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Recife",
+        "addressRegion": "PE",
+        "addressCountry": "BR"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Recife"
+      },
+      "sameAs": [
+        "https://www.instagram.com/lucianofvital",
+        "https://github.com/lucianofvital",
+        "https://www.linkedin.com/in/lucianofvital"
+      ],
+      "knowsAbout": [
+        "Web Design",
+        "Design Gráfico",
+        "Criação de Sites",
+        "Landing Pages",
+        "Identidade Visual",
+        "UI Design",
+        "UX Design"
+      ]
+    }
+    </script>
 </head>
 
 <body>
