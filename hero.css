@@ -1,0 +1,739 @@
+/* ============================================
+   HEADER & HERO — Luciano F Vital Portfolio
+   Estética: Hip Hop / Urbano / Direto
+   Fonte principal: Bebas Neue + Inter + Space Mono
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+/* ─── RESET & VARIÁVEIS ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --preto:       #0A0A0F;
+  --branco:      #F5F5F0;
+  --azul-escuro: #1A3A6B;
+  --azul-medio:  #3B8FE8;
+  --azul-claro:  #7EC8F7;
+  --azul-glow:   rgba(62, 143, 232, 0.18);
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'Space Mono', monospace;
+
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --header-h: 72px;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--preto);
+  color: var(--branco);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── HEADER ─── */
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-h);
+
+  /* Borda inferior como linha de acento — discreta mas presente */
+  border-bottom: 1px solid transparent;
+  transition: background var(--transition), border-color var(--transition), backdrop-filter var(--transition);
+}
+
+/* Estado ao rolar: header fica visível com blur */
+#header.scrolled {
+  background: rgba(10, 10, 15, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom-color: rgba(62, 143, 232, 0.22);
+}
+
+.header-container {
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Logo: assinatura que respira ── */
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  color: var(--branco);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+
+  /* Ink line embaixo — nasce do nada ao hover */
+  --ink-w: 0%;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: var(--ink-w);
+  height: 2px;
+  background: linear-gradient(90deg, var(--azul-medio), var(--azul-claro));
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo:hover {
+  color: var(--azul-claro);
+  --ink-w: 100%;
+}
+
+.logo:hover::after {
+  width: 100%;
+}
+
+/* ── Nav desktop ── */
+.desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.desktop-menu a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 240, 0.65);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color var(--transition);
+}
+
+/* Sublinhado que desliza da esquerda */
+.desktop-menu a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--azul-medio);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.desktop-menu a:hover {
+  color: var(--branco);
+}
+
+.desktop-menu a:hover::before {
+  width: 100%;
+}
+
+/* ── Botão menu mobile (hambúrguer virou X) ── */
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.menu-btn span {
+  display: block;
+  height: 2px;
+  background: var(--branco);
+  border-radius: 2px;
+  transition: transform 0.35s ease, opacity 0.2s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+.menu-btn span:first-child  { width: 100%; }
+.menu-btn span:last-child   { width: 65%; margin-left: auto; }
+
+/* Estado aberto */
+.menu-btn.active span:first-child {
+  transform: translateY(4px) rotate(45deg);
+  width: 100%;
+}
+.menu-btn.active span:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+  width: 100%;
+}
+
+/* ─── MENU MOBILE ─── */
+.mobile-menu {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: rgba(10, 10, 15, 0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 24px 0 40px;
+
+  /* Começa fora da tela (por cima) */
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.mobile-menu.open {
+  clip-path: inset(0 0 0% 0);
+  pointer-events: all;
+}
+
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  letter-spacing: 0.06em;
+  color: rgba(245, 245, 240, 0.85);
+  text-decoration: none;
+  padding: 16px 32px;
+  border-bottom: 1px solid rgba(62, 143, 232, 0.1);
+  transition: color var(--transition), padding-left var(--transition);
+}
+
+.mobile-menu a:hover {
+  color: var(--azul-claro);
+  padding-left: 44px;
+}
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100svh;
+  padding-top: var(--header-h);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grade de fundo sutil — sensação urbana/técnica */
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(62, 143, 232, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 143, 232, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 60% 50%, black 20%, transparent 80%);
+  pointer-events: none;
+}
+
+/* Glow ambiente à direita */
+#hero::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(62, 143, 232, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  animation: glow-drift 8s ease-in-out infinite alternate;
+}
+
+@keyframes glow-drift {
+  from { transform: translate(0, 0) scale(1);   opacity: 0.7; }
+  to   { transform: translate(-40px, 30px) scale(1.1); opacity: 1; }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
+}
+
+/* ── Grid hero: foto | conteúdo ── */
+.hero-grid{
+    display:flex;
+    align-items:center;
+    position:relative;
+    min-height:90vh;
+}
+
+/* ── Foto com clip diagonal ── */
+.hero-image {
+  position: absolute;
+  left: 0;
+  top: 0;                /* Altera de 50% para 0 para colar no topo do site */
+  width: 48%;            /* Mantém o seu layout assimétrico de metade da tela */
+  height: 100vh;         /* Força o container a ir até o final da tela do hero */
+  z-index: 1;
+  
+  /* Movi o seu clip-path para cá, garantindo que ele não corte o topo */
+  clip-path: polygon(0 0, 92% 0, 100% 8%, 100% 100%, 0 100%);
+  transition: clip-path 0.6s ease;
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* Preenche os 100vh de altura sem distorcer */
+  object-position: center top; /* Garante que o topo da foto (rosto/detalhes principais) apareça primeiro */
+  display: block;
+  opacity: 0.82;
+  
+  /* Juntei os seus filtros em uma linha só para não dar conflito */
+  filter: grayscale(20%) contrast(1.08) brightness(0.82);
+}
+
+.hero-image::before {
+  content: '';
+  position: absolute;
+  inset: -8px -8px auto auto;
+  width: 60px;
+  height: 60px;
+  border-top: 2px solid var(--azul-medio);
+  border-right: 2px solid var(--azul-medio);
+  opacity: 0.6;
+  transition: opacity var(--transition);
+}
+
+.hero-image::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(
+        90deg,
+        transparent 45%,
+        rgba(10,10,15,.35) 65%,
+        rgba(10,10,15,.95) 100%
+    );
+}
+
+.hero-image:hover img {
+  clip-path: polygon(0 0, 94% 0, 100% 6%, 100% 100%, 0 100%);
+}
+.hero-image:hover::before { opacity: 1; }
+.hero-image:hover::after  { opacity: 0.7; }
+
+/* ── Conteúdo hero ── */
+.hero-content{
+    position:relative;
+    z-index:3;
+    margin-left:38%;
+    max-width:760px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+/* Eyebrow — label técnico discreto */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--branco);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  opacity: 0;
+  animation: fade-up 0.6s ease 0.2s forwards;
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--branco);
+}
+
+/* =====================================================
+   TÍTULO FIXO
+===================================================== */
+
+.hero-title{
+    font-family: var(--font-display);
+    font-size:clamp(3.6rem,7vw,7rem);
+    line-height:.85;
+    letter-spacing:.01em;
+    color:var(--branco);
+    margin-top:28px;
+}
+
+.hero-title span{
+    display:block;
+    color:var(--azul-claro);
+}
+
+/* ── Headline: carrossel de diálogo ── */
+.hero-dialogue {
+  min-height: 72px; /* evita pulo de layout */
+}
+
+.hero-name {
+  font-family:var(--font-display);
+    font-size:clamp(2rem,3.8vw,3.4rem);
+    line-height:.95;
+    letter-spacing:.02em;
+    color:var(--branco);
+}
+
+/* Texto que vai ser animado pelo JS */
+.dialogue-text {
+  display: block;
+  position: relative;
+}
+
+/* Cursor piscante após o texto */
+.dialogue-text::after {
+  content: '|';
+  color: var(--azul-medio);
+  animation: blink 0.8s step-end infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Palavra de destaque em azul claro */
+.dialogue-text .highlight {
+  color: var(--azul-claro);
+  position: relative;
+  display: inline-block;
+}
+
+/* Linha de sublinhado animada sob highlight */
+.dialogue-text .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--azul-medio), var(--azul-claro));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underline-in 0.4s ease 0.2s forwards;
+}
+
+@keyframes underline-in {
+  to { transform: scaleX(1); }
+}
+
+/* ── Descrição ── */
+.hero-description{
+    font-family:var(--font-display);
+    font-size:clamp(1.7rem,2.2vw,2.2rem);
+    line-height:1;
+    color:rgba(245,245,240,.88);
+    letter-spacing:.02em;
+    opacity:0;
+    animation:fade-up .6s ease .5s forwards;
+}
+
+/* ── Botões ── */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+
+  opacity: 0;
+  animation: fade-up 0.6s ease 0.7s forwards;
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 2px; /* quase reto — hip hop não usa pill buttons */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ripple ao clicar */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.08);
+  transform: translateX(-110%);
+  transition: transform 0.4s ease;
+}
+.btn:hover::before {
+  transform: translateX(0);
+}
+
+/* Primário: azul sólido */
+.btn-primary {
+  background: var(--azul-medio);
+  color: var(--branco);
+  border: 1.5px solid var(--azul-medio);
+}
+
+.btn-primary:hover {
+  background: #2a7de0;
+  box-shadow: 0 0 24px rgba(62, 143, 232, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Secundário: contorno */
+.btn-secondary {
+  background: transparent;
+  color: var(--branco);
+  border: 1.5px solid rgba(245, 245, 240, 0.3);
+}
+
+.btn-secondary:hover {
+  border-color: var(--azul-claro);
+  color: var(--azul-claro);
+  transform: translateY(-2px);
+}
+
+/* ── Animação de entrada global ── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── RESPONSIVO ─── */
+
+/* Telas até 900px (Tablets e Desktops Pequenos) */
+@media (max-width: 900px) {
+  .desktop-menu {
+    display: none;
+  }
+  .menu-btn {
+    display: flex;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-top: calc(var(--header-h) + 20px);
+    padding-bottom: 60px;
+  }
+} /* <- Chave corrigida aqui! Ela estava faltando no seu código antigo */
+
+
+/* Telas até 768px (Smartphones) */
+@media (max-width: 768px) {
+
+  #hero {
+    /* Mantém a altura total na tela do celular para o background cobrir tudo */
+    min-height: 100vh; 
+    padding-top: calc(var(--header-h) + 40px);
+    padding-bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mantém o grid centralizado e ocupando o espaço total */
+  .hero-grid {
+    min-height: auto;
+    width: 100%;
+    padding: 0;
+  }
+
+  .hero-content {
+    margin: 0 auto;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    
+  }
+
+  /* AJUSTE CRUCIAL: A foto volta a ser o background total por baixo do menu */
+.hero-image {
+  position: absolute;
+  top: 0;             /* Força a imagem a começar exatamente no topo do Hero */
+  left: 0;
+  width: 100%;
+  height: 100vh;      /* Garante que o limite máximo seja exatamente a altura da tela */
+  z-index: 1;
+  opacity: 1;
+  overflow: hidden;   /* Corta qualquer sobra indesejada */
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  /* Mudamos para cover COM alinhamento no topo */
+  object-fit: cover;  
+  object-position: center top; /* O segredo sênior: o foco da foto fica travado no topo */
+  display: block;
+  opacity: 0.9;
+  filter: grayscale(8%) contrast(1.06) brightness(0.82);
+}
+  /* Overlay que protege o texto se misturando com o fundo escuro */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(to bottom, rgba(10,10,15,0.7) 0%, rgba(10,10,15,0.9) 100%);
+  }
+
+  /* Elemento decorativo ::before do hero ajustado para mobile */
+  #hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10,10,15,0.98),
+      rgba(10,10,15,0.55),
+      rgba(10,10,15,0.2)
+    );
+    z-index: 2;
+  }
+
+  /* Botões e Tipografia Minimalista no mobile */
+  .eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    justify-content: center;
+    padding-bottom: 280px;
+  }
+
+  .hero-buttons {
+    width: 100%;
+    gap: 12px;
+    justify-content: center;
+    flex-direction: column; /* Empilha os botões no mobile para melhor usabilidade (UX) */
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;       /* Ocupa a largura disponível respeitando o limite abaixo */
+    max-width: 200px;  /* Tamanho ideal e elegante para o dedão clicar no celular */
+  }
+
+  /* ======================================================
+       OVERLAY MAIS LEVE
+    ====================================================== */
+
+    #hero::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        z-index:2;
+        background:
+        linear-gradient(
+        to top,
+        rgba(6,9,18,.82) 0%,
+        rgba(6,9,18,.38) 45%,
+        rgba(6,9,18,.05) 100%
+        );
+    }
+
+    .hero-overlay{
+        position:absolute;
+        inset:0;
+        z-index:2;
+        background:
+        linear-gradient(
+        180deg,
+        rgba(5,8,18,.15),
+        rgba(5,8,18,.22),
+        rgba(5,8,18,.40)
+        );
+    }
+
+    /* ======================================================
+       TITULO FIXO
+    ====================================================== */
+
+    .hero-title{
+        font-size:clamp(2.8rem,11vw,4.3rem);
+        line-height:.92;
+        margin-top:10px;
+        letter-spacing:.015em;
+    }
+
+    .hero-title span{
+        margin-top:2px;
+    }
+
+    /* ======================================================
+       HEADLINE
+    ====================================================== */
+
+    .hero-dialogue{
+        min-height:70px;
+    }
+
+    .hero-name{
+        font-size:clamp(1.55rem,7vw,2.25rem);
+        line-height:1.05;
+        max-width:320px;
+        margin:auto;
+
+    }
+
+    /* ======================================================
+       DESCRIÇÃO
+    ====================================================== */
+
+    .hero-description{
+        max-width:320px;
+        margin:auto;
+        font-size:1rem;
+        line-height:1.55;
+        opacity:.92;
+    }
+
+
+
+
+}
+
+
+/* ── Respeitar preferência de movimento reduzido ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
