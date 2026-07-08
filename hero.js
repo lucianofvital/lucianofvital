@@ -227,3 +227,202 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+
+
+
+
+
+
+
+/* ============================================
+   SHOWCASE GSAP — Interações da seção interativa
+   ============================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  // Verifica se o GSAP está carregado na página
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const titles = gsap.utils.toArray(".showcase-left-content");
+  const cards = gsap.utils.toArray(".showcase-card");
+
+  if (!titles.length || !cards.length) return;
+
+  const mm = gsap.matchMedia();
+
+  // ─── COMPORTAMENTO DESKTOP ───
+  mm.add("(min-width: 769px)", () => {
+    // Fixa a coluna da direita enquanto a esquerda rola
+    ScrollTrigger.create({
+      trigger: ".showcase-wrapper",
+      start: "top top",
+      end: "bottom bottom",
+      pin: ".showcase-right",
+      pinSpacing: false
+    });
+
+    titles.forEach((title, i) => {
+      const card = cards[i];
+      if (i === 0) return; // O primeiro já vem aberto no CSS
+
+      ScrollTrigger.create({
+        trigger: title,
+        start: "top 55%",
+        end: "bottom top",
+        onEnter: () => gsap.to(card, { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 0.6, ease: "power2.out" }),
+        onLeaveBack: () => gsap.to(card, { clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)", duration: 0.6, ease: "power2.inOut" }),
+        invalidateOnRefresh: true,
+      });
+    });
+  });
+
+  // ─── COMPORTAMENTO MOBILE ───
+  // Requisito: Não rolar o texto, texto muda simultâneo à imagem
+  mm.add("(max-width: 768px)", () => {
+    
+    // Fixa a seção inteira na tela e atrela a animação ao scroll (scrub)
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".showcase-wrapper",
+        start: "top top",
+        end: "+=250%", // Define o espaço virtual de rolagem (tempo que a seção fica presa)
+        pin: true,
+        scrub: 1, // Suaviza a troca
+      }
+    });
+
+    // Reset de segurança para o primeiro item
+    gsap.set(titles[0], { opacity: 1, y: 0 });
+    gsap.set(cards[0], { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" });
+
+    // Constrói a linha do tempo (timeline)
+    titles.forEach((title, i) => {
+      if (i === 0) return;
+
+      const card = cards[i];
+      const prevTitle = titles[i - 1];
+
+      // Fade out do texto anterior -> Fade In do texto atual -> Clip in da imagem atual
+      tl.to(prevTitle, { opacity: 0, y: -15, duration: 0.4 }, `step${i}`)
+        .to(title, { opacity: 1, y: 0, duration: 0.4 }, `step${i}`)
+        .to(card, { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 0.6, ease: "power1.inOut" }, `step${i}`);
+    });
+  });
+});
+
+
+
+
+
+
+
+
+/* ============================================
+   FAQ JS — Lógica do Accordion com GSAP (Exclusivo)
+   ============================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const faqItems = document.querySelectorAll(".faq-item");
+  
+  if (!faqItems.length || typeof gsap === 'undefined') return;
+
+  // Variável para rastrear qual item está aberto no momento
+  let currentOpenItem = null;
+
+  faqItems.forEach((item) => {
+    const title = item.querySelector(".faq-title");
+    const plusBlock = item.querySelector(".plus-block");
+    const verticalLine = item.querySelector(".plus-line.vertical");
+    const content = item.querySelector(".faq-content");
+    const trackProgress = item.querySelector(".track-progress");
+
+    // Criamos uma função de "Fechar" atrelada ao próprio item
+    item.closeFaq = () => {
+      gsap.to(content, { height: 0, duration: 0.5, ease: "power3.inOut", overwrite: "auto" });
+      gsap.to(verticalLine, { rotation: 90, duration: 0.5, ease: "power3.inOut", overwrite: "auto" });
+      
+      // Se o mouse não estiver mais em cima ao fechar, recolhe a barra de progresso
+      if (!item.matches(':hover')) {
+        gsap.to(trackProgress, { width: "0%", duration: 0.5, ease: "power3.inOut", overwrite: "auto" });
+      }
+      
+      item.classList.remove('is-open');
+    };
+
+    // Criamos uma função de "Abrir" atrelada ao próprio item
+    item.openFaq = () => {
+      gsap.to(content, { height: "auto", duration: 0.6, ease: "power3.inOut", overwrite: "auto" });
+      gsap.to(verticalLine, { rotation: 0, duration: 0.6, ease: "power3.inOut", overwrite: "auto" });
+      gsap.to(trackProgress, { width: "100%", duration: 0.4, overwrite: "auto" });
+      
+      item.classList.add('is-open');
+    };
+
+    // --- Interação de Hover (Passar o mouse) ---
+    item.addEventListener("mouseenter", () => {
+      gsap.to(title, { x: 16, duration: 0.6, ease: "power3.out", overwrite: "auto" });
+      gsap.to(plusBlock, { x: -10, duration: 0.6, ease: "power3.out", overwrite: "auto" });
+      gsap.to(trackProgress, { width: "100%", duration: 0.6, ease: "power3.inOut", overwrite: "auto" });
+    });
+
+    item.addEventListener("mouseleave", () => {
+      gsap.to(title, { x: 0, duration: 0.5, ease: "power3.out", overwrite: "auto" });
+      gsap.to(plusBlock, { x: 0, duration: 0.5, ease: "power3.out", overwrite: "auto" });
+
+      if (!item.classList.contains('is-open')) {
+        gsap.to(trackProgress, { width: "0%", duration: 0.5, ease: "power3.inOut", overwrite: "auto" });
+      }
+    });
+
+    // --- Interação de Clique ---
+    item.addEventListener("click", () => {
+      const isOpen = item.classList.contains('is-open');
+
+      if (isOpen) {
+        // Se clicar no que já está aberto, ele apenas fecha.
+        item.closeFaq();
+        currentOpenItem = null;
+      } else {
+        // Se clicar em um fechado, primeiro fecha o atual (se existir algum)
+        if (currentOpenItem && currentOpenItem !== item) {
+          currentOpenItem.closeFaq();
+        }
+        
+        // Abre o item clicado e o define como o atual aberto
+        item.openFaq();
+        currentOpenItem = item;
+      }
+    });
+  });
+});
+
+
+
+
+
+/* ============================================
+   PRE-FOOTER CTA — Efeito de surgimento no Scroll
+   ============================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const preFooterCta = document.querySelector('.pre-footer-cta');
+  
+  if (!preFooterCta) return;
+
+  // IntersectionObserver para revelar o CTA quando ele chegar na tela
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target); // Para a animação acontecer só uma vez
+      }
+    });
+  }, { 
+    root: null, 
+    rootMargin: '0px 0px -15%', // Ativa um pouco antes de chegar ao fim
+    threshold: 0.1 
+  });
+
+  observer.observe(preFooterCta);
+});
