@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Luciano F Vital | Web Designer, Interface e Experiências Digitais</title>
+
+    <meta name="description" content="Portfólio de Luciano F Vital, web designer e desenvolvedor criativo em Recife PE. Unindo design premium, código estruturado e uma sensibilidade poética para elevar a presença digital do seu negócio." />
+    <meta name="keywords" content="web designer Recife, designer gráfico Recife, criação de sites Recife, landing page Recife, portfólio web designer, freelancer web designer Recife, identidade visual Recife, desenvolvedor criativo, Luciano F Vital" />
+    <meta name="author" content="Luciano F Vital" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="theme-color" content="#0b0f19" />
+
+    <link rel="canonical" href="https://www.lucianofvital.com.br/" />
+    <link rel="icon" href="foto00.png" type="image/png" />
+    <link rel="shortcut icon" href="foto00.png" />
+    <link rel="apple-touch-icon" href="foto00.png" />
+
+    <!-- Open Graph / Redes Sociais -->
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Luciano F Vital" />
+    <meta property="og:title" content="Luciano F Vital | Experiências Digitais e Design Premium" />
+    <meta property="og:description" content="Criação de sites, landing pages e identidade visual com foco em conversão e autenticidade. Transforme sua marca com design e código bem pensados." />
+    <meta property="og:url" content="https://www.lucianofvital.com.br/" />
+    <meta property="og:image" content="https://www.lucianofvital.com.br/assets/img/og-image.jpg" />
+    <meta property="og:image:secure_url" content="https://www.lucianofvital.com.br/assets/img/og-image.jpg" />
+    <meta property="og:image:alt" content="Portfólio de Luciano F Vital, web designer e designer gráfico em Recife" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Luciano F Vital | Web Designer e Design Gráfico" />
+    <meta name="twitter:description" content="Portfólio de Luciano F Vital com criação de sites, landing pages, identidade visual e design digital para negócios que buscam autoridade." />
+    <meta name="twitter:image" content="https://www.lucianofvital.com.br/assets/img/og-image.jpg" />
+
+    <meta name="geo.region" content="BR-PE" />
+    <meta name="geo.placename" content="Recife, Pernambuco" />
+    <meta name="language" content="pt-BR" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Estilos Unificados -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="botao.css" />
+
+    <!-- Fontes e Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Luciano F Vital",
+      "url": "https://www.lucianofvital.com.br/",
+      "image": "https://www.lucianofvital.com.br/assets/img/og-image.jpg",
+      "jobTitle": "Web Designer e Designer Gráfico",
+      "description": "Web designer e designer gráfico em Recife PE, especializado em criação de sites, landing pages, identidade visual e design digital.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Recife",
+        "addressRegion": "PE",
+        "addressCountry": "BR"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Brasil"
+      },
+      "sameAs": [
+        "https://www.instagram.com/lucianofvital",
+        "https://github.com/lucianofvital",
+        "https://www.linkedin.com/in/lucianofvital"
+      ],
+      "knowsAbout": [
+        "Web Design",
+        "Design Gráfico",
+        "Criação de Sites",
+        "Landing Pages",
+        "Identidade Visual",
+        "Tailwind CSS",
+        "GSAP"
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Premium Noise Overlay para textura de fundo -->
+    <div class="premium-noise" aria-hidden="true"></div>
+
+    <!-- TELA DE INTRODUÇÃO (Efeito abrindo a página) -->
+    <div id="intro-screen">
+        <div class="intro-content">
+            <div class="intro-logo">Luciano F Vital</div>
+            <div class="intro-progress-bar"><div class="intro-progress-fill"></div></div>
+        </div>
+    </div>
+
+    <header id="header">
+        <div class="header-container">
+            <a href="#" class="logo" data-magnetic>Luciano F Vital</a>
+            
+            <nav class="desktop-menu">
+                <a href="#servicos" data-magnetic>Especialidades</a>
+                <a href="#projetos" data-magnetic>Portfólio</a>
+                <a href="#faq" data-magnetic>Dúvidas</a>
+                <a href="#contato" data-magnetic>Contato</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="menu-btn" aria-label="Abrir menu mobile">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" aria-label="Menu mobile">
+        <a href="#servicos">Especialidades</a>
+        <a href="#projetos">Portfólio</a>
+        <a href="#faq">Dúvidas</a>
+        <a href="#contato">Contato</a>
+    </div>
+
+    <section id="hero">
+        <div class="hero-image" aria-hidden="true">
+            <img src="img/foto00.png" alt="Luciano Vital - Desenvolvedor e Designer">
+        </div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="eyebrow gsap-reveal">Design Gráfico & Web Development</span>
+                <h1 class="hero-title gsap-reveal">
+                    Oi, Sou <span class="text-gradient">Luciano Vital.</span>
+                </h1>
+                <div class="hero-dialogue gsap-reveal">
+                    <h2 class="hero-name">
+                        <span class="dialogue-text" aria-live="polite"></span>
+                    </h2>
+                </div>
+                <p class="hero-description gsap-reveal">Transformo ideias em experiências digitais autênticas..</p>
+                <div class="hero-buttons gsap-reveal">
+                    <a href="https://wa.me/5581995923434" target="_blank" rel="noreferrer" class="btn btn-primary" data-magnetic>Construir juntos!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO: SERVIÇOS / EXPERTISE SCROLL ANIMATION -->
+    <section id="servicos" class="expertises-section flex__col">
+      <div class="list__item flex">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Design de Interfaces Premium">
+        <div class="list__item__title">Design</div>
+        <div class="list__item__titleOutline">Design</div>
+        <ul class="list__item__infos flex">
+          <li><span>FOCO</span> INTERFACES PREMIUM</li>
+          <li><span>ENTREGA</span> ESTÉTICA & FUNÇÃO</li>
+          <li><span>TIPO</span> UI/UX DESIGN</li>
+        </ul>
+        <div class="list__item__type">WEBSITE</div>
+        <div class="list__item__project">PORTFÓLIO</div>
+      </div>
+      
+      <div class="list__item flex">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Foco em Conversão">
+        <div class="list__item__title">Código</div>
+        <div class="list__item__titleOutline">Código</div>
+        <ul class="list__item__infos flex">
+          <li><span>FOCO</span> PERFORMANCE REAL</li>
+          <li><span>ENTREGA</span> EXPERIÊNCIA FLUIDA</li>
+          <li><span>TIPO</span> DESENVOLVIMENTO</li>
+        </ul>
+        <div class="list__item__type">LANDING PAGE</div>
+        <div class="list__item__project">RESULTADOS</div>
+      </div>
+      
+      <div class="list__item flex">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="Posicionamento Autêntico">
+        <div class="list__item__title">Essência</div>
+        <div class="list__item__titleOutline">Essência</div>
+        <ul class="list__item__infos flex">
+          <li><span>FOCO</span> POSICIONAMENTO</li>
+          <li><span>ENTREGA</span> AUTENTICIDADE</li>
+          <li><span>TIPO</span> IDENTIDADE VISUAL</li>
+        </ul>
+        <div class="list__item__type">BRANDING</div>
+        <div class="list__item__project">MARCAS</div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO: PORTFÓLIO / GALERIA -->
+    <section id="projetos" class="portfolio-section" aria-labelledby="portfolio-main-title">
+      <div class="container">
+        <div class="portfolio-header gsap-fade-up">
+          <div class="section-tag">
+            <span class="eyebrow2">Meu Trabalho</span>
+          </div>
+          <h2 id="portfolio-main-title">Projetos com <em>Propósito</em></h2>
+          <p class="portfolio-desc">Cada linha de código e cada pixel são pensados para gerar impacto. Conheça as experiências digitais que ajudei a construir para elevar a presença dessas marcas.</p>
+        </div>
+        
+        <div class="portfolio-grid" id="portfolio-grid">
+          <!-- Os cards são gerados dinamicamente via JS para manter o HTML limpo -->
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq-section" aria-labelledby="faq-title">
+      <div class="faq-parallax-bg" aria-hidden="true"></div>
+      <div class="container relative-z">
+        <div class="section-tag gsap-fade-up">
+            <span class="eyebrow2">Transparência & Processo</span>
+        </div>
+        <div class="faq-inner">
+          <div class="faq-header">
+            <div class="overflow-mask"><h2 class="text-item">Perguntas</h2></div>
+            <div class="overflow-mask"><h2 class="text-item text-muted text-blue">Frequentes</h2></div>
+          </div>
+          <div class="faq-container">
+            <div class="faq-item">
+              <div class="faq-top-wrap">
+                <h3 class="faq-title">1. Quais serviços você oferece exatamente?</h3>
+                <div class="plus-block">
+                  <div class="plus-line horizontal"></div>
+                  <div class="plus-line vertical"></div>
+                </div>
+              </div>
+              <div class="faq-content">
+                <p class="faq-answer">Como designer gráfico e desenvolvedor front-end, eu construo soluções de ponta a ponta. Isso inclui o design de interfaces (UI/UX), o desenvolvimento de landing pages focadas em conversão, sites institucionais dinâmicos e identidades visuais que capturam a essência da sua marca.</p>
+              </div>
+              <div class="faq-track"><div class="track-line"></div><div class="track-progress"></div></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-top-wrap">
+                <h3 class="faq-title">2. Como funciona o acompanhamento do projeto?</h3>
+                <div class="plus-block">
+                  <div class="plus-line horizontal"></div>
+                  <div class="plus-line vertical"></div>
+                </div>
+              </div>
+              <div class="faq-content">
+                <p class="faq-answer">Sou extremamente metódico com a organização. Gerencio todo o fluxo de trabalho (usando ferramentas como Notion e Todoist) para garantir que você saiba exatamente em qual etapa estamos. Um site institucional ou landing page geralmente leva de 4 a 6 semanas, sempre com comunicação clara e sem surpresas.</p>
+              </div>
+              <div class="faq-track"><div class="track-line"></div><div class="track-progress"></div></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-top-wrap">
+                <h3 class="faq-title">3. Você atende clientes fora de Recife?</h3>
+                <div class="plus-block">
+                  <div class="plus-line horizontal"></div>
+                  <div class="plus-line vertical"></div>
+                </div>
+              </div>
+              <div class="faq-content">
+                <p class="faq-answer">Com toda certeza. Minhas raízes e minha cultura estão em Pernambuco, mas o ambiente digital não tem fronteiras. Atendo clientes de todo o Brasil e do exterior através de plataformas freelancers e contato direto, sempre entregando a mesma dedicação e qualidade técnica.</p>
+              </div>
+              <div class="faq-track"><div class="track-line"></div><div class="track-progress"></div></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-top-wrap">
+                <h3 class="faq-title">4. Como damos o primeiro passo?</h3>
+                <div class="plus-block">
+                  <div class="plus-line horizontal"></div>
+                  <div class="plus-line vertical"></div>
+                </div>
+              </div>
+              <div class="faq-content">
+                <p class="faq-answer">É simples: me mande uma mensagem pelo WhatsApp. Adoro entender a história por trás de cada negócio antes de desenhar qualquer tela. Vamos bater um papo, tomar um café virtual e alinhar uma proposta que faça sentido para o momento da sua empresa.</p>
+              </div>
+              <div class="faq-track"><div class="track-line"></div><div class="track-progress"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section-divider section-divider--faq" aria-hidden="true"></div>
+    </section>
+
+    <div class="new-footer-wrapper" id="contato">
+      <div class="pre-footer-cta gsap-blur-reveal">
+        <span class="cta-tag">O Próximo Passo</span>
+        <h2>Sua marca merece ser vista com respeito.</h2>
+        <p>Se você está pronto para construir uma presença digital robusta, autêntica e que transmita o real valor do seu trabalho, o momento é agora. Direto ao ponto, com foco no resultado.</p>
+        <a href="https://wa.me/5581995923434" class="btn-whatsapp" target="_blank" rel="noreferrer" data-magnetic>
+          <ion-icon name="logo-whatsapp"></ion-icon> Falar com Luciano
+        </a>
+      </div>
+
+      <footer class="new-site-footer">
+        <div class="waves">
+          <div class="wave" id="wave1"></div>
+          <div class="wave" id="wave2"></div>
+          <div class="wave" id="wave3"></div>
+          <div class="wave" id="wave4"></div>
+        </div>
+        <ul class="social_icon">
+          <li><a href="https://github.com/lucianofvital" target="_blank" rel="noreferrer" aria-label="GitHub"><ion-icon name="logo-github"></ion-icon></a></li>
+          <li><a href="https://instagram.com/lucianofvital" target="_blank" rel="noreferrer" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a></li>
+          <li><a href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+        </ul>
+        <p>&copy; 2026 Luciano F Vital | Feito com código e alma em Recife, PE</p>
+      </footer>
+    </div>
+
+    <!-- MODAL PREMIUM DO PORTFÓLIO -->
+    <div id="project-modal" class="project-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visualização do Projeto">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+          
+          <!-- Wrapper para abrigar o balão e o botão de fechar -->
+          <div class="modal-close-wrapper">
+              <div class="modal-balloon">
+                  Voltar <ion-icon name="arrow-forward-outline"></ion-icon>
+              </div>
+              <button class="modal-close" aria-label="Fechar visualização" tabindex="0">
+                  <ion-icon name="close-outline"></ion-icon>
+              </button>
+          </div>
+
+          <div class="modal-loader">
+              <div class="modal-spinner"></div>
+          </div>
+          <iframe id="project-iframe" src="" frameborder="0" title="Site do projeto em tela cheia" tabindex="0"></iframe>
+      </div>
+    </div>
+    
+  <!-- INSERÇÃO DOS BOTÕES FLUTUANTES DIRETAMENTE VIA BOTAO.JS -->
+  <div id="vf-floating-buttons"></div>
+
+  <!-- INSERÇÃO DOS BOTÕES FLUTUANTES -->
+  <div id="vf-floating-buttons">
+    
+    <!-- Grupo: Instagram + GitHub (canto inferior esquerdo) -->
+    <div class="social-float">
+      <a href="https://github.com/lucianofvital" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://instagram.com/lucianofvital" target="_blank" rel="noreferrer">Instagram</a>
+    </div>
+
+    <!-- Botão WhatsApp (canto inferior direito) -->
+    <a href="https://wa.me/5581995923434" class="whatsapp-float" target="_blank" rel="noreferrer">
+      Falar com Luciano
+    </a>
+
+  </div>
+
+  <!-- GSAP e Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <script src="script.js"></script>
+  <script src="botao.js"></script>
+  
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
