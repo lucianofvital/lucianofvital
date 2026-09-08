@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VitalLab — Laboratório Criativo Open Source</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#09090B',
+                        darkCard: '#121214',
+                        lightBg: '#FAFAFA',
+                        lightCard: '#FFFFFF',
+                        brand: '#3B82F6',
+                        brandHover: '#2563EB',
+                    },
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] },
+                    boxShadow: {
+                        'premium': '0 4px 24px -8px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.03)',
+                        'premium-dark': '0 4px 24px -8px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.2)',
+                        'glow': '0 0 24px rgba(59, 130, 246, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <style>
+        body { -webkit-tap-highlight-color: transparent; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+        body::before { content: ''; position: fixed; inset: 0; z-index: -1; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"); opacity: 0.6; pointer-events: none; }
+        .dark body::before { opacity: 0.3; }
+        
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #3f3f46; }
+        
+        .input-premium { @apply w-full bg-white dark:bg-[#18181B] border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 font-medium rounded-2xl p-3 text-sm outline-none transition-all duration-300 shadow-sm focus:border-brand focus:ring-4 focus:ring-brand/10 dark:focus:ring-brand/20; }
+        .input-error { @apply border-red-500 focus:border-red-500 focus:ring-red-500/20; }
+        .btn-primary { @apply relative flex items-center justify-center gap-2 bg-brand hover:bg-brandHover text-white font-bold rounded-2xl p-4 text-sm transition-all duration-300 w-full shadow-lg shadow-brand/20 active:scale-[0.97] disabled:opacity-50; }
+        .btn-secondary { @apply relative flex items-center justify-center gap-2 bg-white dark:bg-[#18181B] border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-900 dark:text-white font-bold rounded-2xl p-4 text-sm transition-all duration-300 w-full active:scale-[0.97]; }
+        
+        /* Zine Visual Editor */
+        .zine-preview-box { aspect-ratio: 1 / 1.414; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); position: relative; overflow: hidden; width: 100%; max-width: 320px; margin: 0 auto; }
+        .zine-preview-img { position: absolute; transform-origin: top left; pointer-events: none; }
+        .zine-preview-text { position: absolute; inset: 20px; word-wrap: break-word; pointer-events: none; z-index: 10; }
+        
+        /* Web2App Mockup */
+        .mockup-phone { width: 260px; height: 520px; border: 12px solid #1f2937; border-radius: 40px; position: relative; overflow: hidden; background: #fff; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3); margin: 0 auto; }
+        .dark .mockup-phone { border-color: #000; }
+        .mockup-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1f2937; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; z-index: 20; }
+        .dark .mockup-notch { background: #000; }
+        .mockup-header { height: 60px; display: flex; align-items: flex-end; padding: 12px 16px; font-weight: bold; color: white; z-index: 10; position: relative; transition: background 0.3s; }
+        .mockup-splash { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 15; transition: background 0.3s; }
+        .mockup-splash img { width: 80px; height: 80px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .mockup-content { padding: 20px; font-size: 12px; color: #666; text-align: center; }
+
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: #3B82F6; cursor: pointer; margin-top: -6px; box-shadow: 0 0 10px rgba(59,130,246,0.5); }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #e5e7eb; border-radius: 2px; }
+        .dark input[type=range]::-webkit-slider-runnable-track { background: #374151; }
+
+        #toast-container { position: fixed; bottom: 80px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        @media (min-width: 768px) { #toast-container { bottom: 24px; } }
+        .zine-tab.active { @apply bg-indigo-500 text-white border-indigo-500; }
+    </style>
+</head>
+<body class="bg-lightBg dark:bg-darkBg text-neutral-900 dark:text-neutral-100 font-sans min-h-screen flex flex-col md:flex-row transition-colors duration-500">
+
+    <!-- Sidebar Desktop -->
+    <aside class="hidden md:flex flex-col w-72 border-r border-neutral-200/60 dark:border-white/5 p-6 bg-lightCard/60 dark:bg-darkCard/60 backdrop-blur-2xl shrink-0 h-screen sticky top-0 z-40">
+        <div class="flex items-center gap-4 mb-12 px-2 cursor-pointer">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-blue-700 flex items-center justify-center text-white font-bold text-lg shadow-glow">V</div>
+            <div><h1 class="font-extrabold tracking-tight text-sm">VITAL LAB</h1><p class="text-[11px] font-semibold text-neutral-500">Creative Engine</p></div>
+        </div>
+        <nav class="space-y-2 flex-1">
+            <a href="#dashboard" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="layout-dashboard" class="w-4.5 h-4.5"></i> Dashboard</a>
+            <div class="pt-8 pb-3 text-[10px] font-bold uppercase tracking-widest text-neutral-400 px-4">Design & Web</div>
+            <a href="#web2app" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="smartphone" class="w-4.5 h-4.5"></i> Web2App Lab</a>
+            <a href="#zine-creator" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="book-open" class="w-4.5 h-4.5"></i> Zine Creator Pro</a>
+            <a href="#qrcode" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="qr-code" class="w-4.5 h-4.5"></i> QR Code Pro</a>
+        </nav>
+        <div class="pt-6 border-t border-neutral-200/60 dark:border-white/5 flex items-center justify-between">
+            <span class="text-xs font-bold text-neutral-500">Tema</span>
+            <button class="theme-toggle p-2.5 rounded-xl bg-black/5 dark:bg-white/5 transition-colors"><i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i><i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i></button>
+        </div>
+    </aside>
+
+    <!-- Header Mobile -->
+    <header class="md:hidden flex items-center justify-between px-5 py-4 bg-lightCard/70 dark:bg-darkCard/70 backdrop-blur-2xl border-b border-neutral-200/60 dark:border-white/5 sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-brand to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-glow">V</div>
+            <span class="font-extrabold text-sm tracking-tight">VITAL LAB</span>
+        </div>
+        <button class="theme-toggle p-2 rounded-xl bg-black/5 dark:bg-white/5"><i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i><i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i></button>
+    </header>
+
+    <main class="flex-1 w-full min-h-screen relative overflow-y-auto" id="main-scroll">
+        <div class="max-w-6xl mx-auto p-4 pb-32 md:p-8 md:pb-12" id="app-view"></div>
+    </main>
+
+    <!-- Bottom Bar Mobile -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-lightCard/90 dark:bg-darkCard/90 backdrop-blur-2xl border-t border-neutral-200/60 dark:border-white/5 px-6 py-3 flex items-center justify-around z-50">
+        <a href="#dashboard" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400"><i data-lucide="layout-dashboard" class="w-5 h-5"></i></a>
+        <a href="#web2app" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400"><i data-lucide="smartphone" class="w-5 h-5"></i></a>
+        <a href="#zine-creator" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400"><i data-lucide="book-open" class="w-5 h-5"></i></a>
+        <a href="#qrcode" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400"><i data-lucide="qr-code" class="w-5 h-5"></i></a>
+    </nav>
+
+    <div id="toast-container"></div>
+
+    <script>
+        // =================================
+        // CORE & UTILS
+        // =================================
+        const AppState = { currentRoute: '', qrCodeInstance: null, zineData: [], zineCurrentPage: 0 };
+        
+        const ThemeManager = {
+            init() {
+                const isDark = localStorage.getItem('vital_theme') !== 'light';
+                this.setTheme(isDark);
+                document.querySelectorAll('.theme-toggle').forEach(btn => btn.addEventListener('click', () => this.toggle()));
+            },
+            toggle() { this.setTheme(!document.documentElement.classList.contains('dark')); },
+            setTheme(isDark) {
+                if(isDark) { document.documentElement.classList.add('dark'); localStorage.setItem('vital_theme', 'dark'); }
+                else { document.documentElement.classList.remove('dark'); localStorage.setItem('vital_theme', 'light'); }
+            }
+        };
+
+        const ToastManager = {
+            show(msg, type = 'info') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                const bg = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
+                toast.className = `flex items-center text-white px-4 py-3 rounded-2xl shadow-xl transition-all duration-300 translate-y-10 opacity-0 ${bg}`;
+                toast.innerHTML = `<span class="text-sm font-bold">${msg}</span>`;
+                container.appendChild(toast);
+                requestAnimationFrame(() => toast.classList.remove('translate-y-10', 'opacity-0'));
+                setTimeout(() => { toast.classList.add('translate-y-10', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
+            }
+        };
+
+        const DownloadEngine = {
+            download(blob, filename) {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = filename;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                ToastManager.show('Download concluído!', 'success');
+            }
+        };
+
+        const ImageOptimizer = {
+            async compressBase64(base64, maxW = 800) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = base64;
+                    img.onload = () => {
+                        if(img.width <= maxW) return resolve(base64);
+                        const scale = maxW / img.width;
+                        const canvas = document.createElement('canvas');
+                        canvas.width = maxW; canvas.height = img.height * scale;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.8));
+                    };
+                });
+            }
+        };
+
+        // =================================
+        // ROUTER & DASHBOARD
+        // =================================
+        const Router = {
+            init() { window.addEventListener('hashchange', () => this.navigate()); this.navigate(); },
+            navigate() {
+                const hash = window.location.hash || '#dashboard';
+                if(AppState.currentRoute === hash) return;
+                AppState.currentRoute = hash;
+                const view = document.getElementById('app-view');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+                    if (link.getAttribute('href') === hash) link.classList.add('text-brand');
+                    else link.classList.remove('text-brand');
+                });
+
+                gsap.to(view, { opacity: 0, y: -10, duration: 0.2, onComplete: () => {
+                    if (hash === '#qrcode') { QRCodeTool.render(view); QRCodeTool.init(); }
+                    else if (hash === '#zine-creator') { ZineTool.render(view); ZineTool.init(); }
+                    else if (hash === '#web2app') { Web2AppTool.render(view); Web2AppTool.init(); }
+                    else { Dashboard.render(view); }
+                    lucide.createIcons();
+                    gsap.fromTo(view, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3 });
+                }});
+            }
+        };
+
+        const Dashboard = {
+            render(container) {
+                container.innerHTML = `
+                    <div class="mb-14 mt-6">
+                        <div class="inline-flex gap-2 px-4 py-2 rounded-full bg-brand/10 text-brand text-[10px] font-extrabold tracking-widest uppercase mb-6 shadow-glow"><i data-lucide="zap" class="w-3.5 h-3.5"></i> Client-Side Architecture</div>
+                        <h2 class="text-4xl md:text-5xl font-extrabold mb-5">Laboratório Criativo</h2>
+                        <p class="text-neutral-500 text-lg max-w-2xl font-medium">Ferramentas essenciais para criadores de conteúdo e designers. Workflow profissional direto no navegador.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <a href="#web2app" class="block bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 hover:-translate-y-1 transition-transform">
+                            <i data-lucide="smartphone" class="w-8 h-8 text-emerald-500 mb-4"></i>
+                            <h3 class="font-bold text-lg mb-2">Web2App Lab</h3>
+                            <p class="text-sm text-neutral-500">Transforme sites/PWAs em um pacote TWA nativo para Android (Bubblewrap).</p>
+                        </a>
+                        <a href="#zine-creator" class="block bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 hover:-translate-y-1 transition-transform">
+                            <i data-lucide="book-open" class="w-8 h-8 text-indigo-500 mb-4"></i>
+                            <h3 class="font-bold text-lg mb-2">Zine Creator Pro</h3>
+                            <p class="text-sm text-neutral-500">Gere livretes formatados para impressão em folha A4 com imposição automática.</p>
+                        </a>
+                        <a href="#qrcode" class="block bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 hover:-translate-y-1 transition-transform">
+                            <i data-lucide="qr-code" class="w-8 h-8 text-brand mb-4"></i>
+                            <h3 class="font-bold text-lg mb-2">QR Code Pro</h3>
+                            <p class="text-sm text-neutral-500">QR Codes vetoriais complexos com logo, degradês e altos níveis de correção.</p>
+                        </a>
+                    </div>
+                `;
+            }
+        };
+
+        // =================================
+        // TOOL: WEB2APP LAB (NOVO)
+        // =================================
+        const Web2AppTool = {
+            state: {
+                url: '', name: '', shortName: '', pkg: '', desc: '', author: 'Vital Designer', 
+                iconB64: null, themeColor: '#3B82F6', bgColor: '#FFFFFF',
+                display: 'standalone', orientation: 'portrait', sha256: ''
+            },
+            
+            render(container) {
+                container.innerHTML = `
+                    <div class="mb-8 flex justify-between items-center">
+                        <h2 class="text-3xl font-extrabold flex items-center gap-3"><i data-lucide="smartphone" class="text-emerald-500"></i> Web2App Lab</h2>
+                        <button id="w2a-reset" class="text-xs text-red-500 font-bold border border-red-500/30 px-3 py-1.5 rounded hover:bg-red-500 hover:text-white">Novo Projeto</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-7 space-y-6">
+                            <!-- Etapa 1 -->
+                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
+                                <h3 class="text-lg font-bold mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">01. Informações do Aplicativo</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-neutral-500 mb-1">URL do Site (PWA)</label>
+                                        <input type="url" id="w2a-url" class="input-premium" placeholder="https://seudominio.com.br">
+                                        <p id="w2a-url-error" class="text-red-500 text-xs mt-1 hidden">URL inválida. Inclua https://</p>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Nome</label><input type="text" id="w2a-name" class="input-premium" placeholder="Meu App"></div>
+                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Nome Curto</label><input type="text" id="w2a-short" class="input-premium" placeholder="App"></div>
+                                    </div>
+                                    <div>
+                                        <label class="flex justify-between items-center text-xs font-bold uppercase text-neutral-500 mb-1">
+                                            Package Name <button id="w2a-btn-pkg" class="text-emerald-500 hover:underline lowercase">Gerar Automático</button>
+                                        </label>
+                                        <input type="text" id="w2a-pkg" class="input-premium" placeholder="com.seudominio.app">
+                                        <p id="w2a-pkg-error" class="text-red-500 text-xs mt-1 hidden">Formato inválido. Use formato reverso de domínio (ex: com.app.site)</p>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Autor</label><input type="text" id="w2a-author" class="input-premium" placeholder="Vital Designer"></div>
+                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Descrição</label><input type="text" id="w2a-desc" class="input-premium" placeholder="Aplicativo Web"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Etapa 2 -->
+                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
+                                <h3 class="text-lg font-bold mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">02. Aparência</h3>
+                                <div class="space-y-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Ícone (512x512 rec.)</label>
+                                            <label class="flex items-center justify-center h-12 w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl cursor-pointer hover:opacity-80">
+                                                <i data-lucide="upload" class="w-4 h-4 mr-2"></i> Enviar Logo
+                                                <input type="file" id="w2a-icon" accept="image/png, image/jpeg, image/webp" class="hidden">
+                                            </label>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Cor Topo</label><input type="color" id="w2a-theme" value="#3B82F6" class="h-12 w-full rounded-xl cursor-pointer"></div>
+                                            <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Cor Splash</label><input type="color" id="w2a-bg" value="#FFFFFF" class="h-12 w-full rounded-xl cursor-pointer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Orientação</label><select id="w2a-orientation" class="input-premium py-2"><option value="portrait">Retrato (Portrait)</option><option value="landscape">Paisagem (Landscape)</option><option value="any">Qualquer</option></select></div>
+                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Exibição</label><select id="w2a-display" class="input-premium py-2"><option value="standalone">Standalone (App nativo)</option><option value="fullscreen">Fullscreen</option><option value="minimal-ui">Minimal UI</option></select></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Etapa 3 -->
+                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
+                                <h3 class="text-lg font-bold mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">03. Configuração TWA / Android</h3>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Digital Asset Links (SHA-256)</label>
+                                    <input type="text" id="w2a-sha" class="input-premium font-mono text-xs" placeholder="Ex: FA:2A:B5:...">
+                                    <p class="text-xs text-neutral-500 mt-2">Você pode gerar o projeto sem o SHA-256 e adicionar o <code>assetlinks.json</code> ao seu site futuramente após assinar o app.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Coluna Direita: Preview & Checklist -->
+                        <div class="lg:col-span-5 flex flex-col gap-6">
+                            
+                            <!-- Mockup -->
+                            <div class="bg-neutral-100 dark:bg-neutral-900 p-8 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-inner">
+                                <div class="mockup-phone" id="w2a-mockup-frame">
+                                    <div class="mockup-notch"></div>
+                                    <div class="mockup-header" id="w2a-mockup-header"><span id="w2a-mockup-title" class="text-xs truncate w-full text-center opacity-80">Meu App</span></div>
+                                    <div class="mockup-splash" id="w2a-mockup-splash">
+                                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23eee'/></svg>" id="w2a-mockup-icon">
+                                    </div>
+                                    <div class="mockup-content">
+                                        <div class="w-full h-32 bg-neutral-200 dark:bg-neutral-800 rounded-lg mb-4 animate-pulse"></div>
+                                        <div class="w-3/4 h-4 bg-neutral-200 dark:bg-neutral-800 rounded mb-2"></div>
+                                        <div class="w-1/2 h-4 bg-neutral-200 dark:bg-neutral-800 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Checklist -->
+                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
+                                <h4 class="font-bold mb-3 text-sm">Checklist de Exportação</h4>
+                                <ul class="text-xs space-y-2 text-neutral-600 dark:text-neutral-400" id="w2a-checklist">
+                                    <!-- Preenchido via JS -->
+                                </ul>
+                                <button id="w2a-btn-export" class="btn-primary !bg-emerald-600 hover:!bg-emerald-700 mt-6 shadow-emerald-500/20"><i data-lucide="package"></i> Preparar Projeto ZIP</button>
+                            </div>
+
+                        </div>
+                    </div>
+                `;
+            },
+
+            init() {
+                const saved = localStorage.getItem('vitallab_w2a');
+                if (saved) { try { Object.assign(this.state, JSON.parse(saved)); } catch(e){} }
+                
+                // Mapeamento de UI
+                const els = {
+                    url: document.getElementById('w2a-url'), name: document.getElementById('w2a-name'),
+                    short: document.getElementById('w2a-short'), pkg: document.getElementById('w2a-pkg'),
+                    desc: document.getElementById('w2a-desc'), author: document.getElementById('w2a-author'),
+                    theme: document.getElementById('w2a-theme'), bg: document.getElementById('w2a-bg'),
+                    display: document.getElementById('w2a-display'), orientation: document.getElementById('w2a-orientation'),
+                    sha: document.getElementById('w2a-sha'), icon: document.getElementById('w2a-icon')
+                };
+
+                // Popular Form
+                for(let key in els) {
+                    if (els[key] && key !== 'icon' && this.state[key]) { els[key].value = this.state[key]; }
+                }
+
+                const validateURL = (url) => {
+                    if(!url) return false;
+                    try { new URL(url); return true; } catch { return false; }
+                };
+
+                const validatePkg = (pkg) => /^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i.test(pkg);
+
+                const updateUI = () => {
+                    // Update Mockup
+                    document.getElementById('w2a-mockup-header').style.backgroundColor = this.state.themeColor;
+                    document.getElementById('w2a-mockup-splash').style.backgroundColor = this.state.bgColor;
+                    document.getElementById('w2a-mockup-title').innerText = this.state.shortName || 'App';
+                    
+                    if (this.state.iconB64) {
+                        document.getElementById('w2a-mockup-icon').src = this.state.iconB64;
+                    } else {
+                        document.getElementById('w2a-mockup-icon').src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23ccc'/></svg>";
+                    }
+
+                    // Checklist
+                    const check = (cond, okText, warnText) => cond ? `<li class="flex items-center gap-2 text-emerald-500 font-medium"><i data-lucide="check-circle" class="w-4 h-4"></i> ${okText}</li>` : `<li class="flex items-center gap-2 opacity-60"><i data-lucide="circle" class="w-4 h-4"></i> ${warnText}</li>`;
+                    
+                    const isUrlValid = validateURL(this.state.url);
+                    const isPkgValid = validatePkg(this.state.pkg);
+
+                    document.getElementById('w2a-url-error').classList.toggle('hidden', !this.state.url || isUrlValid);
+                    document.getElementById('w2a-pkg-error').classList.toggle('hidden', !this.state.pkg || isPkgValid);
+
+                    document.getElementById('w2a-checklist').innerHTML = `
+                        ${check(isUrlValid, 'URL configurada', 'URL ausente ou inválida')}
+                        ${check(this.state.name, 'Nome definido', 'Falta nome do aplicativo')}
+                        ${check(isPkgValid, 'Package válido', 'Package Name inválido')}
+                        ${check(this.state.iconB64, 'Ícone enviado', 'Falta o ícone do App')}
+                        ${this.state.sha256 ? check(true, 'SHA-256 configurado', '') : `<li class="flex items-center gap-2 text-amber-500"><i data-lucide="alert-triangle" class="w-4 h-4"></i> SHA-256 pendente (AssetLinks)</li>`}
+                    `;
+                    lucide.createIcons();
+                };
+
+                const saveState = () => {
+                    this.state.url = els.url.value;
+                    if(this.state.url && !this.state.url.startsWith('http')) {
+                        this.state.url = 'https://' + this.state.url;
+                        els.url.value = this.state.url;
+                    }
+                    this.state.name = els.name.value;
+                    this.state.shortName = els.short.value;
+                    this.state.pkg = els.pkg.value;
+                    this.state.desc = els.desc.value;
+                    this.state.author = els.author.value;
+                    this.state.themeColor = els.theme.value;
+                    this.state.bgColor = els.bg.value;
+                    this.state.display = els.display.value;
+                    this.state.orientation = els.orientation.value;
+                    this.state.sha256 = els.sha.value;
+                    
+                    try { localStorage.setItem('vitallab_w2a', JSON.stringify(this.state)); } catch(e){} // Catch quota error for images
+                    updateUI();
+                };
+
+                // Eventos
+                Object.values(els).forEach(el => {
+                    if(el && el.type !== 'file') el.addEventListener('blur', saveState);
+                    if(el && (el.type === 'color' || el.tagName === 'SELECT')) el.addEventListener('change', saveState);
+                });
+                
+                // Typing update for mockup feeling
+                ['name', 'short', 'theme', 'bg'].forEach(k => els[k].addEventListener('input', () => {
+                    this.state[k === 'theme' ? 'themeColor' : k === 'bg' ? 'bgColor' : k === 'short' ? 'shortName' : 'name'] = els[k].value;
+                    updateUI();
+                }));
+
+                els.icon.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if(!file) return;
+                    const reader = new FileReader();
+                    reader.onload = async (ev) => {
+                        const b64 = await ImageOptimizer.compressBase64(ev.target.result, 512); // Max 512 for PWA max icon
+                        this.state.iconB64 = b64;
+                        saveState();
+                    };
+                    reader.readAsDataURL(file);
+                });
+
+                document.getElementById('w2a-btn-pkg').addEventListener('click', () => {
+                    if(!this.state.url) { ToastManager.show('Digite a URL primeiro', 'error'); return; }
+                    try {
+                        const domain = new URL(this.state.url).hostname.replace('www.', '');
+                        const parts = domain.split('.').reverse();
+                        let appName = (this.state.shortName || this.state.name || 'app').toLowerCase().replace(/[^a-z0-9]/g, '');
+                        if(!appName) appName = 'app';
+                        els.pkg.value = `${parts.join('.')}.${appName}`;
+                        saveState();
+                    } catch(e) { ToastManager.show('URL inválida', 'error'); }
+                });
+
+                document.getElementById('w2a-reset').addEventListener('click', () => {
+                    if(confirm("Iniciar novo projeto e limpar dados atuais?")) {
+                        localStorage.removeItem('vitallab_w2a');
+                        this.state = { url: '', name: '', shortName: '', pkg: '', desc: '', author: 'Vital Designer', iconB64: null, themeColor: '#3B82F6', bgColor: '#FFFFFF', display: 'standalone', orientation: 'portrait', sha256: '' };
+                        this.init(); // Reload
+                    }
+                });
+
+                // --- Geração do Pacote ---
+                document.getElementById('w2a-btn-export').addEventListener('click', async () => {
+                    if(!validateURL(this.state.url)) return ToastManager.show('URL inválida.', 'error');
+                    if(!this.state.name) return ToastManager.show('Nome é obrigatório.', 'error');
+                    if(!validatePkg(this.state.pkg)) return ToastManager.show('Package Name inválido.', 'error');
+                    
+                    const btn = document.getElementById('w2a-btn-export');
+                    const ogHtml = btn.innerHTML;
+                    btn.disabled = true; btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Compactando...`;
+                    lucide.createIcons();
+
+                    try {
+                        const zip = new JSZip();
+                        const root = zip.folder("web2app-project");
+                        
+                        // 1. Manifest PWA
+                        const manifest = {
+                            name: this.state.name,
+                            short_name: this.state.shortName || this.state.name,
+                            start_url: "/",
+                            display: this.state.display,
+                            background_color: this.state.bgColor,
+                            theme_color: this.state.themeColor,
+                            orientation: this.state.orientation,
+                            description: this.state.desc,
+                            icons: [48,72,96,144,192,512].map(s => ({
+                                src: `icons/icon-${s}.png`, sizes: `${s}x${s}`, type: "image/png", purpose: "any maskable"
+                            }))
+                        };
+                        root.file("manifest.json", JSON.stringify(manifest, null, 2));
+
+                        // 2. Service Worker Simples
+                        const sw = `// Base Service Worker para Web2App\nconst CACHE_NAME = 'web2app-v1';\nself.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME)));\nself.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));`;
+                        root.file("sw.js", sw);
+
+                        // 3. AssetLinks
+                        if(this.state.sha256) {
+                            const assetLinks = [{
+                                relation: ["delegate_permission/common.handle_all_urls"],
+                                target: { namespace: "android_app", package_name: this.state.pkg, sha256_cert_fingerprints: [this.state.sha256] }
+                            }];
+                            root.file(".well-known/assetlinks.json", JSON.stringify(assetLinks, null, 2));
+                        }
+
+                        // 4. Bubblewrap Fake Config / Instructions
+                        const twaConfig = {
+                            domain: new URL(this.state.url).hostname,
+                            packageId: this.state.pkg,
+                            name: this.state.name,
+                            themeColor: this.state.themeColor,
+                            navigationColor: "#000000",
+                            backgroundColor: this.state.bgColor,
+                            enableNotifications: true,
+                            enableFeatures: []
+                        };
+                        root.file("twa-manifest.json", JSON.stringify(twaConfig, null, 2));
+
+                        // 5. README
+                        const readme = `# Web2App Project - ${this.state.name}
+Projeto preparado pelo VitalLab.
+
+## Passos para Finalização:
+1. Hospede os arquivos \`manifest.json\` e \`sw.js\` na raiz do seu site.
+2. Link o manifest no HTML: \`<link rel="manifest" href="/manifest.json">\`
+3. Coloque a pasta \`icons/\` na raiz.
+4. ${this.state.sha256 ? `Hospede a pasta \`.well-known\` para validar a Trusted Web Activity (TWA).` : `Gere a chave de assinatura Android, pegue o SHA-256 e crie o arquivo \`.well-known/assetlinks.json\` no seu site.`}
+5. Utilize a ferramenta CLI do Google **Bubblewrap** para compilar o APK:
+   \`npm i -g @GoogleChromeLabs/bubblewrap\`
+   \`bubblewrap init --manifest=${this.state.url}/manifest.json\`
+   \`bubblewrap build\`
+`;
+                        root.file("README.md", readme);
+
+                        // 6. Icons Generation (Canvas API native resize)
+                        if(this.state.iconB64) {
+                            const iconsFolder = root.folder("icons");
+                            const sizes = [48, 72, 96, 144, 192, 512];
+                            
+                            const resizeAndGetBase64 = async (src, size) => {
+                                return new Promise(resolve => {
+                                    const img = new Image(); img.src = src;
+                                    img.onload = () => {
+                                        const c = document.createElement('canvas'); c.width = size; c.height = size;
+                                        const ctx = c.getContext('2d');
+                                        // Clear with transparent or bg color
+                                        ctx.clearRect(0,0,size,size);
+                                        // Draw centered respecting ratio to not distort, just scaling down/up
+                                        ctx.drawImage(img, 0, 0, size, size);
+                                        resolve(c.toDataURL('image/png').split(',')[1]); // return raw b64
+                                    };
+                                });
+                            };
+
+                            for(let size of sizes) {
+                                const b64 = await resizeAndGetBase64(this.state.iconB64, size);
+                                iconsFolder.file(`icon-${size}.png`, b64, {base64: true});
+                            }
+                        }
+
+                        // Generate ZIP
+                        const blob = await zip.generateAsync({type:"blob"});
+                        DownloadEngine.download(blob, `${this.state.pkg}-web2app.zip`);
+
+                    } catch (error) {
+                        console.error(error);
+                        ToastManager.show('Erro ao processar pacote.', 'error');
+                    } finally {
+                        btn.disabled = false; btn.innerHTML = ogHtml; lucide.createIcons();
+                    }
+                });
+
+                updateUI();
+            }
+        };
+
+        // =================================
+        // TOOL: QR CODE PRO & ZINE CREATOR PRO (Preservados)
+        // =================================
+        const QRCodeTool = {
+            render(container) {
+                container.innerHTML = `
+                    <div class="mb-8"><h2 class="text-3xl font-extrabold flex items-center gap-3"><i data-lucide="qr-code" class="text-brand"></i> QR Code Pro</h2></div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-7 space-y-6 bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
+                            <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-2">URL / Conteúdo</label><input type="text" id="qr-val" class="input-premium" value="https://vital-lab.com"></div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-2">Estilo dos Pontos</label><select id="qr-dots" class="input-premium"><option value="square">Square</option><option value="dots">Dots</option><option value="rounded" selected>Rounded</option><option value="classy">Classy</option><option value="extra-rounded">Extra Rounded</option></select></div>
+                                <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-2">Nível de Correção</label><select id="qr-error" class="input-premium"><option value="L">Baixo (L)</option><option value="M">Médio (M)</option><option value="Q" selected>Alto (Q) - Bom para Logos</option><option value="H">Máximo (H)</option></select></div>
+                            </div>
+                            <hr class="border-neutral-200 dark:border-neutral-800">
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-bold mb-4 cursor-pointer"><input type="checkbox" id="qr-use-gradient" class="w-4 h-4 text-brand rounded focus:ring-brand"> Usar Degradê (Gradient)</label>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                    <div><label class="block text-xs font-bold text-neutral-500 mb-1">Cor 1 (Principal)</label><input type="color" id="qr-color-1" value="#3B82F6" class="h-10 w-full rounded-lg cursor-pointer"></div>
+                                    <div id="qr-grad-col-2" class="opacity-50 pointer-events-none transition-opacity"><label class="block text-xs font-bold text-neutral-500 mb-1">Cor 2</label><input type="color" id="qr-color-2" value="#9333EA" class="h-10 w-full rounded-lg cursor-pointer"></div>
+                                    <div id="qr-grad-type" class="col-span-2 opacity-50 pointer-events-none transition-opacity"><label class="block text-xs font-bold text-neutral-500 mb-1">Direção</label><select id="qr-grad-dir" class="input-premium py-2"><option value="linear">Linear (0°)</option><option value="linear-45">Linear (45°)</option><option value="radial">Radial</option></select></div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-2">Cor do Fundo</label><input type="color" id="qr-color-bg" value="#ffffff" class="h-10 w-full rounded-lg cursor-pointer"></div>
+                                <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-2">Logo Central</label><label class="flex items-center justify-center h-10 w-full bg-neutral-100 dark:bg-neutral-800 rounded-xl cursor-pointer hover:opacity-80"><i data-lucide="upload" class="w-4 h-4"></i><input type="file" id="qr-logo" accept="image/*" class="hidden"></label></div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-5 flex flex-col gap-4">
+                            <div class="bg-lightCard dark:bg-darkCard p-8 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 flex flex-col items-center justify-center min-h-[350px]">
+                                <div id="qr-canvas-container" class="bg-white p-4 rounded-2xl shadow-sm border border-neutral-100"></div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3"><button id="qr-btn-png" class="btn-primary"><i data-lucide="download"></i> PNG</button><button id="qr-btn-svg" class="btn-secondary"><i data-lucide="vector"></i> SVG</button></div>
+                        </div>
+                    </div>
+                `;
+            },
+            init() {
+                const getGradientRotation = (val) => val === 'linear-45' ? Math.PI / 4 : 0;
+                const updateQR = () => {
+                    if (!AppState.qrCodeInstance) return;
+                    const useGradient = document.getElementById('qr-use-gradient').checked;
+                    const c1 = document.getElementById('qr-color-1').value, c2 = document.getElementById('qr-color-2').value, gradDir = document.getElementById('qr-grad-dir').value;
+                    let dotsOptions = { type: document.getElementById('qr-dots').value };
+                    if (useGradient) { dotsOptions.gradient = { type: gradDir === 'radial' ? "radial" : "linear", rotation: getGradientRotation(gradDir), colorStops: [{ offset: 0, color: c1 }, { offset: 1, color: c2 }] }; } else { dotsOptions.color = c1; }
+                    AppState.qrCodeInstance.update({ data: document.getElementById('qr-val').value || "https://vital-lab.com", dotsOptions: dotsOptions, cornersSquareOptions: { type: document.getElementById('qr-dots').value === 'square' ? 'square' : 'extra-rounded', color: c1 }, backgroundOptions: { color: document.getElementById('qr-color-bg').value }, qrOptions: { errorCorrectionLevel: document.getElementById('qr-error').value } });
+                };
+                AppState.qrCodeInstance = new QRCodeStyling({ width: 300, height: 300, type: "svg", margin: 10, imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 8 } });
+                AppState.qrCodeInstance.append(document.getElementById('qr-canvas-container')); updateQR();
+                document.getElementById('qr-use-gradient').addEventListener('change', (e) => { [document.getElementById('qr-grad-col-2'), document.getElementById('qr-grad-type')].forEach(el => e.target.checked ? el.classList.remove('opacity-50', 'pointer-events-none') : el.classList.add('opacity-50', 'pointer-events-none')); updateQR(); });
+                ['qr-val', 'qr-dots', 'qr-error', 'qr-color-1', 'qr-color-2', 'qr-grad-dir', 'qr-color-bg'].forEach(id => document.getElementById(id).addEventListener('input', updateQR));
+                document.getElementById('qr-logo').addEventListener('change', (e) => { const file = e.target.files[0]; if(!file) { AppState.qrCodeInstance.update({ image: "" }); return; } const reader = new FileReader(); reader.onload = (ev) => AppState.qrCodeInstance.update({ image: ev.target.result }); reader.readAsDataURL(file); });
+                const exportFile = async (ext) => { if(!AppState.qrCodeInstance) return; const blob = await AppState.qrCodeInstance.getRawData(ext); DownloadEngine.download(blob, `vitallab-qr.${ext}`); };
+                document.getElementById('qr-btn-png').addEventListener('click', () => exportFile('png')); document.getElementById('qr-btn-svg').addEventListener('click', () => exportFile('svg'));
+            }
+        };
+
+        const ZineTool = {
+            defaultPageData: () => ({ text: '', font: 'Helvetica', fontSize: 12, color: '#000000', img: null, imgX: 50, imgY: 50, imgScale: 50 }),
+            render(container) {
+                container.innerHTML = `
+                    <div class="mb-8 flex justify-between items-center"><h2 class="text-3xl font-extrabold flex items-center gap-3"><i data-lucide="book-open" class="text-indigo-500"></i> Zine Creator Pro</h2><button id="zine-reset" class="text-xs text-red-500 font-bold border border-red-500/30 px-3 py-1.5 rounded hover:bg-red-500 hover:text-white">Limpar Projeto</button></div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-8 space-y-6">
+                            <div class="flex flex-wrap gap-2" id="zine-tabs">${Array(8).fill(0).map((_, i) => `<button class="zine-tab flex-1 min-w-[40px] py-2 rounded-xl text-xs font-bold border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800" data-page="${i}">${i===0?'Capa':i===7?'Contra':'Pág '+(i+1)}</button>`).join('')}</div>
+                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4"><h3 class="text-sm font-bold border-b border-neutral-200 dark:border-neutral-800 pb-2">Tipografia</h3><div><textarea id="zine-text" class="input-premium min-h-[120px]" placeholder="Texto da página..."></textarea></div><div class="grid grid-cols-2 gap-2"><div><label class="block text-xs font-bold text-neutral-500 mb-1">Fonte</label><select id="zine-font" class="input-premium py-2 text-xs"><option value="Helvetica">Sans</option><option value="TimesRoman">Serif</option><option value="Courier">Mono</option></select></div><div><label class="block text-xs font-bold text-neutral-500 mb-1">Cor</label><input type="color" id="zine-color" class="h-10 w-full rounded-lg cursor-pointer"></div></div><div><label class="block text-xs font-bold text-neutral-500 mb-1">Tamanho da Fonte: <span id="zine-fs-val">12</span></label><input type="range" id="zine-fs" min="8" max="72" value="12"></div></div>
+                                <div class="space-y-4"><h3 class="text-sm font-bold border-b border-neutral-200 dark:border-neutral-800 pb-2">Imagem</h3><label class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-neutral-300 dark:border-neutral-700 rounded-xl cursor-pointer hover:bg-neutral-50 dark:bg-neutral-800"><i data-lucide="image" class="w-6 h-6 text-neutral-400 mb-1"></i><span class="text-xs font-bold text-neutral-500">Enviar Imagem</span><input type="file" id="zine-img-upload" accept="image/png, image/jpeg" class="hidden"></label>
+                                    <div class="space-y-3"><div><label class="block text-[10px] font-bold uppercase text-neutral-500 mb-1">X</label><input type="range" id="zine-img-x" min="0" max="100" value="50"></div><div><label class="block text-[10px] font-bold uppercase text-neutral-500 mb-1">Y</label><input type="range" id="zine-img-y" min="0" max="100" value="50"></div><div><label class="block text-[10px] font-bold uppercase text-neutral-500 mb-1">Tamanho</label><input type="range" id="zine-img-scale" min="10" max="200" value="50"></div><button id="zine-img-remove" class="w-full text-xs font-bold text-red-500 py-1 hidden">Remover Imagem</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-4 flex flex-col gap-6">
+                            <div class="bg-neutral-100 dark:bg-neutral-900 p-6 rounded-3xl border border-neutral-200 dark:border-neutral-800 flex flex-col items-center shadow-inner"><span class="text-[10px] font-bold uppercase text-neutral-500 mb-4 tracking-widest">Prévia da Página</span><div id="zine-preview" class="zine-preview-box rounded shadow-md"><img id="zp-img" class="zine-preview-img hidden" src=""><div id="zp-text" class="zine-preview-text"></div></div></div>
+                            <button id="zine-btn-pdf" class="btn-primary !bg-indigo-600 hover:!bg-indigo-700 shadow-indigo-500/20"><i data-lucide="printer"></i> Exportar PDF (Imposição A4)</button>
+                        </div>
+                    </div>
+                `;
+            },
+            init() {
+                const saved = localStorage.getItem('vitallab_zine_pro');
+                if (saved) { try { AppState.zineData = JSON.parse(saved); } catch(e) { AppState.zineData = []; } }
+                if (!AppState.zineData || AppState.zineData.length !== 8) { AppState.zineData = Array(8).fill(null).map(() => this.defaultPageData()); }
+                AppState.zineCurrentPage = 0;
+                const els = { text: document.getElementById('zine-text'), font: document.getElementById('zine-font'), fs: document.getElementById('zine-fs'), fsVal: document.getElementById('zine-fs-val'), color: document.getElementById('zine-color'), imgUpload: document.getElementById('zine-img-upload'), imgX: document.getElementById('zine-img-x'), imgY: document.getElementById('zine-img-y'), imgScale: document.getElementById('zine-img-scale'), imgRemove: document.getElementById('zine-img-remove'), zpImg: document.getElementById('zp-img'), zpText: document.getElementById('zp-text') };
+                const updatePreview = () => {
+                    const data = AppState.zineData[AppState.zineCurrentPage];
+                    els.zpText.innerText = data.text; els.zpText.style.fontFamily = data.font === 'TimesRoman' ? 'Times New Roman, serif' : data.font === 'Courier' ? 'Courier, monospace' : 'Arial, sans-serif'; els.zpText.style.fontSize = (data.fontSize * 0.4) + 'px'; els.zpText.style.color = data.color;
+                    if(data.img) { els.zpImg.src = data.img; els.zpImg.classList.remove('hidden'); els.imgRemove.classList.remove('hidden'); els.zpImg.style.width = data.imgScale + '%'; els.zpImg.style.left = `calc(${data.imgX}% - (${data.imgScale}% / 2))`; els.zpImg.style.top = data.imgY + '%'; } else { els.zpImg.classList.add('hidden'); els.imgRemove.classList.add('hidden'); }
+                };
+                const saveState = () => {
+                    const data = AppState.zineData[AppState.zineCurrentPage];
+                    data.text = els.text.value; data.font = els.font.value; data.fontSize = parseInt(els.fs.value); data.color = els.color.value; data.imgX = parseInt(els.imgX.value); data.imgY = parseInt(els.imgY.value); data.imgScale = parseInt(els.imgScale.value);
+                    localStorage.setItem('vitallab_zine_pro', JSON.stringify(AppState.zineData)); updatePreview();
+                };
+                const loadPage = (idx) => { AppState.zineCurrentPage = idx; document.querySelectorAll('.zine-tab').forEach(t => t.classList.remove('active')); document.querySelector(`.zine-tab[data-page="${idx}"]`).classList.add('active'); const data = AppState.zineData[idx]; els.text.value = data.text; els.font.value = data.font; els.fs.value = data.fontSize; els.fsVal.innerText = data.fontSize; els.color.value = data.color; els.imgX.value = data.imgX; els.imgY.value = data.imgY; els.imgScale.value = data.imgScale; updatePreview(); };
+                ['text', 'font', 'color', 'imgX', 'imgY', 'imgScale'].forEach(key => els[key].addEventListener('input', saveState));
+                els.fs.addEventListener('input', (e) => { els.fsVal.innerText = e.target.value; saveState(); });
+                els.imgUpload.addEventListener('change', async (e) => { const file = e.target.files[0]; if(!file) return; const reader = new FileReader(); reader.onload = async (ev) => { AppState.zineData[AppState.zineCurrentPage].img = await ImageOptimizer.compressBase64(ev.target.result, 800); saveState(); }; reader.readAsDataURL(file); });
+                els.imgRemove.addEventListener('click', () => { AppState.zineData[AppState.zineCurrentPage].img = null; els.imgUpload.value = ''; saveState(); });
+                document.querySelectorAll('.zine-tab').forEach(tab => { tab.addEventListener('click', (e) => loadPage(parseInt(e.currentTarget.getAttribute('data-page')))); });
+                document.getElementById('zine-reset').addEventListener('click', () => { if(confirm("Apagar todo o projeto Zine atual?")) { AppState.zineData = Array(8).fill(null).map(() => this.defaultPageData()); localStorage.removeItem('vitallab_zine_pro'); loadPage(0); ToastManager.show('Projeto limpo.', 'success'); } });
+                document.getElementById('zine-btn-pdf').addEventListener('click', async () => {
+                    const btn = document.getElementById('zine-btn-pdf'); const ogHtml = btn.innerHTML; btn.disabled = true; btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Renderizando...`; lucide.createIcons();
+                    try {
+                        const { PDFDocument, rgb, StandardFonts, degrees } = PDFLib; const pdfDoc = await PDFDocument.create();
+                        const fonts = { 'Helvetica': await pdfDoc.embedFont(StandardFonts.Helvetica), 'TimesRoman': await pdfDoc.embedFont(StandardFonts.TimesRoman), 'Courier': await pdfDoc.embedFont(StandardFonts.Courier) };
+                        const hexToRgb = (hex) => rgb(parseInt(hex.slice(1,3), 16)/255, parseInt(hex.slice(3,5), 16)/255, parseInt(hex.slice(5,7), 16)/255);
+                        const A4_W = 841.89, A4_H = 595.28; const page = pdfDoc.addPage([A4_W, A4_H]); const colW = A4_W / 4; const rowH = A4_H / 2; const margin = 15;
+                        const imposition = [ { idx: 5, col: 0, row: 0, rot: true }, { idx: 4, col: 1, row: 0, rot: true }, { idx: 3, col: 2, row: 0, rot: true }, { idx: 2, col: 3, row: 0, rot: true }, { idx: 6, col: 0, row: 1, rot: false }, { idx: 7, col: 1, row: 1, rot: false }, { idx: 0, col: 2, row: 1, rot: false }, { idx: 1, col: 3, row: 1, rot: false } ];
+                        for (const imp of imposition) {
+                            const data = AppState.zineData[imp.idx]; const baseX = imp.col * colW; const baseY = (1 - imp.row) * rowH;
+                            if (data.img) {
+                                const pdfImg = data.img.startsWith('data:image/png') ? await pdfDoc.embedPng(data.img) : await pdfDoc.embedJpg(data.img);
+                                const dims = pdfImg.scale(1); const ratio = dims.height / dims.width; const targetW = (data.imgScale / 100) * colW; const targetH = targetW * ratio;
+                                const rawX = (data.imgX / 100) * colW - (targetW / 2); const rawY = (data.imgY / 100) * rowH;
+                                if (imp.rot) { page.drawImage(pdfImg, { x: baseX + colW - rawX, y: baseY + rawY, width: targetW, height: targetH, rotate: degrees(180) }); } else { page.drawImage(pdfImg, { x: baseX + rawX, y: baseY + rowH - rawY - targetH, width: targetW, height: targetH }); }
+                            }
+                            if (data.text) {
+                                const font = fonts[data.font] || fonts['Helvetica']; const fSize = data.fontSize; const txtColor = hexToRgb(data.color);
+                                const words = data.text.replace(/\n/g, ' \n ').split(' '); let line = ''; const maxW = colW - (margin * 2); let currentY = margin + fSize;
+                                const writeLine = (txt, yOff) => { if(imp.rot) { page.drawText(txt, { x: baseX + colW - margin, y: baseY + yOff, size: fSize, font: font, color: txtColor, rotate: degrees(180) }); } else { page.drawText(txt, { x: baseX + margin, y: baseY + rowH - yOff, size: fSize, font: font, color: txtColor }); } };
+                                for (let w of words) { if(w === '\n') { writeLine(line, currentY); currentY += fSize * 1.2; line = ''; continue; } const testLine = line + w + ' '; if (font.widthOfTextAtSize(testLine, fSize) > maxW) { writeLine(line, currentY); currentY += fSize * 1.2; line = w + ' '; } else { line = testLine; } } writeLine(line, currentY);
+                            }
+                        }
+                        page.drawLine({ start: { x: 0, y: rowH }, end: { x: A4_W, y: rowH }, color: rgb(0.8,0.8,0.8), thickness: 0.5 });
+                        for(let i=1; i<4; i++) page.drawLine({ start: { x: i*colW, y: 0 }, end: { x: i*colW, y: A4_H }, color: rgb(0.8,0.8,0.8), thickness: 0.5, dashArray: [4,4] });
+                        const pdfBytes = await pdfDoc.save(); DownloadEngine.download(new Blob([pdfBytes], { type: 'application/pdf' }), `vitallab-zine-${Date.now()}.pdf`);
+                    } catch (err) { console.error(err); ToastManager.show('Erro ao processar PDF.', 'error'); } finally { btn.disabled = false; btn.innerHTML = ogHtml; lucide.createIcons(); }
+                });
+                loadPage(0);
+            }
+        };
+
+        // =================================
+        // INIT APP
+        // =================================
+        window.addEventListener('DOMContentLoaded', () => {
+            ThemeManager.init();
+            Router.init();
+        });
+    </script>
+</body>
+</html>
