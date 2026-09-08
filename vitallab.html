@@ -50,7 +50,7 @@
         .input-premium { @apply w-full bg-white dark:bg-[#18181B] border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 font-medium rounded-2xl p-3 text-sm outline-none transition-all duration-300 shadow-sm focus:border-brand focus:ring-4 focus:ring-brand/10 dark:focus:ring-brand/20; }
         .input-error { @apply border-red-500 focus:border-red-500 focus:ring-red-500/20; }
         .btn-primary { @apply relative flex items-center justify-center gap-2 bg-brand hover:bg-brandHover text-white font-bold rounded-2xl p-4 text-sm transition-all duration-300 w-full shadow-lg shadow-brand/20 active:scale-[0.97] disabled:opacity-50; }
-        .btn-secondary { @apply relative flex items-center justify-center gap-2 bg-white dark:bg-[#18181B] border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-900 dark:text-white font-bold rounded-2xl p-4 text-sm transition-all duration-300 w-full active:scale-[0.97]; }
+        .btn-secondary { @apply relative flex items-center justify-center gap-2 bg-white dark:bg-[#18181B] border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-900 dark:text-white font-bold rounded-2xl p-4 text-sm transition-all duration-300 w-full active:scale-[0.97] disabled:opacity-50; }
         
         /* Zine Visual Editor */
         .zine-preview-box { aspect-ratio: 1 / 1.414; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); position: relative; overflow: hidden; width: 100%; max-width: 320px; margin: 0 auto; }
@@ -75,19 +75,33 @@
         #toast-container { position: fixed; bottom: 80px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
         @media (min-width: 768px) { #toast-container { bottom: 24px; } }
         .zine-tab.active { @apply bg-indigo-500 text-white border-indigo-500; }
+        
+        /* Guide Steps */
+        .step-card { @apply bg-neutral-50 dark:bg-[#18181b] border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 relative overflow-hidden; }
+        .step-number { @apply absolute -top-4 -right-4 text-6xl font-extrabold text-black/5 dark:text-white/5 pointer-events-none; }
+
+        /* Drag & Drop */
+        .drop-zone { @apply border-2 border-dashed border-neutral-300 dark:border-neutral-700 rounded-3xl p-10 flex flex-col items-center justify-center text-center cursor-pointer transition-colors duration-300; }
+        .drop-zone.dragover { @apply border-brand bg-brand/5; }
     </style>
 </head>
 <body class="bg-lightBg dark:bg-darkBg text-neutral-900 dark:text-neutral-100 font-sans min-h-screen flex flex-col md:flex-row transition-colors duration-500">
 
     <!-- Sidebar Desktop -->
-    <aside class="hidden md:flex flex-col w-72 border-r border-neutral-200/60 dark:border-white/5 p-6 bg-lightCard/60 dark:bg-darkCard/60 backdrop-blur-2xl shrink-0 h-screen sticky top-0 z-40">
+    <aside class="hidden md:flex flex-col w-72 border-r border-neutral-200/60 dark:border-white/5 p-6 bg-lightCard/60 dark:bg-darkCard/60 backdrop-blur-2xl shrink-0 h-screen sticky top-0 z-40 overflow-y-auto">
         <div class="flex items-center gap-4 mb-12 px-2 cursor-pointer">
             <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-blue-700 flex items-center justify-center text-white font-bold text-lg shadow-glow">V</div>
             <div><h1 class="font-extrabold tracking-tight text-sm">VITAL LAB</h1><p class="text-[11px] font-semibold text-neutral-500">Creative Engine</p></div>
         </div>
         <nav class="space-y-2 flex-1">
             <a href="#dashboard" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="layout-dashboard" class="w-4.5 h-4.5"></i> Dashboard</a>
-            <div class="pt-8 pb-3 text-[10px] font-bold uppercase tracking-widest text-neutral-400 px-4">Design & Web</div>
+            
+            <div class="pt-6 pb-2 text-[10px] font-bold uppercase tracking-widest text-neutral-400 px-4">Pro Tools</div>
+            <a href="#pdf-lab" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="file-text" class="w-4.5 h-4.5"></i> PDF Lab</a>
+            <a href="#website-inspector" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="globe" class="w-4.5 h-4.5"></i> Website Inspector</a>
+            <a href="#image-optimizer" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="image-down" class="w-4.5 h-4.5"></i> Image Optimizer</a>
+
+            <div class="pt-6 pb-2 text-[10px] font-bold uppercase tracking-widest text-neutral-400 px-4">Design & Web</div>
             <a href="#web2app" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="smartphone" class="w-4.5 h-4.5"></i> Web2App Lab</a>
             <a href="#zine-creator" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="book-open" class="w-4.5 h-4.5"></i> Zine Creator Pro</a>
             <a href="#qrcode" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="qr-code" class="w-4.5 h-4.5"></i> QR Code Pro</a>
@@ -112,11 +126,12 @@
     </main>
 
     <!-- Bottom Bar Mobile -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-lightCard/90 dark:bg-darkCard/90 backdrop-blur-2xl border-t border-neutral-200/60 dark:border-white/5 px-6 py-3 flex items-center justify-around z-50">
-        <a href="#dashboard" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400"><i data-lucide="layout-dashboard" class="w-5 h-5"></i></a>
-        <a href="#web2app" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400"><i data-lucide="smartphone" class="w-5 h-5"></i></a>
-        <a href="#zine-creator" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400"><i data-lucide="book-open" class="w-5 h-5"></i></a>
-        <a href="#qrcode" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400"><i data-lucide="qr-code" class="w-5 h-5"></i></a>
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-lightCard/90 dark:bg-darkCard/90 backdrop-blur-2xl border-t border-neutral-200/60 dark:border-white/5 px-6 py-3 flex items-center justify-between overflow-x-auto gap-4 z-50 hide-scrollbar">
+        <a href="#dashboard" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400 shrink-0"><i data-lucide="layout-dashboard" class="w-5 h-5"></i></a>
+        <a href="#pdf-lab" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400 shrink-0"><i data-lucide="file-text" class="w-5 h-5"></i></a>
+        <a href="#website-inspector" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400 shrink-0"><i data-lucide="globe" class="w-5 h-5"></i></a>
+        <a href="#image-optimizer" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400 shrink-0"><i data-lucide="image-down" class="w-5 h-5"></i></a>
+        <a href="#web2app" class="mobile-nav-link flex flex-col items-center gap-1 p-2 text-neutral-400 shrink-0"><i data-lucide="smartphone" class="w-5 h-5"></i></a>
     </nav>
 
     <div id="toast-container"></div>
@@ -144,7 +159,7 @@
             show(msg, type = 'info') {
                 const container = document.getElementById('toast-container');
                 const toast = document.createElement('div');
-                const bg = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
+                const bg = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : type === 'warning' ? 'bg-amber-500' : 'bg-blue-500';
                 toast.className = `flex items-center text-white px-4 py-3 rounded-2xl shadow-xl transition-all duration-300 translate-y-10 opacity-0 ${bg}`;
                 toast.innerHTML = `<span class="text-sm font-bold">${msg}</span>`;
                 container.appendChild(toast);
@@ -158,26 +173,16 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a'); a.href = url; a.download = filename;
                 document.body.appendChild(a); a.click(); document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
+                setTimeout(() => window.URL.revokeObjectURL(url), 1000);
                 ToastManager.show('Download concluído!', 'success');
             }
         };
 
-        const ImageOptimizer = {
-            async compressBase64(base64, maxW = 800) {
-                return new Promise((resolve) => {
-                    const img = new Image();
-                    img.src = base64;
-                    img.onload = () => {
-                        if(img.width <= maxW) return resolve(base64);
-                        const scale = maxW / img.width;
-                        const canvas = document.createElement('canvas');
-                        canvas.width = maxW; canvas.height = img.height * scale;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.8));
-                    };
-                });
+        const FormatUtils = {
+            bytesToSize(bytes) {
+                if (bytes === 0) return '0 B';
+                const k = 1024, sizes = ['B', 'KB', 'MB', 'GB'], i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
             }
         };
 
@@ -202,6 +207,9 @@
                     if (hash === '#qrcode') { QRCodeTool.render(view); QRCodeTool.init(); }
                     else if (hash === '#zine-creator') { ZineTool.render(view); ZineTool.init(); }
                     else if (hash === '#web2app') { Web2AppTool.render(view); Web2AppTool.init(); }
+                    else if (hash === '#pdf-lab') { PDFLabTool.render(view); PDFLabTool.init(); }
+                    else if (hash === '#website-inspector') { WebsiteInspectorTool.render(view); WebsiteInspectorTool.init(); }
+                    else if (hash === '#image-optimizer') { ImageOptimizerTool.render(view); ImageOptimizerTool.init(); }
                     else { Dashboard.render(view); }
                     lucide.createIcons();
                     gsap.fromTo(view, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3 });
@@ -217,7 +225,28 @@
                         <h2 class="text-4xl md:text-5xl font-extrabold mb-5">Laboratório Criativo</h2>
                         <p class="text-neutral-500 text-lg max-w-2xl font-medium">Ferramentas essenciais para criadores de conteúdo e designers. Workflow profissional direto no navegador.</p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <h3 class="font-bold text-lg mb-4 text-neutral-800 dark:text-neutral-200">Módulos Premium</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                        <a href="#pdf-lab" class="block bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 hover:-translate-y-1 transition-transform">
+                            <i data-lucide="file-text" class="w-8 h-8 text-rose-500 mb-4"></i>
+                            <h3 class="font-bold text-lg mb-2">PDF Lab</h3>
+                            <p class="text-sm text-neutral-500">Ferramentas profissionais para organizar, otimizar e transformar seus PDFs.</p>
+                        </a>
+                        <a href="#website-inspector" class="block bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 hover:-translate-y-1 transition-transform">
+                            <i data-lucide="globe" class="w-8 h-8 text-blue-500 mb-4"></i>
+                            <h3 class="font-bold text-lg mb-2">Website Inspector</h3>
+                            <p class="text-sm text-neutral-500">Descubra problemas reais de SEO, acessibilidade, PWA e estrutura do seu site.</p>
+                        </a>
+                        <a href="#image-optimizer" class="block bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 hover:-translate-y-1 transition-transform">
+                            <i data-lucide="image-down" class="w-8 h-8 text-amber-500 mb-4"></i>
+                            <h3 class="font-bold text-lg mb-2">Image Optimizer</h3>
+                            <p class="text-sm text-neutral-500">Reduza o tamanho das suas imagens sem perder qualidade. Processamento em lote.</p>
+                        </a>
+                    </div>
+
+                    <h3 class="font-bold text-lg mb-4 text-neutral-800 dark:text-neutral-200">Design & Mobile</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                         <a href="#web2app" class="block bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 hover:-translate-y-1 transition-transform">
                             <i data-lucide="smartphone" class="w-8 h-8 text-emerald-500 mb-4"></i>
                             <h3 class="font-bold text-lg mb-2">Web2App Lab</h3>
@@ -239,487 +268,552 @@
         };
 
         // =================================
-        // TOOL: WEB2APP LAB (NOVO)
+        // TOOL: IMAGE OPTIMIZER
         // =================================
-        const Web2AppTool = {
-            state: {
-                url: '', name: '', shortName: '', pkg: '', desc: '', author: 'Vital Designer', 
-                iconB64: null, themeColor: '#3B82F6', bgColor: '#FFFFFF',
-                display: 'standalone', orientation: 'portrait', sha256: ''
-            },
+        const ImageOptimizerTool = {
+            state: { queue: [], isProcessing: false, preset: 'web' },
             
             render(container) {
                 container.innerHTML = `
                     <div class="mb-8 flex justify-between items-center">
-                        <h2 class="text-3xl font-extrabold flex items-center gap-3"><i data-lucide="smartphone" class="text-emerald-500"></i> Web2App Lab</h2>
-                        <button id="w2a-reset" class="text-xs text-red-500 font-bold border border-red-500/30 px-3 py-1.5 rounded hover:bg-red-500 hover:text-white">Novo Projeto</button>
+                        <div>
+                            <h2 class="text-3xl font-extrabold flex items-center gap-3"><i data-lucide="image-down" class="text-amber-500"></i> Image Optimizer</h2>
+                            <p class="text-neutral-500 text-sm mt-2">Reduza o tamanho das suas imagens sem perder qualidade desnecessariamente.</p>
+                        </div>
+                        <button id="io-clear" class="text-xs text-red-500 font-bold border border-red-500/30 px-3 py-1.5 rounded hover:bg-red-500 hover:text-white transition-colors">Limpar Fila</button>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7 space-y-6">
-                            <!-- Etapa 1 -->
+                        <!-- Controles -->
+                        <div class="lg:col-span-4 space-y-6">
                             <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
-                                <h3 class="text-lg font-bold mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">01. Informações do Aplicativo</h3>
+                                <h3 class="text-sm font-bold border-b border-neutral-200 dark:border-neutral-800 pb-2 mb-4">Configurações</h3>
                                 <div class="space-y-4">
                                     <div>
-                                        <label class="block text-xs font-bold uppercase text-neutral-500 mb-1">URL do Site (PWA)</label>
-                                        <input type="url" id="w2a-url" class="input-premium" placeholder="https://seudominio.com.br">
-                                        <p id="w2a-url-error" class="text-red-500 text-xs mt-1 hidden">URL inválida. Inclua https://</p>
+                                        <label class="block text-xs font-bold uppercase text-neutral-500 mb-2">Preset</label>
+                                        <select id="io-preset" class="input-premium py-2">
+                                            <option value="web" selected>Website (WebP, balanceado)</option>
+                                            <option value="social">Social (JPEG, alta qualidade)</option>
+                                            <option value="max">Máxima Compressão</option>
+                                            <option value="custom">Personalizado</option>
+                                        </select>
                                     </div>
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Nome</label><input type="text" id="w2a-name" class="input-premium" placeholder="Meu App"></div>
-                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Nome Curto</label><input type="text" id="w2a-short" class="input-premium" placeholder="App"></div>
-                                    </div>
-                                    <div>
-                                        <label class="flex justify-between items-center text-xs font-bold uppercase text-neutral-500 mb-1">
-                                            Package Name <button id="w2a-btn-pkg" class="text-emerald-500 hover:underline lowercase">Gerar Automático</button>
-                                        </label>
-                                        <input type="text" id="w2a-pkg" class="input-premium" placeholder="com.seudominio.app">
-                                        <p id="w2a-pkg-error" class="text-red-500 text-xs mt-1 hidden">Formato inválido. Use formato reverso de domínio (ex: com.app.site)</p>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Autor</label><input type="text" id="w2a-author" class="input-premium" placeholder="Vital Designer"></div>
-                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Descrição</label><input type="text" id="w2a-desc" class="input-premium" placeholder="Aplicativo Web"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Etapa 2 -->
-                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
-                                <h3 class="text-lg font-bold mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">02. Aparência</h3>
-                                <div class="space-y-4">
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Ícone (512x512 rec.)</label>
-                                            <label class="flex items-center justify-center h-12 w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl cursor-pointer hover:opacity-80">
-                                                <i data-lucide="upload" class="w-4 h-4 mr-2"></i> Enviar Logo
-                                                <input type="file" id="w2a-icon" accept="image/png, image/jpeg, image/webp" class="hidden">
-                                            </label>
-                                        </div>
+                                    <div id="io-custom-opts" class="opacity-50 pointer-events-none transition-opacity space-y-4">
                                         <div class="grid grid-cols-2 gap-2">
-                                            <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Cor Topo</label><input type="color" id="w2a-theme" value="#3B82F6" class="h-12 w-full rounded-xl cursor-pointer"></div>
-                                            <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Cor Splash</label><input type="color" id="w2a-bg" value="#FFFFFF" class="h-12 w-full rounded-xl cursor-pointer"></div>
+                                            <div>
+                                                <label class="block text-xs font-bold text-neutral-500 mb-1">Formato Saída</label>
+                                                <select id="io-format" class="input-premium py-2 text-xs">
+                                                    <option value="image/webp">WebP</option>
+                                                    <option value="image/jpeg">JPEG</option>
+                                                    <option value="image/png">PNG</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-bold text-neutral-500 mb-1">Largura Max (px)</label>
+                                                <input type="number" id="io-maxw" class="input-premium py-2 text-xs" value="1600" placeholder="Auto">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-neutral-500 mb-1 flex justify-between">Qualidade: <span id="io-qual-val">80%</span></label>
+                                            <input type="range" id="io-qual" min="10" max="100" value="80">
                                         </div>
                                     </div>
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Orientação</label><select id="w2a-orientation" class="input-premium py-2"><option value="portrait">Retrato (Portrait)</option><option value="landscape">Paisagem (Landscape)</option><option value="any">Qualquer</option></select></div>
-                                        <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Exibição</label><select id="w2a-display" class="input-premium py-2"><option value="standalone">Standalone (App nativo)</option><option value="fullscreen">Fullscreen</option><option value="minimal-ui">Minimal UI</option></select></div>
+                                    <div>
+                                        <label class="flex items-center gap-2 text-xs font-bold text-neutral-600 dark:text-neutral-300 cursor-pointer">
+                                            <input type="checkbox" id="io-no-upscale" checked class="w-4 h-4 text-brand rounded focus:ring-brand">
+                                            Não aumentar imagens pequenas
+                                        </label>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- Etapa 3 -->
-                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
-                                <h3 class="text-lg font-bold mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">03. Configuração TWA / Android</h3>
-                                <div>
-                                    <label class="block text-xs font-bold uppercase text-neutral-500 mb-1">Digital Asset Links (SHA-256)</label>
-                                    <input type="text" id="w2a-sha" class="input-premium font-mono text-xs" placeholder="Ex: FA:2A:B5:...">
-                                    <p class="text-xs text-neutral-500 mt-2">Você pode gerar o projeto sem o SHA-256 e adicionar o <code>assetlinks.json</code> ao seu site futuramente após assinar o app.</p>
-                                </div>
+                                <button id="io-process-btn" class="btn-primary mt-6 !bg-amber-500 hover:!bg-amber-600 shadow-amber-500/20" disabled><i data-lucide="play"></i> Otimizar Fila (0)</button>
+                                <button id="io-download-zip" class="btn-secondary mt-3 hidden text-brand"><i data-lucide="folder-down"></i> Baixar ZIP</button>
                             </div>
                         </div>
 
-                        <!-- Coluna Direita: Preview & Checklist -->
-                        <div class="lg:col-span-5 flex flex-col gap-6">
+                        <!-- Fila & Preview -->
+                        <div class="lg:col-span-8 space-y-6">
+                            <label class="drop-zone block" id="io-drop">
+                                <i data-lucide="upload-cloud" class="w-10 h-10 text-neutral-400 mb-3"></i>
+                                <span class="font-bold text-sm">Arraste imagens ou clique para selecionar</span>
+                                <span class="text-xs text-neutral-500 mt-1">Suporta JPEG, PNG, WebP (Lote permitido)</span>
+                                <input type="file" id="io-file" multiple accept="image/jpeg, image/png, image/webp" class="hidden">
+                            </label>
                             
-                            <!-- Mockup -->
-                            <div class="bg-neutral-100 dark:bg-neutral-900 p-8 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-inner">
-                                <div class="mockup-phone" id="w2a-mockup-frame">
-                                    <div class="mockup-notch"></div>
-                                    <div class="mockup-header" id="w2a-mockup-header"><span id="w2a-mockup-title" class="text-xs truncate w-full text-center opacity-80">Meu App</span></div>
-                                    <div class="mockup-splash" id="w2a-mockup-splash">
-                                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23eee'/></svg>" id="w2a-mockup-icon">
-                                    </div>
-                                    <div class="mockup-content">
-                                        <div class="w-full h-32 bg-neutral-200 dark:bg-neutral-800 rounded-lg mb-4 animate-pulse"></div>
-                                        <div class="w-3/4 h-4 bg-neutral-200 dark:bg-neutral-800 rounded mb-2"></div>
-                                        <div class="w-1/2 h-4 bg-neutral-200 dark:bg-neutral-800 rounded"></div>
-                                    </div>
+                            <div class="bg-lightCard dark:bg-darkCard rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 overflow-hidden">
+                                <div class="px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50 flex justify-between items-center">
+                                    <h3 class="text-sm font-bold">Fila de Processamento</h3>
+                                    <span id="io-status-text" class="text-xs font-bold text-neutral-500">0 imagens</span>
+                                </div>
+                                <div id="io-list" class="max-h-[400px] overflow-y-auto p-2 space-y-2 bg-neutral-50/20 dark:bg-neutral-900/20 min-h-[100px]">
+                                    <div class="flex items-center justify-center h-full py-8 text-neutral-400 text-sm italic empty-msg">Nenhuma imagem na fila.</div>
                                 </div>
                             </div>
-
-                            <!-- Checklist -->
-                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
-                                <h4 class="font-bold mb-3 text-sm">Checklist de Exportação</h4>
-                                <ul class="text-xs space-y-2 text-neutral-600 dark:text-neutral-400" id="w2a-checklist">
-                                    <!-- Preenchido via JS -->
-                                </ul>
-                                <button id="w2a-btn-export" class="btn-primary !bg-emerald-600 hover:!bg-emerald-700 mt-6 shadow-emerald-500/20"><i data-lucide="package"></i> Preparar Projeto ZIP</button>
-                            </div>
-
                         </div>
                     </div>
                 `;
             },
-
+            
             init() {
-                const saved = localStorage.getItem('vitallab_w2a');
-                if (saved) { try { Object.assign(this.state, JSON.parse(saved)); } catch(e){} }
-                
-                // Mapeamento de UI
+                this.state.queue = [];
                 const els = {
-                    url: document.getElementById('w2a-url'), name: document.getElementById('w2a-name'),
-                    short: document.getElementById('w2a-short'), pkg: document.getElementById('w2a-pkg'),
-                    desc: document.getElementById('w2a-desc'), author: document.getElementById('w2a-author'),
-                    theme: document.getElementById('w2a-theme'), bg: document.getElementById('w2a-bg'),
-                    display: document.getElementById('w2a-display'), orientation: document.getElementById('w2a-orientation'),
-                    sha: document.getElementById('w2a-sha'), icon: document.getElementById('w2a-icon')
+                    preset: document.getElementById('io-preset'), customOpts: document.getElementById('io-custom-opts'),
+                    format: document.getElementById('io-format'), maxW: document.getElementById('io-maxw'),
+                    qual: document.getElementById('io-qual'), qualVal: document.getElementById('io-qual-val'),
+                    noUpscale: document.getElementById('io-no-upscale'), drop: document.getElementById('io-drop'),
+                    file: document.getElementById('io-file'), list: document.getElementById('io-list'),
+                    processBtn: document.getElementById('io-process-btn'), dlZip: document.getElementById('io-download-zip'),
+                    status: document.getElementById('io-status-text')
                 };
 
-                // Popular Form
-                for(let key in els) {
-                    if (els[key] && key !== 'icon' && this.state[key]) { els[key].value = this.state[key]; }
-                }
-
-                const validateURL = (url) => {
-                    if(!url) return false;
-                    try { new URL(url); return true; } catch { return false; }
+                const updateConfigUI = () => {
+                    const p = els.preset.value;
+                    if(p === 'custom') { els.customOpts.classList.remove('opacity-50', 'pointer-events-none'); }
+                    else {
+                        els.customOpts.classList.add('opacity-50', 'pointer-events-none');
+                        if(p === 'web') { els.format.value = 'image/webp'; els.qual.value = 80; els.maxW.value = 1600; }
+                        else if(p === 'social') { els.format.value = 'image/jpeg'; els.qual.value = 90; els.maxW.value = 1080; }
+                        else if(p === 'max') { els.format.value = 'image/webp'; els.qual.value = 60; els.maxW.value = 1200; }
+                        els.qualVal.innerText = els.qual.value + '%';
+                    }
                 };
 
-                const validatePkg = (pkg) => /^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$/i.test(pkg);
+                els.preset.addEventListener('change', updateConfigUI);
+                els.qual.addEventListener('input', e => els.qualVal.innerText = e.target.value + '%');
 
-                const updateUI = () => {
-                    // Update Mockup
-                    document.getElementById('w2a-mockup-header').style.backgroundColor = this.state.themeColor;
-                    document.getElementById('w2a-mockup-splash').style.backgroundColor = this.state.bgColor;
-                    document.getElementById('w2a-mockup-title').innerText = this.state.shortName || 'App';
+                const renderQueue = () => {
+                    els.status.innerText = `${this.state.queue.length} imagens`;
+                    els.processBtn.disabled = this.state.queue.length === 0 || this.state.isProcessing;
+                    els.processBtn.innerHTML = `<i data-lucide="play"></i> Otimizar Fila (${this.state.queue.length})`;
                     
-                    if (this.state.iconB64) {
-                        document.getElementById('w2a-mockup-icon').src = this.state.iconB64;
-                    } else {
-                        document.getElementById('w2a-mockup-icon').src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23ccc'/></svg>";
+                    if(this.state.queue.length === 0) {
+                        els.list.innerHTML = `<div class="flex items-center justify-center h-full py-8 text-neutral-400 text-sm italic">Nenhuma imagem na fila.</div>`;
+                        els.dlZip.classList.add('hidden'); return;
                     }
 
-                    // Checklist
-                    const check = (cond, okText, warnText) => cond ? `<li class="flex items-center gap-2 text-emerald-500 font-medium"><i data-lucide="check-circle" class="w-4 h-4"></i> ${okText}</li>` : `<li class="flex items-center gap-2 opacity-60"><i data-lucide="circle" class="w-4 h-4"></i> ${warnText}</li>`;
+                    const allDone = this.state.queue.every(i => i.status === 'done');
+                    if(allDone && this.state.queue.length > 0) els.dlZip.classList.remove('hidden');
+                    else els.dlZip.classList.add('hidden');
+
+                    els.list.innerHTML = this.state.queue.map((item, idx) => `
+                        <div class="flex items-center justify-between p-3 bg-white dark:bg-[#18181B] rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+                            <div class="flex items-center gap-3 overflow-hidden">
+                                <div class="w-10 h-10 bg-neutral-100 dark:bg-neutral-800 rounded-lg flex-shrink-0 overflow-hidden flex items-center justify-center">
+                                    ${item.preview ? `<img src="${item.preview}" class="w-full h-full object-cover">` : `<i data-lucide="image" class="w-5 h-5 text-neutral-400"></i>`}
+                                </div>
+                                <div class="flex flex-col truncate">
+                                    <span class="text-xs font-bold truncate" title="${item.file.name}">${item.file.name}</span>
+                                    <div class="flex gap-2 text-[10px] text-neutral-500">
+                                        <span>${FormatUtils.bytesToSize(item.originalSize)}</span>
+                                        ${item.status === 'done' ? `<span class="text-emerald-500 font-bold">→ ${FormatUtils.bytesToSize(item.newSize)} (-${Math.round((1 - item.newSize/item.originalSize)*100)}%)</span>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                ${item.status === 'waiting' ? `<span class="text-xs text-neutral-400"><i data-lucide="clock" class="w-4 h-4"></i></span>` : ''}
+                                ${item.status === 'processing' ? `<i data-lucide="loader" class="w-4 h-4 animate-spin text-brand"></i>` : ''}
+                                ${item.status === 'done' ? `<button class="dl-single p-1.5 bg-brand/10 text-brand rounded hover:bg-brand/20 transition-colors" data-idx="${idx}"><i data-lucide="download" class="w-4 h-4"></i></button>` : ''}
+                                ${item.status !== 'processing' ? `<button class="rm-single p-1.5 text-neutral-400 hover:text-red-500 transition-colors" data-idx="${idx}"><i data-lucide="x" class="w-4 h-4"></i></button>` : ''}
+                            </div>
+                        </div>
+                    `).join('');
                     
-                    const isUrlValid = validateURL(this.state.url);
-                    const isPkgValid = validatePkg(this.state.pkg);
+                    document.querySelectorAll('.rm-single').forEach(btn => btn.addEventListener('click', (e) => {
+                        const idx = e.currentTarget.getAttribute('data-idx');
+                        if(this.state.queue[idx].preview) URL.revokeObjectURL(this.state.queue[idx].preview);
+                        this.state.queue.splice(idx, 1); renderQueue();
+                    }));
+                    
+                    document.querySelectorAll('.dl-single').forEach(btn => btn.addEventListener('click', (e) => {
+                        const idx = e.currentTarget.getAttribute('data-idx');
+                        const item = this.state.queue[idx];
+                        DownloadEngine.download(item.blob, item.newName);
+                    }));
 
-                    document.getElementById('w2a-url-error').classList.toggle('hidden', !this.state.url || isUrlValid);
-                    document.getElementById('w2a-pkg-error').classList.toggle('hidden', !this.state.pkg || isPkgValid);
-
-                    document.getElementById('w2a-checklist').innerHTML = `
-                        ${check(isUrlValid, 'URL configurada', 'URL ausente ou inválida')}
-                        ${check(this.state.name, 'Nome definido', 'Falta nome do aplicativo')}
-                        ${check(isPkgValid, 'Package válido', 'Package Name inválido')}
-                        ${check(this.state.iconB64, 'Ícone enviado', 'Falta o ícone do App')}
-                        ${this.state.sha256 ? check(true, 'SHA-256 configurado', '') : `<li class="flex items-center gap-2 text-amber-500"><i data-lucide="alert-triangle" class="w-4 h-4"></i> SHA-256 pendente (AssetLinks)</li>`}
-                    `;
                     lucide.createIcons();
                 };
 
-                const saveState = () => {
-                    this.state.url = els.url.value;
-                    if(this.state.url && !this.state.url.startsWith('http')) {
-                        this.state.url = 'https://' + this.state.url;
-                        els.url.value = this.state.url;
-                    }
-                    this.state.name = els.name.value;
-                    this.state.shortName = els.short.value;
-                    this.state.pkg = els.pkg.value;
-                    this.state.desc = els.desc.value;
-                    this.state.author = els.author.value;
-                    this.state.themeColor = els.theme.value;
-                    this.state.bgColor = els.bg.value;
-                    this.state.display = els.display.value;
-                    this.state.orientation = els.orientation.value;
-                    this.state.sha256 = els.sha.value;
-                    
-                    try { localStorage.setItem('vitallab_w2a', JSON.stringify(this.state)); } catch(e){} // Catch quota error for images
-                    updateUI();
+                const handleFiles = (files) => {
+                    Array.from(files).forEach(f => {
+                        if(f.type.startsWith('image/')) {
+                            this.state.queue.push({
+                                file: f, originalSize: f.size, status: 'waiting', 
+                                preview: URL.createObjectURL(f), blob: null, newSize: 0, newName: ''
+                            });
+                        }
+                    });
+                    renderQueue();
                 };
 
-                // Eventos
-                Object.values(els).forEach(el => {
-                    if(el && el.type !== 'file') el.addEventListener('blur', saveState);
-                    if(el && (el.type === 'color' || el.tagName === 'SELECT')) el.addEventListener('change', saveState);
-                });
-                
-                // Typing update for mockup feeling
-                ['name', 'short', 'theme', 'bg'].forEach(k => els[k].addEventListener('input', () => {
-                    this.state[k === 'theme' ? 'themeColor' : k === 'bg' ? 'bgColor' : k === 'short' ? 'shortName' : 'name'] = els[k].value;
-                    updateUI();
-                }));
+                els.drop.addEventListener('dragover', e => { e.preventDefault(); els.drop.classList.add('dragover'); });
+                els.drop.addEventListener('dragleave', e => { els.drop.classList.remove('dragover'); });
+                els.drop.addEventListener('drop', e => { e.preventDefault(); els.drop.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+                els.file.addEventListener('change', e => { handleFiles(e.target.files); els.file.value = ''; });
 
-                els.icon.addEventListener('change', (e) => {
-                    const file = e.target.files[0];
-                    if(!file) return;
-                    const reader = new FileReader();
-                    reader.onload = async (ev) => {
-                        const b64 = await ImageOptimizer.compressBase64(ev.target.result, 512); // Max 512 for PWA max icon
-                        this.state.iconB64 = b64;
-                        saveState();
-                    };
-                    reader.readAsDataURL(file);
+                document.getElementById('io-clear').addEventListener('click', () => {
+                    this.state.queue.forEach(i => { if(i.preview) URL.revokeObjectURL(i.preview); });
+                    this.state.queue = []; renderQueue();
                 });
 
-                document.getElementById('w2a-btn-pkg').addEventListener('click', () => {
-                    if(!this.state.url) { ToastManager.show('Digite a URL primeiro', 'error'); return; }
-                    try {
-                        const domain = new URL(this.state.url).hostname.replace('www.', '');
-                        const parts = domain.split('.').reverse();
-                        let appName = (this.state.shortName || this.state.name || 'app').toLowerCase().replace(/[^a-z0-9]/g, '');
-                        if(!appName) appName = 'app';
-                        els.pkg.value = `${parts.join('.')}.${appName}`;
-                        saveState();
-                    } catch(e) { ToastManager.show('URL inválida', 'error'); }
-                });
-
-                document.getElementById('w2a-reset').addEventListener('click', () => {
-                    if(confirm("Iniciar novo projeto e limpar dados atuais?")) {
-                        localStorage.removeItem('vitallab_w2a');
-                        this.state = { url: '', name: '', shortName: '', pkg: '', desc: '', author: 'Vital Designer', iconB64: null, themeColor: '#3B82F6', bgColor: '#FFFFFF', display: 'standalone', orientation: 'portrait', sha256: '' };
-                        this.init(); // Reload
-                    }
-                });
-
-                // --- Geração do Pacote ---
-                document.getElementById('w2a-btn-export').addEventListener('click', async () => {
-                    if(!validateURL(this.state.url)) return ToastManager.show('URL inválida.', 'error');
-                    if(!this.state.name) return ToastManager.show('Nome é obrigatório.', 'error');
-                    if(!validatePkg(this.state.pkg)) return ToastManager.show('Package Name inválido.', 'error');
+                els.processBtn.addEventListener('click', async () => {
+                    if(this.state.isProcessing || this.state.queue.length === 0) return;
+                    this.state.isProcessing = true; renderQueue();
                     
-                    const btn = document.getElementById('w2a-btn-export');
-                    const ogHtml = btn.innerHTML;
-                    btn.disabled = true; btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Compactando...`;
-                    lucide.createIcons();
+                    const format = els.format.value; const qual = els.qual.value / 100;
+                    const maxW = parseInt(els.maxW.value) || 9999; const noUpscale = els.noUpscale.checked;
 
+                    for(let i=0; i<this.state.queue.length; i++) {
+                        const item = this.state.queue[i];
+                        if(item.status === 'done') continue;
+                        
+                        item.status = 'processing'; renderQueue();
+                        
+                        try {
+                            const img = new Image();
+                            const src = URL.createObjectURL(item.file);
+                            img.src = src;
+                            await new Promise(r => img.onload = r);
+                            
+                            let targetW = img.width, targetH = img.height;
+                            if(targetW > maxW || (targetW < maxW && !noUpscale)) {
+                                const ratio = maxW / targetW; targetW = maxW; targetH = img.height * ratio;
+                            }
+                            
+                            const canvas = document.createElement('canvas');
+                            canvas.width = targetW; canvas.height = targetH;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, targetW, targetH);
+                            
+                            const blob = await new Promise(r => canvas.toBlob(r, format, qual));
+                            item.blob = blob; item.newSize = blob.size; item.status = 'done';
+                            const ext = format === 'image/webp' ? 'webp' : format === 'image/jpeg' ? 'jpg' : 'png';
+                            item.newName = item.file.name.replace(/\.[^/.]+$/, "") + '-optimized.' + ext;
+                            URL.revokeObjectURL(src);
+                        } catch (e) {
+                            console.error('VitalLab ImageEngine Error:', e);
+                            item.status = 'error';
+                        }
+                    }
+                    this.state.isProcessing = false; renderQueue();
+                    ToastManager.show('Processamento concluído!', 'success');
+                });
+
+                els.dlZip.addEventListener('click', async () => {
+                    const btn = els.dlZip; const og = btn.innerHTML; btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Gerando ZIP...`;
                     try {
                         const zip = new JSZip();
-                        const root = zip.folder("web2app-project");
+                        this.state.queue.filter(i => i.status === 'done').forEach(i => zip.file(i.newName, i.blob));
+                        const zipBlob = await zip.generateAsync({type:"blob"});
+                        DownloadEngine.download(zipBlob, 'vitallab-images.zip');
+                    } catch(e) { ToastManager.show('Erro ao gerar ZIP', 'error'); }
+                    finally { btn.innerHTML = og; lucide.createIcons(); }
+                });
+            }
+        };
+
+        // =================================
+        // TOOL: WEBSITE INSPECTOR
+        // =================================
+        const WebsiteInspectorTool = {
+            render(container) {
+                container.innerHTML = `
+                    <div class="mb-8"><h2 class="text-3xl font-extrabold flex items-center gap-3"><i data-lucide="globe" class="text-blue-500"></i> Website Inspector</h2>
+                    <p class="text-neutral-500 text-sm mt-2">Diagnóstico local de SEO, acessibilidade e estrutura.</p></div>
+                    
+                    <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 mb-8">
+                        <div class="flex gap-3">
+                            <input type="url" id="wi-url" class="input-premium flex-1" placeholder="https://seudominio.com.br" required>
+                            <button id="wi-btn" class="btn-primary w-auto px-8 !bg-blue-600 hover:!bg-blue-700 shadow-blue-500/20"><i data-lucide="search"></i> Analisar Site</button>
+                        </div>
+                        <p class="text-xs text-neutral-500 mt-3"><i data-lucide="info" class="w-3 h-3 inline"></i> A análise é feita pelo seu navegador. Sites com proteção CORS estrita podem bloquear o acesso.</p>
+                    </div>
+
+                    <div id="wi-result" class="hidden space-y-6">
+                        <!-- Score Header -->
+                        <div class="flex items-center justify-between p-6 bg-blue-50 dark:bg-blue-900/10 rounded-3xl border border-blue-100 dark:border-blue-900/30">
+                            <div><h3 class="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">Diagnóstico</h3><h2 id="wi-res-title" class="text-2xl font-extrabold"></h2></div>
+                            <div class="w-20 h-20 rounded-full bg-white dark:bg-[#18181B] border-4 border-blue-500 flex items-center justify-center shadow-lg"><span id="wi-res-score" class="text-2xl font-extrabold text-blue-500"></span></div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- SEO -->
+                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
+                                <h4 class="font-bold mb-4 flex items-center gap-2"><i data-lucide="search-check" class="text-emerald-500"></i> SEO Básico</h4>
+                                <ul id="wi-list-seo" class="space-y-3 text-sm"></ul>
+                            </div>
+                            <!-- Social -->
+                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
+                                <h4 class="font-bold mb-4 flex items-center gap-2"><i data-lucide="share-2" class="text-indigo-500"></i> Social & Open Graph</h4>
+                                <ul id="wi-list-social" class="space-y-3 text-sm"></ul>
+                            </div>
+                            <!-- Estrutura -->
+                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
+                                <h4 class="font-bold mb-4 flex items-center gap-2"><i data-lucide="layout-template" class="text-amber-500"></i> Estrutura HTML</h4>
+                                <ul id="wi-list-struct" class="space-y-3 text-sm"></ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            },
+            init() {
+                const btn = document.getElementById('wi-btn');
+                const input = document.getElementById('wi-url');
+                const resDiv = document.getElementById('wi-result');
+                
+                const checkItem = (cond, textOk, textFail, type = 'err') => {
+                    const icon = cond ? `<i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>` : (type==='err' ? `<i data-lucide="x-circle" class="w-4 h-4 text-red-500"></i>` : `<i data-lucide="alert-circle" class="w-4 h-4 text-amber-500"></i>`);
+                    return `<li class="flex items-start gap-2 leading-tight">${icon} <span class="text-neutral-600 dark:text-neutral-300 text-xs">${cond ? textOk : textFail}</span></li>`;
+                };
+
+                btn.addEventListener('click', async () => {
+                    let url = input.value.trim();
+                    if(!url) return ToastManager.show('Digite uma URL válida', 'error');
+                    if(!url.startsWith('http')) { url = 'https://' + url; input.value = url; }
+                    
+                    const ogHtml = btn.innerHTML; btn.disabled = true; btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Analisando...`; lucide.createIcons();
+                    resDiv.classList.add('hidden');
+
+                    try {
+                        // Attempt Fetch
+                        const response = await fetch(url, { mode: 'cors', credentials: 'omit' });
+                        if(!response.ok) throw new Error('Status ' + response.status);
+                        const html = await response.text();
                         
-                        // 1. Manifest PWA
-                        const manifest = {
-                            name: this.state.name,
-                            short_name: this.state.shortName || this.state.name,
-                            start_url: "/",
-                            display: this.state.display,
-                            background_color: this.state.bgColor,
-                            theme_color: this.state.themeColor,
-                            orientation: this.state.orientation,
-                            description: this.state.desc,
-                            icons: [48,72,96,144,192,512].map(s => ({
-                                src: `icons/icon-${s}.png`, sizes: `${s}x${s}`, type: "image/png", purpose: "any maskable"
-                            }))
-                        };
-                        root.file("manifest.json", JSON.stringify(manifest, null, 2));
+                        // Parse DOM
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, "text/html");
+                        
+                        let score = 100;
 
-                        // 2. Service Worker Simples
-                        const sw = `// Base Service Worker para Web2App\nconst CACHE_NAME = 'web2app-v1';\nself.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME)));\nself.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));`;
-                        root.file("sw.js", sw);
+                        // 1. SEO
+                        const title = doc.querySelector('title');
+                        const metaDesc = doc.querySelector('meta[name="description"]');
+                        const h1 = doc.querySelectorAll('h1');
+                        const canon = doc.querySelector('link[rel="canonical"]');
+                        
+                        if(!title) score -= 15;
+                        if(!metaDesc) score -= 10;
+                        if(h1.length !== 1) score -= 5;
 
-                        // 3. AssetLinks
-                        if(this.state.sha256) {
-                            const assetLinks = [{
-                                relation: ["delegate_permission/common.handle_all_urls"],
-                                target: { namespace: "android_app", package_name: this.state.pkg, sha256_cert_fingerprints: [this.state.sha256] }
-                            }];
-                            root.file(".well-known/assetlinks.json", JSON.stringify(assetLinks, null, 2));
-                        }
+                        document.getElementById('wi-list-seo').innerHTML = `
+                            ${checkItem(title && title.innerText.length > 5, 'Título da página configurado', 'Falta tag <title> ou é muito curta')}
+                            ${checkItem(metaDesc && metaDesc.content.length > 10, 'Meta description configurada', 'Falta meta description')}
+                            ${checkItem(h1.length === 1, 'Apenas um H1 detectado', h1.length === 0 ? 'Falta tag H1' : 'Múltiplos H1 detectados (Atenção)', 'warn')}
+                            ${checkItem(canon, 'URL Canônica definida', 'Sem tag canonical (Atenção)', 'warn')}
+                        `;
 
-                        // 4. Bubblewrap Fake Config / Instructions
-                        const twaConfig = {
-                            domain: new URL(this.state.url).hostname,
-                            packageId: this.state.pkg,
-                            name: this.state.name,
-                            themeColor: this.state.themeColor,
-                            navigationColor: "#000000",
-                            backgroundColor: this.state.bgColor,
-                            enableNotifications: true,
-                            enableFeatures: []
-                        };
-                        root.file("twa-manifest.json", JSON.stringify(twaConfig, null, 2));
+                        // 2. Social
+                        const ogTitle = doc.querySelector('meta[property="og:title"]');
+                        const ogImg = doc.querySelector('meta[property="og:image"]');
+                        const twitterCard = doc.querySelector('meta[name="twitter:card"]');
+                        
+                        if(!ogTitle) score -= 5;
+                        if(!ogImg) score -= 10;
 
-                        // 5. README
-                        const readme = `# Web2App Project - ${this.state.name}
-Projeto preparado pelo VitalLab.
+                        document.getElementById('wi-list-social').innerHTML = `
+                            ${checkItem(ogTitle, 'Open Graph Title presente', 'Falta og:title')}
+                            ${checkItem(ogImg, 'Open Graph Image configurada', 'Falta og:image (prejudicial para redes sociais)')}
+                            ${checkItem(twitterCard, 'Twitter Card configurado', 'Falta configuração específica pro Twitter/X', 'warn')}
+                        `;
 
-## Passos para Finalização:
-1. Hospede os arquivos \`manifest.json\` e \`sw.js\` na raiz do seu site.
-2. Link o manifest no HTML: \`<link rel="manifest" href="/manifest.json">\`
-3. Coloque a pasta \`icons/\` na raiz.
-4. ${this.state.sha256 ? `Hospede a pasta \`.well-known\` para validar a Trusted Web Activity (TWA).` : `Gere a chave de assinatura Android, pegue o SHA-256 e crie o arquivo \`.well-known/assetlinks.json\` no seu site.`}
-5. Utilize a ferramenta CLI do Google **Bubblewrap** para compilar o APK:
-   \`npm i -g @GoogleChromeLabs/bubblewrap\`
-   \`bubblewrap init --manifest=${this.state.url}/manifest.json\`
-   \`bubblewrap build\`
-`;
-                        root.file("README.md", readme);
+                        // 3. Structure/A11y Base
+                        const imgs = doc.querySelectorAll('img');
+                        const imgsNoAlt = Array.from(imgs).filter(i => !i.hasAttribute('alt'));
+                        const lang = doc.documentElement.lang;
+                        const viewport = doc.querySelector('meta[name="viewport"]');
+                        
+                        if(!lang) score -= 5;
+                        if(!viewport) score -= 15;
+                        if(imgs.length > 0 && imgsNoAlt.length > 0) score -= (imgsNoAlt.length > 5 ? 10 : 5);
 
-                        // 6. Icons Generation (Canvas API native resize)
-                        if(this.state.iconB64) {
-                            const iconsFolder = root.folder("icons");
-                            const sizes = [48, 72, 96, 144, 192, 512];
-                            
-                            const resizeAndGetBase64 = async (src, size) => {
-                                return new Promise(resolve => {
-                                    const img = new Image(); img.src = src;
-                                    img.onload = () => {
-                                        const c = document.createElement('canvas'); c.width = size; c.height = size;
-                                        const ctx = c.getContext('2d');
-                                        // Clear with transparent or bg color
-                                        ctx.clearRect(0,0,size,size);
-                                        // Draw centered respecting ratio to not distort, just scaling down/up
-                                        ctx.drawImage(img, 0, 0, size, size);
-                                        resolve(c.toDataURL('image/png').split(',')[1]); // return raw b64
-                                    };
-                                });
-                            };
+                        document.getElementById('wi-list-struct').innerHTML = `
+                            ${checkItem(viewport, 'Viewport responsivo declarado', 'Falta tag viewport (Crítico para mobile)')}
+                            ${checkItem(lang, `Idioma declarado (${lang})`, 'Falta atributo lang na tag <html>')}
+                            ${checkItem(imgs.length === 0 || imgsNoAlt.length === 0, 'Todas as imagens possuem alt', imgs.length === 0 ? 'Sem imagens' : `${imgsNoAlt.length} imagens sem atributo alt`, 'warn')}
+                        `;
 
-                            for(let size of sizes) {
-                                const b64 = await resizeAndGetBase64(this.state.iconB64, size);
-                                iconsFolder.file(`icon-${size}.png`, b64, {base64: true});
-                            }
-                        }
+                        document.getElementById('wi-res-title').innerText = new URL(url).hostname;
+                        document.getElementById('wi-res-score').innerText = Math.max(0, score);
+                        resDiv.classList.remove('hidden');
 
-                        // Generate ZIP
-                        const blob = await zip.generateAsync({type:"blob"});
-                        DownloadEngine.download(blob, `${this.state.pkg}-web2app.zip`);
-
-                    } catch (error) {
-                        console.error(error);
-                        ToastManager.show('Erro ao processar pacote.', 'error');
+                    } catch(err) {
+                        console.error('WebsiteInspector Error:', err);
+                        ToastManager.show('Este site não permite análise direta pelo navegador. Alguns sites bloqueiam solicitações externas (CORS).', 'warning');
                     } finally {
                         btn.disabled = false; btn.innerHTML = ogHtml; lucide.createIcons();
                     }
                 });
-
-                updateUI();
             }
         };
 
         // =================================
-        // TOOL: QR CODE PRO & ZINE CREATOR PRO (Preservados)
+        // TOOL: PDF LAB
         // =================================
-        const QRCodeTool = {
+        const PDFLabTool = {
             render(container) {
                 container.innerHTML = `
-                    <div class="mb-8"><h2 class="text-3xl font-extrabold flex items-center gap-3"><i data-lucide="qr-code" class="text-brand"></i> QR Code Pro</h2></div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7 space-y-6 bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
-                            <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-2">URL / Conteúdo</label><input type="text" id="qr-val" class="input-premium" value="https://vital-lab.com"></div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-2">Estilo dos Pontos</label><select id="qr-dots" class="input-premium"><option value="square">Square</option><option value="dots">Dots</option><option value="rounded" selected>Rounded</option><option value="classy">Classy</option><option value="extra-rounded">Extra Rounded</option></select></div>
-                                <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-2">Nível de Correção</label><select id="qr-error" class="input-premium"><option value="L">Baixo (L)</option><option value="M">Médio (M)</option><option value="Q" selected>Alto (Q) - Bom para Logos</option><option value="H">Máximo (H)</option></select></div>
-                            </div>
-                            <hr class="border-neutral-200 dark:border-neutral-800">
-                            <div>
-                                <label class="flex items-center gap-2 text-sm font-bold mb-4 cursor-pointer"><input type="checkbox" id="qr-use-gradient" class="w-4 h-4 text-brand rounded focus:ring-brand"> Usar Degradê (Gradient)</label>
-                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                                    <div><label class="block text-xs font-bold text-neutral-500 mb-1">Cor 1 (Principal)</label><input type="color" id="qr-color-1" value="#3B82F6" class="h-10 w-full rounded-lg cursor-pointer"></div>
-                                    <div id="qr-grad-col-2" class="opacity-50 pointer-events-none transition-opacity"><label class="block text-xs font-bold text-neutral-500 mb-1">Cor 2</label><input type="color" id="qr-color-2" value="#9333EA" class="h-10 w-full rounded-lg cursor-pointer"></div>
-                                    <div id="qr-grad-type" class="col-span-2 opacity-50 pointer-events-none transition-opacity"><label class="block text-xs font-bold text-neutral-500 mb-1">Direção</label><select id="qr-grad-dir" class="input-premium py-2"><option value="linear">Linear (0°)</option><option value="linear-45">Linear (45°)</option><option value="radial">Radial</option></select></div>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-2">Cor do Fundo</label><input type="color" id="qr-color-bg" value="#ffffff" class="h-10 w-full rounded-lg cursor-pointer"></div>
-                                <div><label class="block text-xs font-bold uppercase text-neutral-500 mb-2">Logo Central</label><label class="flex items-center justify-center h-10 w-full bg-neutral-100 dark:bg-neutral-800 rounded-xl cursor-pointer hover:opacity-80"><i data-lucide="upload" class="w-4 h-4"></i><input type="file" id="qr-logo" accept="image/*" class="hidden"></label></div>
-                            </div>
+                    <div class="mb-8 flex justify-between items-center">
+                        <div><h2 class="text-3xl font-extrabold flex items-center gap-3"><i data-lucide="file-text" class="text-rose-500"></i> PDF Lab</h2>
+                        <p class="text-neutral-500 text-sm mt-2">Ferramentas profissionais de manipulação de PDF via Browser.</p></div>
+                    </div>
+                    
+                    <div id="pdf-hub" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <button class="pdf-sub-btn flex flex-col items-center justify-center p-8 bg-lightCard dark:bg-darkCard border border-neutral-200 dark:border-neutral-800 rounded-3xl hover:border-rose-500 hover:shadow-glow transition-all" data-tool="info">
+                            <i data-lucide="file-search" class="w-10 h-10 text-rose-500 mb-4"></i><span class="font-bold">PDF Info</span><span class="text-xs text-neutral-500 mt-1">Analisador de metadados</span>
+                        </button>
+                        <button class="pdf-sub-btn flex flex-col items-center justify-center p-8 bg-lightCard dark:bg-darkCard border border-neutral-200 dark:border-neutral-800 rounded-3xl hover:border-rose-500 hover:shadow-glow transition-all" data-tool="watermark">
+                            <i data-lucide="droplet" class="w-10 h-10 text-blue-500 mb-4"></i><span class="font-bold">PDF Watermark</span><span class="text-xs text-neutral-500 mt-1">Adicionar marca d'água</span>
+                        </button>
+                        <button class="pdf-sub-btn flex flex-col items-center justify-center p-8 bg-lightCard dark:bg-darkCard border border-neutral-200 dark:border-neutral-800 rounded-3xl hover:border-rose-500 hover:shadow-glow transition-all" data-tool="merge">
+                            <i data-lucide="layers" class="w-10 h-10 text-emerald-500 mb-4"></i><span class="font-bold">PDF Merge</span><span class="text-xs text-neutral-500 mt-1">Juntar documentos</span>
+                        </button>
+                        <!-- Stubs for premium features mentioned -->
+                        <div class="flex flex-col items-center justify-center p-8 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl opacity-60">
+                            <i data-lucide="pen-tool" class="w-10 h-10 text-neutral-400 mb-4"></i><span class="font-bold">PDF Sign (Em breve)</span><span class="text-xs text-neutral-500 mt-1">Assinatura Visual</span>
                         </div>
-                        <div class="lg:col-span-5 flex flex-col gap-4">
-                            <div class="bg-lightCard dark:bg-darkCard p-8 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 flex flex-col items-center justify-center min-h-[350px]">
-                                <div id="qr-canvas-container" class="bg-white p-4 rounded-2xl shadow-sm border border-neutral-100"></div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3"><button id="qr-btn-png" class="btn-primary"><i data-lucide="download"></i> PNG</button><button id="qr-btn-svg" class="btn-secondary"><i data-lucide="vector"></i> SVG</button></div>
+                        <div class="flex flex-col items-center justify-center p-8 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl opacity-60">
+                            <i data-lucide="minimize" class="w-10 h-10 text-neutral-400 mb-4"></i><span class="font-bold">PDF Compress (WASM req)</span><span class="text-xs text-neutral-500 mt-1">Compressão real avançada</span>
                         </div>
                     </div>
-                `;
-            },
-            init() {
-                const getGradientRotation = (val) => val === 'linear-45' ? Math.PI / 4 : 0;
-                const updateQR = () => {
-                    if (!AppState.qrCodeInstance) return;
-                    const useGradient = document.getElementById('qr-use-gradient').checked;
-                    const c1 = document.getElementById('qr-color-1').value, c2 = document.getElementById('qr-color-2').value, gradDir = document.getElementById('qr-grad-dir').value;
-                    let dotsOptions = { type: document.getElementById('qr-dots').value };
-                    if (useGradient) { dotsOptions.gradient = { type: gradDir === 'radial' ? "radial" : "linear", rotation: getGradientRotation(gradDir), colorStops: [{ offset: 0, color: c1 }, { offset: 1, color: c2 }] }; } else { dotsOptions.color = c1; }
-                    AppState.qrCodeInstance.update({ data: document.getElementById('qr-val').value || "https://vital-lab.com", dotsOptions: dotsOptions, cornersSquareOptions: { type: document.getElementById('qr-dots').value === 'square' ? 'square' : 'extra-rounded', color: c1 }, backgroundOptions: { color: document.getElementById('qr-color-bg').value }, qrOptions: { errorCorrectionLevel: document.getElementById('qr-error').value } });
-                };
-                AppState.qrCodeInstance = new QRCodeStyling({ width: 300, height: 300, type: "svg", margin: 10, imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 8 } });
-                AppState.qrCodeInstance.append(document.getElementById('qr-canvas-container')); updateQR();
-                document.getElementById('qr-use-gradient').addEventListener('change', (e) => { [document.getElementById('qr-grad-col-2'), document.getElementById('qr-grad-type')].forEach(el => e.target.checked ? el.classList.remove('opacity-50', 'pointer-events-none') : el.classList.add('opacity-50', 'pointer-events-none')); updateQR(); });
-                ['qr-val', 'qr-dots', 'qr-error', 'qr-color-1', 'qr-color-2', 'qr-grad-dir', 'qr-color-bg'].forEach(id => document.getElementById(id).addEventListener('input', updateQR));
-                document.getElementById('qr-logo').addEventListener('change', (e) => { const file = e.target.files[0]; if(!file) { AppState.qrCodeInstance.update({ image: "" }); return; } const reader = new FileReader(); reader.onload = (ev) => AppState.qrCodeInstance.update({ image: ev.target.result }); reader.readAsDataURL(file); });
-                const exportFile = async (ext) => { if(!AppState.qrCodeInstance) return; const blob = await AppState.qrCodeInstance.getRawData(ext); DownloadEngine.download(blob, `vitallab-qr.${ext}`); };
-                document.getElementById('qr-btn-png').addEventListener('click', () => exportFile('png')); document.getElementById('qr-btn-svg').addEventListener('click', () => exportFile('svg'));
-            }
-        };
 
-        const ZineTool = {
-            defaultPageData: () => ({ text: '', font: 'Helvetica', fontSize: 12, color: '#000000', img: null, imgX: 50, imgY: 50, imgScale: 50 }),
-            render(container) {
-                container.innerHTML = `
-                    <div class="mb-8 flex justify-between items-center"><h2 class="text-3xl font-extrabold flex items-center gap-3"><i data-lucide="book-open" class="text-indigo-500"></i> Zine Creator Pro</h2><button id="zine-reset" class="text-xs text-red-500 font-bold border border-red-500/30 px-3 py-1.5 rounded hover:bg-red-500 hover:text-white">Limpar Projeto</button></div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-8 space-y-6">
-                            <div class="flex flex-wrap gap-2" id="zine-tabs">${Array(8).fill(0).map((_, i) => `<button class="zine-tab flex-1 min-w-[40px] py-2 rounded-xl text-xs font-bold border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800" data-page="${i}">${i===0?'Capa':i===7?'Contra':'Pág '+(i+1)}</button>`).join('')}</div>
-                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-4"><h3 class="text-sm font-bold border-b border-neutral-200 dark:border-neutral-800 pb-2">Tipografia</h3><div><textarea id="zine-text" class="input-premium min-h-[120px]" placeholder="Texto da página..."></textarea></div><div class="grid grid-cols-2 gap-2"><div><label class="block text-xs font-bold text-neutral-500 mb-1">Fonte</label><select id="zine-font" class="input-premium py-2 text-xs"><option value="Helvetica">Sans</option><option value="TimesRoman">Serif</option><option value="Courier">Mono</option></select></div><div><label class="block text-xs font-bold text-neutral-500 mb-1">Cor</label><input type="color" id="zine-color" class="h-10 w-full rounded-lg cursor-pointer"></div></div><div><label class="block text-xs font-bold text-neutral-500 mb-1">Tamanho da Fonte: <span id="zine-fs-val">12</span></label><input type="range" id="zine-fs" min="8" max="72" value="12"></div></div>
-                                <div class="space-y-4"><h3 class="text-sm font-bold border-b border-neutral-200 dark:border-neutral-800 pb-2">Imagem</h3><label class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-neutral-300 dark:border-neutral-700 rounded-xl cursor-pointer hover:bg-neutral-50 dark:bg-neutral-800"><i data-lucide="image" class="w-6 h-6 text-neutral-400 mb-1"></i><span class="text-xs font-bold text-neutral-500">Enviar Imagem</span><input type="file" id="zine-img-upload" accept="image/png, image/jpeg" class="hidden"></label>
-                                    <div class="space-y-3"><div><label class="block text-[10px] font-bold uppercase text-neutral-500 mb-1">X</label><input type="range" id="zine-img-x" min="0" max="100" value="50"></div><div><label class="block text-[10px] font-bold uppercase text-neutral-500 mb-1">Y</label><input type="range" id="zine-img-y" min="0" max="100" value="50"></div><div><label class="block text-[10px] font-bold uppercase text-neutral-500 mb-1">Tamanho</label><input type="range" id="zine-img-scale" min="10" max="200" value="50"></div><button id="zine-img-remove" class="w-full text-xs font-bold text-red-500 py-1 hidden">Remover Imagem</button></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="lg:col-span-4 flex flex-col gap-6">
-                            <div class="bg-neutral-100 dark:bg-neutral-900 p-6 rounded-3xl border border-neutral-200 dark:border-neutral-800 flex flex-col items-center shadow-inner"><span class="text-[10px] font-bold uppercase text-neutral-500 mb-4 tracking-widest">Prévia da Página</span><div id="zine-preview" class="zine-preview-box rounded shadow-md"><img id="zp-img" class="zine-preview-img hidden" src=""><div id="zp-text" class="zine-preview-text"></div></div></div>
-                            <button id="zine-btn-pdf" class="btn-primary !bg-indigo-600 hover:!bg-indigo-700 shadow-indigo-500/20"><i data-lucide="printer"></i> Exportar PDF (Imposição A4)</button>
-                        </div>
+                    <!-- Workspaces (Hidden by default) -->
+                    <div id="pdf-workspace" class="hidden">
+                        <button id="pdf-back" class="mb-6 flex items-center gap-2 text-sm font-bold text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Lab</button>
+                        <div id="pdf-tool-content"></div>
                     </div>
                 `;
             },
             init() {
-                const saved = localStorage.getItem('vitallab_zine_pro');
-                if (saved) { try { AppState.zineData = JSON.parse(saved); } catch(e) { AppState.zineData = []; } }
-                if (!AppState.zineData || AppState.zineData.length !== 8) { AppState.zineData = Array(8).fill(null).map(() => this.defaultPageData()); }
-                AppState.zineCurrentPage = 0;
-                const els = { text: document.getElementById('zine-text'), font: document.getElementById('zine-font'), fs: document.getElementById('zine-fs'), fsVal: document.getElementById('zine-fs-val'), color: document.getElementById('zine-color'), imgUpload: document.getElementById('zine-img-upload'), imgX: document.getElementById('zine-img-x'), imgY: document.getElementById('zine-img-y'), imgScale: document.getElementById('zine-img-scale'), imgRemove: document.getElementById('zine-img-remove'), zpImg: document.getElementById('zp-img'), zpText: document.getElementById('zp-text') };
-                const updatePreview = () => {
-                    const data = AppState.zineData[AppState.zineCurrentPage];
-                    els.zpText.innerText = data.text; els.zpText.style.fontFamily = data.font === 'TimesRoman' ? 'Times New Roman, serif' : data.font === 'Courier' ? 'Courier, monospace' : 'Arial, sans-serif'; els.zpText.style.fontSize = (data.fontSize * 0.4) + 'px'; els.zpText.style.color = data.color;
-                    if(data.img) { els.zpImg.src = data.img; els.zpImg.classList.remove('hidden'); els.imgRemove.classList.remove('hidden'); els.zpImg.style.width = data.imgScale + '%'; els.zpImg.style.left = `calc(${data.imgX}% - (${data.imgScale}% / 2))`; els.zpImg.style.top = data.imgY + '%'; } else { els.zpImg.classList.add('hidden'); els.imgRemove.classList.add('hidden'); }
-                };
-                const saveState = () => {
-                    const data = AppState.zineData[AppState.zineCurrentPage];
-                    data.text = els.text.value; data.font = els.font.value; data.fontSize = parseInt(els.fs.value); data.color = els.color.value; data.imgX = parseInt(els.imgX.value); data.imgY = parseInt(els.imgY.value); data.imgScale = parseInt(els.imgScale.value);
-                    localStorage.setItem('vitallab_zine_pro', JSON.stringify(AppState.zineData)); updatePreview();
-                };
-                const loadPage = (idx) => { AppState.zineCurrentPage = idx; document.querySelectorAll('.zine-tab').forEach(t => t.classList.remove('active')); document.querySelector(`.zine-tab[data-page="${idx}"]`).classList.add('active'); const data = AppState.zineData[idx]; els.text.value = data.text; els.font.value = data.font; els.fs.value = data.fontSize; els.fsVal.innerText = data.fontSize; els.color.value = data.color; els.imgX.value = data.imgX; els.imgY.value = data.imgY; els.imgScale.value = data.imgScale; updatePreview(); };
-                ['text', 'font', 'color', 'imgX', 'imgY', 'imgScale'].forEach(key => els[key].addEventListener('input', saveState));
-                els.fs.addEventListener('input', (e) => { els.fsVal.innerText = e.target.value; saveState(); });
-                els.imgUpload.addEventListener('change', async (e) => { const file = e.target.files[0]; if(!file) return; const reader = new FileReader(); reader.onload = async (ev) => { AppState.zineData[AppState.zineCurrentPage].img = await ImageOptimizer.compressBase64(ev.target.result, 800); saveState(); }; reader.readAsDataURL(file); });
-                els.imgRemove.addEventListener('click', () => { AppState.zineData[AppState.zineCurrentPage].img = null; els.imgUpload.value = ''; saveState(); });
-                document.querySelectorAll('.zine-tab').forEach(tab => { tab.addEventListener('click', (e) => loadPage(parseInt(e.currentTarget.getAttribute('data-page')))); });
-                document.getElementById('zine-reset').addEventListener('click', () => { if(confirm("Apagar todo o projeto Zine atual?")) { AppState.zineData = Array(8).fill(null).map(() => this.defaultPageData()); localStorage.removeItem('vitallab_zine_pro'); loadPage(0); ToastManager.show('Projeto limpo.', 'success'); } });
-                document.getElementById('zine-btn-pdf').addEventListener('click', async () => {
-                    const btn = document.getElementById('zine-btn-pdf'); const ogHtml = btn.innerHTML; btn.disabled = true; btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Renderizando...`; lucide.createIcons();
-                    try {
-                        const { PDFDocument, rgb, StandardFonts, degrees } = PDFLib; const pdfDoc = await PDFDocument.create();
-                        const fonts = { 'Helvetica': await pdfDoc.embedFont(StandardFonts.Helvetica), 'TimesRoman': await pdfDoc.embedFont(StandardFonts.TimesRoman), 'Courier': await pdfDoc.embedFont(StandardFonts.Courier) };
-                        const hexToRgb = (hex) => rgb(parseInt(hex.slice(1,3), 16)/255, parseInt(hex.slice(3,5), 16)/255, parseInt(hex.slice(5,7), 16)/255);
-                        const A4_W = 841.89, A4_H = 595.28; const page = pdfDoc.addPage([A4_W, A4_H]); const colW = A4_W / 4; const rowH = A4_H / 2; const margin = 15;
-                        const imposition = [ { idx: 5, col: 0, row: 0, rot: true }, { idx: 4, col: 1, row: 0, rot: true }, { idx: 3, col: 2, row: 0, rot: true }, { idx: 2, col: 3, row: 0, rot: true }, { idx: 6, col: 0, row: 1, rot: false }, { idx: 7, col: 1, row: 1, rot: false }, { idx: 0, col: 2, row: 1, rot: false }, { idx: 1, col: 3, row: 1, rot: false } ];
-                        for (const imp of imposition) {
-                            const data = AppState.zineData[imp.idx]; const baseX = imp.col * colW; const baseY = (1 - imp.row) * rowH;
-                            if (data.img) {
-                                const pdfImg = data.img.startsWith('data:image/png') ? await pdfDoc.embedPng(data.img) : await pdfDoc.embedJpg(data.img);
-                                const dims = pdfImg.scale(1); const ratio = dims.height / dims.width; const targetW = (data.imgScale / 100) * colW; const targetH = targetW * ratio;
-                                const rawX = (data.imgX / 100) * colW - (targetW / 2); const rawY = (data.imgY / 100) * rowH;
-                                if (imp.rot) { page.drawImage(pdfImg, { x: baseX + colW - rawX, y: baseY + rawY, width: targetW, height: targetH, rotate: degrees(180) }); } else { page.drawImage(pdfImg, { x: baseX + rawX, y: baseY + rowH - rawY - targetH, width: targetW, height: targetH }); }
-                            }
-                            if (data.text) {
-                                const font = fonts[data.font] || fonts['Helvetica']; const fSize = data.fontSize; const txtColor = hexToRgb(data.color);
-                                const words = data.text.replace(/\n/g, ' \n ').split(' '); let line = ''; const maxW = colW - (margin * 2); let currentY = margin + fSize;
-                                const writeLine = (txt, yOff) => { if(imp.rot) { page.drawText(txt, { x: baseX + colW - margin, y: baseY + yOff, size: fSize, font: font, color: txtColor, rotate: degrees(180) }); } else { page.drawText(txt, { x: baseX + margin, y: baseY + rowH - yOff, size: fSize, font: font, color: txtColor }); } };
-                                for (let w of words) { if(w === '\n') { writeLine(line, currentY); currentY += fSize * 1.2; line = ''; continue; } const testLine = line + w + ' '; if (font.widthOfTextAtSize(testLine, fSize) > maxW) { writeLine(line, currentY); currentY += fSize * 1.2; line = w + ' '; } else { line = testLine; } } writeLine(line, currentY);
-                            }
-                        }
-                        page.drawLine({ start: { x: 0, y: rowH }, end: { x: A4_W, y: rowH }, color: rgb(0.8,0.8,0.8), thickness: 0.5 });
-                        for(let i=1; i<4; i++) page.drawLine({ start: { x: i*colW, y: 0 }, end: { x: i*colW, y: A4_H }, color: rgb(0.8,0.8,0.8), thickness: 0.5, dashArray: [4,4] });
-                        const pdfBytes = await pdfDoc.save(); DownloadEngine.download(new Blob([pdfBytes], { type: 'application/pdf' }), `vitallab-zine-${Date.now()}.pdf`);
-                    } catch (err) { console.error(err); ToastManager.show('Erro ao processar PDF.', 'error'); } finally { btn.disabled = false; btn.innerHTML = ogHtml; lucide.createIcons(); }
+                const hub = document.getElementById('pdf-hub');
+                const workspace = document.getElementById('pdf-workspace');
+                const content = document.getElementById('pdf-tool-content');
+                
+                document.getElementById('pdf-back').addEventListener('click', () => {
+                    workspace.classList.add('hidden'); hub.classList.remove('hidden');
                 });
-                loadPage(0);
+
+                document.querySelectorAll('.pdf-sub-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const tool = e.currentTarget.getAttribute('data-tool');
+                        hub.classList.add('hidden'); workspace.classList.remove('hidden');
+                        this.loadTool(tool, content);
+                    });
+                });
+            },
+            loadTool(toolName, container) {
+                if(toolName === 'info') {
+                    container.innerHTML = `
+                        <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800">
+                            <h3 class="font-bold text-lg mb-4">PDF Info</h3>
+                            <input type="file" id="pdf-i-file" accept="application/pdf" class="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-rose-500/10 file:text-rose-500 hover:file:bg-rose-500/20 mb-6 cursor-pointer">
+                            <div id="pdf-i-res" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+                        </div>
+                    `;
+                    document.getElementById('pdf-i-file').addEventListener('change', async (e) => {
+                        const file = e.target.files[0]; if(!file) return;
+                        try {
+                            const arrayBuffer = await file.arrayBuffer();
+                            const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer, { updateMetadata: false });
+                            const res = document.getElementById('pdf-i-res');
+                            const val = (l, v) => `<div class="bg-neutral-50 dark:bg-[#18181B] p-4 rounded-2xl"><span class="block text-[10px] uppercase font-bold text-neutral-500 mb-1">${l}</span><span class="font-bold text-sm truncate block" title="${v}">${v || 'N/A'}</span></div>`;
+                            res.innerHTML = `
+                                ${val('Páginas', pdfDoc.getPageCount())}
+                                ${val('Tamanho', FormatUtils.bytesToSize(file.size))}
+                                ${val('Título', pdfDoc.getTitle())}
+                                ${val('Autor', pdfDoc.getAuthor())}
+                                ${val('Criador', pdfDoc.getCreator())}
+                                ${val('Produtor', pdfDoc.getProducer())}
+                            `;
+                            res.classList.remove('hidden');
+                        } catch(err) { ToastManager.show('Erro ao ler PDF.', 'error'); }
+                    });
+                } 
+                else if (toolName === 'watermark') {
+                    container.innerHTML = `
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 space-y-4">
+                                <h3 class="font-bold text-lg border-b border-neutral-200 dark:border-neutral-800 pb-2">Configuração</h3>
+                                <div><label class="block text-xs font-bold text-neutral-500 mb-1">Arquivo PDF</label><input type="file" id="pdf-w-file" accept="application/pdf" class="input-premium py-2 cursor-pointer"></div>
+                                <div><label class="block text-xs font-bold text-neutral-500 mb-1">Texto da Marca d'água</label><input type="text" id="pdf-w-text" class="input-premium" value="CONFIDENCIAL"></div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div><label class="block text-xs font-bold text-neutral-500 mb-1">Cor</label><input type="color" id="pdf-w-color" class="h-10 w-full rounded-lg cursor-pointer" value="#ff0000"></div>
+                                    <div><label class="block text-xs font-bold text-neutral-500 mb-1">Opacidade (0.1 - 1)</label><input type="number" id="pdf-w-op" class="input-premium py-2 text-xs" step="0.1" min="0.1" max="1" value="0.3"></div>
+                                </div>
+                                <button id="pdf-w-btn" class="btn-primary !bg-blue-600 hover:!bg-blue-700 shadow-blue-500/20 mt-4"><i data-lucide="droplet"></i> Processar & Baixar</button>
+                            </div>
+                            <div class="bg-neutral-100 dark:bg-neutral-900 p-6 rounded-3xl border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-center">
+                                <span class="text-sm text-neutral-500 italic">O processamento é feito 100% localmente. A marca d'água será aplicada diagonalmente no centro de todas as páginas.</span>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('pdf-w-btn').addEventListener('click', async () => {
+                        const file = document.getElementById('pdf-w-file').files[0];
+                        if(!file) return ToastManager.show('Selecione um PDF', 'error');
+                        const txt = document.getElementById('pdf-w-text').value || 'VITAL LAB';
+                        const colorHex = document.getElementById('pdf-w-color').value;
+                        const op = parseFloat(document.getElementById('pdf-w-op').value) || 0.3;
+                        
+                        const btn = document.getElementById('pdf-w-btn'); const og = btn.innerHTML;
+                        btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Aplicando...`;
+                        
+                        try {
+                            const { PDFDocument, rgb, degrees, StandardFonts } = PDFLib;
+                            const arrayBuffer = await file.arrayBuffer();
+                            const pdfDoc = await PDFDocument.load(arrayBuffer);
+                            const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+                            const pages = pdfDoc.getPages();
+                            const col = rgb(parseInt(colorHex.slice(1,3), 16)/255, parseInt(colorHex.slice(3,5), 16)/255, parseInt(colorHex.slice(5,7), 16)/255);
+                            
+                            pages.forEach(page => {
+                                const { width, height } = page.getSize();
+                                const size = 60;
+                                const textW = font.widthOfTextAtSize(txt, size);
+                                page.drawText(txt, { x: (width/2) - (textW/2), y: height/2, size: size, font: font, color: col, opacity: op, rotate: degrees(45) });
+                            });
+                            
+                            const pdfBytes = await pdfDoc.save();
+                            DownloadEngine.download(new Blob([pdfBytes], { type: 'application/pdf' }), `watermark-${file.name}`);
+                        } catch(e) { ToastManager.show('Erro ao processar PDF', 'error'); console.error(e); }
+                        finally { btn.innerHTML = og; lucide.createIcons(); }
+                    });
+                }
+                else if (toolName === 'merge') {
+                    container.innerHTML = `
+                        <div class="bg-lightCard dark:bg-darkCard p-6 rounded-3xl shadow-premium border border-neutral-200 dark:border-neutral-800 text-center space-y-6">
+                            <h3 class="font-bold text-lg border-b border-neutral-200 dark:border-neutral-800 pb-2 text-left">PDF Merge Simplificado</h3>
+                            <label class="drop-zone block w-full">
+                                <i data-lucide="layers" class="w-10 h-10 text-emerald-500 mb-3"></i>
+                                <span class="font-bold text-sm">Selecione 2 ou mais PDFs para juntar</span>
+                                <input type="file" id="pdf-m-files" multiple accept="application/pdf" class="hidden">
+                            </label>
+                            <div id="pdf-m-list" class="text-left text-xs text-neutral-500 space-y-1"></div>
+                            <button id="pdf-m-btn" class="btn-primary !bg-emerald-600 hover:!bg-emerald-700 shadow-emerald-500/20 disabled:opacity-50" disabled><i data-lucide="layers"></i> Juntar Documentos</button>
+                        </div>
+                    `;
+                    let selectedFiles = [];
+                    document.getElementById('pdf-m-files').addEventListener('change', (e) => {
+                        selectedFiles = Array.from(e.target.files).filter(f => f.type === 'application/pdf');
+                        document.getElementById('pdf-m-list').innerHTML = selectedFiles.map(f => `• ${f.name} (${FormatUtils.bytesToSize(f.size)})`).join('<br>');
+                        document.getElementById('pdf-m-btn').disabled = selectedFiles.length < 2;
+                    });
+                    document.getElementById('pdf-m-btn').addEventListener('click', async () => {
+                        const btn = document.getElementById('pdf-m-btn'); const og = btn.innerHTML;
+                        btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Mesclando...`;
+                        try {
+                            const { PDFDocument } = PDFLib;
+                            const mergedPdf = await PDFDocument.create();
+                            for(let file of selectedFiles) {
+                                const arr = await file.arrayBuffer();
+                                const pdf = await PDFDocument.load(arr);
+                                const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                                copiedPages.forEach(p => mergedPdf.addPage(p));
+                            }
+                            const pdfBytes = await mergedPdf.save();
+                            DownloadEngine.download(new Blob([pdfBytes], { type: 'application/pdf' }), `merged-document.pdf`);
+                        } catch(e) { ToastManager.show('Erro ao mesclar PDFs', 'error'); }
+                        finally { btn.innerHTML = og; lucide.createIcons(); }
+                    });
+                }
+                lucide.createIcons();
             }
         };
 
